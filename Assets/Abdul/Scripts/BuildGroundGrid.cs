@@ -14,17 +14,19 @@ public class BuildGroundGrid : MonoBehaviour
         _groundBlocks = GetGroundBlockPrefabs();
         int counter = 0;
         bool inverse = false;
-        for (int i = -_height; i < _height; i++)
+        for (int z = -_height; z < _height; z++)
         {
-            for (int j = -_width; j < _width; j++)
+            for (int x = -_width; x < _width; x++)
             {
                 counter = counter < _groundBlocks.Length ? counter : 0;
-                var gridPos = Instantiate(
+                GameObject gridBlock = Instantiate(
                         _groundBlocks[ inverse ? (_groundBlocks.Length - 1) - (counter++) : (counter++)],
-                        new Vector3(i, 0, j),
+                        new Vector3(x, 0, z),
                         Quaternion.identity
                 );
-                gridPos.transform.parent = gameObject.transform;
+                gridBlock.transform.parent = gameObject.transform;
+
+                gridBlock.GetComponent<GroundBlock>().SetPosition(x, z);
             }
 
             // To avoid that each column has the same color, we need to shift 

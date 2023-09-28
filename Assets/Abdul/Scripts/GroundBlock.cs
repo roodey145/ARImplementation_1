@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class GroundBlock : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private int _x = 0;
+    private int _z = 0;
+
+    // Setter
+    public void SetPosition(int x, int z)
     {
-        
+        _x = x;
+        _z = z;
     }
 
-    // Update is called once per frame
-    void Update()
+
+    // Getter
+    public int GetX()
     {
-        
+        return _x;
+    }
+
+    public int GetZ()
+    {
+        return _z;
     }
 }

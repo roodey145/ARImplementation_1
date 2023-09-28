@@ -10,7 +10,7 @@ public class HideUIOnTrigger : MonoBehaviour
         print(other.tag);
         if(other.CompareTag(_tag))
         {
-            other.gameObject.SetActive(false);
+            other.gameObject.transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 
@@ -18,7 +18,7 @@ public class HideUIOnTrigger : MonoBehaviour
     {
         if (other.CompareTag(_tag))
         {
-            other.gameObject.SetActive(true);
+            other.gameObject.transform.GetChild(0).gameObject.SetActive(true);
         }
     }
 }
