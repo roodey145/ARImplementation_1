@@ -7,7 +7,6 @@ public class HideUIOnTrigger : MonoBehaviour
     [SerializeField] private string _tag = "UI";
     private void OnTriggerEnter(Collider other)
     {
-        print(other.tag);
         if(other.CompareTag(_tag))
         {
             other.gameObject.transform.GetChild(0).gameObject.SetActive(false);

@@ -31,7 +31,7 @@ public class BuildingData : MonoBehaviour
     {
         // Get the town data
         _townData = GameObject.FindGameObjectWithTag(_townDataTag).GetComponent<TownData>();
-        if(_townData == null )
+        if(_townData == null)
         { // Handle error
             throw new System.Exception("The TownData does not exists in this scene or is inactive!");
         }
@@ -48,6 +48,11 @@ public class BuildingData : MonoBehaviour
     void Update()
     {
         // Get access to the mouse position
+        if(_placing && _placeableModel)
+        {
+            //print("Positning");
+            AssignPosition(GroundBlock.X, GroundBlock.Z);
+        }
     }
 
 

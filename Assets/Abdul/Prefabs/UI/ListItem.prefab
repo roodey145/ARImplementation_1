@@ -647,7 +647,7 @@ PrefabInstance:
     - target: {fileID: 7825403222266454323, guid: 3c37619af3011a845b137c97f642419b,
         type: 3}
       propertyPath: m_TagString
-      value: UI
+      value: UI3D
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
