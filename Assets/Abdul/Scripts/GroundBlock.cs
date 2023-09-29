@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GroundBlock : MonoBehaviour
 {
-    public static int X { get; private set; }
-    public static int Z { get; private set; }
+    public static int X = 0;
+    public static int Z = 0;
 
 
     private int _x = 0;

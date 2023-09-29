@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -23,6 +24,9 @@ public class BuildingData : MonoBehaviour
     [SerializeField] private string _modelPath = "";
     [SerializeField] private GameObject _model = null;
 
+
+    public TextMeshProUGUI xInfo;
+    public TextMeshProUGUI zInfo;
 
     private string _townDataTag = "TownData";
     private TownData _townData;
@@ -79,11 +83,13 @@ public class BuildingData : MonoBehaviour
     private void _AssignX(int x)
     {
         _x = x;
+        xInfo.text = "x: " + x;
     }
 
     public void _AssignZ(int z)
     {
         _z = z;
+        zInfo.text = "z: " + z;
     }
 
 
