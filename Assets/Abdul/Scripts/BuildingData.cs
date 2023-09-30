@@ -96,6 +96,7 @@ public class BuildingData : MonoBehaviour
 
     private void _SyncPosition()
     {
+        print(transform.lossyScale.y / 2);
         // Get the center position of the ground
         float groundX = _townData.transform.position.x;
         float groundZ = _townData.transform.position.z;
@@ -107,9 +108,9 @@ public class BuildingData : MonoBehaviour
 
         // Move the building to the center of the defined position
         transform.position = new Vector3(
-            groundX - groundWidth + _x,
-            transform.lossyScale.y/2 + _townData.transform.position.y + _townData.transform.lossyScale.y/2,
-            groundZ - groundHeight + _z
+            groundX /* - groundWidth */ + _x,
+            0.1f /*transform.lossyScale.y/2 + _townData.transform.position.y + _townData.transform.lossyScale.y/2*/,
+            groundZ /* - groundHeight */ + _z
         );
     }
 

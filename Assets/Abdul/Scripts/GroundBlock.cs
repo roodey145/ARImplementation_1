@@ -8,8 +8,8 @@ public class GroundBlock : MonoBehaviour
     public static int Z = 0;
 
 
-    private int _x = 0;
-    private int _z = 0;
+    [SerializeField] private int _x = 0;
+    [SerializeField] private int _z = 0;
 
     public static GameObject player = null;
 

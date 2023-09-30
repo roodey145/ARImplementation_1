@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5905608664649370566}
   - component: {fileID: 7154010334219686112}
   - component: {fileID: -3645105305378044923}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Floor2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,6 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06acbbd54b45492458a97d870cd1e5d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _x: 0
+  _z: 0
 --- !u!114 &-3645105305378044923
 MonoBehaviour:
   m_ObjectHideFlags: 0
