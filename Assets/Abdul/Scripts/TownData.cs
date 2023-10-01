@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class TownData : MonoBehaviour
 {
-    private int _width = 25;
-    private int _height = 25;
+    private int _width = 25; // The x-axis
+    private int _length = 25; // The z-axis
 
     // Start is called before the first frame update
     void Start()
     {
+        _width = GetComponent<BuildGroundGrid>().Width();
+        _length = GetComponent<BuildGroundGrid>().Length();
         // Retrive town data
         _retriveTownData();
     }
@@ -27,9 +29,9 @@ public class TownData : MonoBehaviour
         return _width; 
     }
 
-    public int Height()
+    public int Length()
     {
-        return _height;
+        return _length;
     }
 
 

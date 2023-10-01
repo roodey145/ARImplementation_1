@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class GroundGrid : MonoBehaviour
 {
-    public int hight = 5;
-    public int wide = 5;
+    public int length = 5;
+    public int width = 5;
     public GameObject gridGround;
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = -hight; i < hight; i++)
+        for (int i = -length; i < length; i++)
         {
-            for (int j = -wide; j < wide; j++)
+            for (int j = -width; j < width; j++)
             {
 
                 var gridPos=Instantiate(gridGround, new Vector3(i, 0, j), Quaternion.identity);

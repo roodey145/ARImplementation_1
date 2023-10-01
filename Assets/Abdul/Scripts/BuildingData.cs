@@ -12,12 +12,19 @@ public class BuildingData : MonoBehaviour
     [SerializeField] private bool _placing = false;
 
     [Header("Size")]
-    [SerializeField] private int _width = 2;
-    [SerializeField] private int _height = 2;
+    [SerializeField] private int _width = 2; // The x-axis
+    [SerializeField] private int _length = 2; // The z-axis
 
     [Header("Location")]
     [SerializeField] private int _x = 0;
     [SerializeField] private int _z = 0;
+
+    // The x and z might cause the bulding to be out of range
+    // therefore, the applied x and z will hold the value of
+    // _x and _z after limiting the values to ensure the building 
+    // being inside of the boundries of the map
+    private int appliedX = 0; 
+    private int appliedZ = 0;
 
 
     [Header("Model Data")]
@@ -83,13 +90,13 @@ public class BuildingData : MonoBehaviour
     private void _AssignX(int x)
     {
         _x = x;
-        xInfo.text = "x: " + x;
+        //xInfo.text = "x: " + x;
     }
 
     public void _AssignZ(int z)
     {
         _z = z;
-        zInfo.text = "z: " + z;
+        //zInfo.text = "z: " + z;
     }
 
 
@@ -102,15 +109,47 @@ public class BuildingData : MonoBehaviour
         float groundZ = _townData.transform.position.z;
 
         // Get the width and height of the ground
-        float groundWidth = _townData.Width();
-        float groundHeight = _townData.Height();
+        int groundWidth = _townData.Width();
+        int groundLength = _townData.Length();
+
+        
+
+        // Check if the position is out of boundries
+        if(_x < (-groundWidth + (int)(_width / 2f)))
+        {
+            appliedX = -groundWidth + (int)(_width/2f); // Move back to boundries
+        }
+        else if(_x > (groundWidth - (int)(_width / 2f)))
+        {
+            appliedX = groundWidth - (int)(_width / 2f); // Move back to boundries
+        }
+        else
+        {
+            appliedX = _x;
+        }
+
+        if (_z < (-groundLength + (int)(_length / 2f)))
+        {
+            appliedZ = -groundLength + (int)(_length / 2f); // Move back to boundries
+        }
+        else if (_z > (groundLength - (int)(_length / 2f)))
+        {
+            appliedZ = groundLength - (int)(_length / 2f); // Move back to boundries
+        }
+        else
+        {
+            appliedZ = _z;
+        }
+
+        xInfo.text = "x: " + appliedX;
+        zInfo.text = "z: " + appliedZ;
 
 
         // Move the building to the center of the defined position
         transform.position = new Vector3(
-            groundX /* - groundWidth */ + _x,
+            groundX /* - groundWidth */ + appliedX,
             0.1f /*transform.lossyScale.y/2 + _townData.transform.position.y + _townData.transform.lossyScale.y/2*/,
-            groundZ /* - groundHeight */ + _z
+            groundZ /* - groundHeight */ + appliedZ
         );
     }
 
