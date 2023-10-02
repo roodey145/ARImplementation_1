@@ -13,6 +13,14 @@ public class HideUIOnTrigger : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag(_tag))
+        {
+            other.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        }
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag(_tag))

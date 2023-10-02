@@ -11,13 +11,18 @@ public class BuildGroundGrid : MonoBehaviour
     [SerializeField] private GameObject[] _groundBlocks;
     [SerializeField] private XRInteractionManager _interactionManager;
     [SerializeField] private TeleportationArea _teleportationArea;
+    [SerializeField] private TeleportationProvider _teleportationProvider;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _groundBlocks = GetGroundBlockPrefabs();
         //_interactionManager = FindObjectOfType<XRInteractionManager>();
-        _teleportationArea = GetComponent<TeleportationArea>();
-
+        //_teleportationArea = GetComponent<TeleportationArea>();
+        //_teleportationArea = gameObject.AddComponent<TeleportationArea>();
+        //_teleportationArea.interactionManager = _interactionManager;
+        //_teleportationArea.teleportationProvider = _teleportationProvider;
+        //_teleportationArea.matchDirectionalInput = true;
+        //_teleportationArea.interactionLayers = InteractionLayerMask.GetMask("Teleport");
 
         if (_groundBlocks.Length < 1)
         {
@@ -40,7 +45,7 @@ public class BuildGroundGrid : MonoBehaviour
 
                 gridBlock.GetComponent<GroundBlock>().SetPosition(x, z);
                 gridBlock.GetComponent<XRSimpleInteractable>().interactionManager = _interactionManager;
-                _teleportationArea.colliders.Add(gridBlock.GetComponent<Collider>());
+                //_teleportationArea.colliders.Add(gridBlock.GetComponent<Collider>());
             }
 
             // To avoid that each column has the same color, we need to shift 
@@ -48,6 +53,22 @@ public class BuildGroundGrid : MonoBehaviour
             inverse = !inverse;
             counter -= 1;
         }
+
+
+        //_teleportationArea = gameObject.AddComponent<TeleportationArea>();
+        //_teleportationArea.interactionManager = _interactionManager;
+        //_teleportationArea.teleportationProvider = _teleportationProvider;
+        //_teleportationArea.matchDirectionalInput = true;
+        //_teleportationArea.interactionLayers = InteractionLayerMask.GetMask("Teleport");
+    }
+
+    private void Start()
+    {
+        _teleportationArea = gameObject.AddComponent<TeleportationArea>();
+        _teleportationArea.interactionManager = _interactionManager;
+        _teleportationArea.teleportationProvider = _teleportationProvider;
+        _teleportationArea.matchDirectionalInput = true;
+        _teleportationArea.interactionLayers = InteractionLayerMask.GetMask("Teleport");
     }
 
     public GameObject[] GetGroundBlockPrefabs()

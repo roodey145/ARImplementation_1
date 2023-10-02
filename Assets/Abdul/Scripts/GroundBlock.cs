@@ -12,12 +12,14 @@ public class GroundBlock : MonoBehaviour
     [SerializeField] private int _z = 0;
 
     public static GameObject player = null;
+    public static bool selected = false;
 
     private void Start()
     {
         if(player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player");
+            select();
         }
     }
 
@@ -34,9 +36,23 @@ public class GroundBlock : MonoBehaviour
         Z = GetZ();
 
 
+        //player.transform.position = new Vector3(
+        //    transform.position.x,
+        //    player.transform.position.y,
+        //    transform.position.z);
+    }
+
+    public void select()
+    {
+        selected = true;
+    }
+
+    public void selectExit()
+    {
+        selected = false;
         player.transform.position = new Vector3(
-            transform.position.x,
-            player.transform.position.y,
+            transform.position.x, 
+            player.transform.position.y, 
             transform.position.z);
     }
 
