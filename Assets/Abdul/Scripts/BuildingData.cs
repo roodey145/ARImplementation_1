@@ -141,8 +141,11 @@ public class BuildingData : MonoBehaviour
             appliedZ = _z;
         }
 
-        xInfo.text = "x: " + appliedX;
-        zInfo.text = "z: " + appliedZ;
+        if(xInfo != null & zInfo != null)
+        {
+            xInfo.text = "x: " + appliedX;
+            zInfo.text = "z: " + appliedZ;
+        }
 
 
         // Move the building to the center of the defined position
