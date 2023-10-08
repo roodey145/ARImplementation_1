@@ -103,7 +103,7 @@ public class BuildingData : MonoBehaviour
 
     private void _SyncPosition()
     {
-        print(transform.lossyScale.y / 2);
+        //print(transform.lossyScale.y / 2);
         // Get the center position of the ground
         float groundX = _townData.transform.position.x;
         float groundZ = _townData.transform.position.z;

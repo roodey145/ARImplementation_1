@@ -31,15 +31,17 @@ public class BuildGroundGrid : MonoBehaviour
 
         int counter = 0;
         bool inverse = false;
+        int index = 0;
         for (int z = -_length; z <= _length; z++)
         {
             for (int x = -_width; x <= _width; x++)
             {
                 counter = counter < _groundBlocks.Length ? counter : 0;
+                index = inverse ? (_groundBlocks.Length - 1) - (counter++) : (counter++);
                 GameObject gridBlock = Instantiate(
-                        _groundBlocks[ inverse ? (_groundBlocks.Length - 1) - (counter++) : (counter++)],
+                        _groundBlocks[index],
                         new Vector3(x, 0, z),
-                        Quaternion.identity
+                        _groundBlocks[index].transform.rotation
                 );
                 gridBlock.transform.parent = gameObject.transform;
 
@@ -64,11 +66,11 @@ public class BuildGroundGrid : MonoBehaviour
 
     private void Start()
     {
-        _teleportationArea = gameObject.AddComponent<TeleportationArea>();
-        _teleportationArea.interactionManager = _interactionManager;
-        _teleportationArea.teleportationProvider = _teleportationProvider;
-        _teleportationArea.matchDirectionalInput = true;
-        _teleportationArea.interactionLayers = InteractionLayerMask.GetMask("Teleport");
+        //_teleportationArea = gameObject.AddComponent<TeleportationArea>();
+        //_teleportationArea.interactionManager = _interactionManager;
+        //_teleportationArea.teleportationProvider = _teleportationProvider;
+        //_teleportationArea.matchDirectionalInput = true;
+        //_teleportationArea.interactionLayers = InteractionLayerMask.GetMask("Teleport");
     }
 
     public GameObject[] GetGroundBlockPrefabs()
