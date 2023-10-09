@@ -121,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _x: 0
   _z: 0
+  text: {fileID: 0}
 --- !u!114 &-392299296224280822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,7 +163,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4015749074667456816}
         m_TargetAssemblyTypeName: GroundBlock, Assembly-CSharp
-        m_MethodName: hover
+        m_MethodName: Hover
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -186,7 +187,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4015749074667456816}
         m_TargetAssemblyTypeName: GroundBlock, Assembly-CSharp
-        m_MethodName: select
+        m_MethodName: Select
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -201,7 +202,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4015749074667456816}
         m_TargetAssemblyTypeName: GroundBlock, Assembly-CSharp
-        m_MethodName: selectExit
+        m_MethodName: SelectExit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

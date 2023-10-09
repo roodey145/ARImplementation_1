@@ -17,7 +17,9 @@ public class DemoAdder : MonoBehaviour
             throw new System.Exception("The demo with the name (" + 
                 _buildingName + ") deos not exists inside the folder (" + _demosPath + " )!");
         }
-        Instantiate(demo);
+        GroundBlock.demo = Instantiate(demo);
+        //GroundBlock.demo.GetComponent<BuildingData>().PlaceModel(Random.Range(0, 5), Random.Range(0, 5));
+
         Destroy(gameObject, 0f);
     }
 }

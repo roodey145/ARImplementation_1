@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GroundBlock : MonoBehaviour
@@ -13,13 +14,14 @@ public class GroundBlock : MonoBehaviour
 
     public static GameObject player = null;
     public static bool selected = false;
+    public static GameObject demo = null;
 
     private void Start()
     {
         if(player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player");
-            select();
+            Select();
         }
     }
 
@@ -30,7 +32,7 @@ public class GroundBlock : MonoBehaviour
         _z = z;
     }
 
-    public void hover()
+    public void Hover()
     {
         X = GetX();
         Z = GetZ();
@@ -42,20 +44,50 @@ public class GroundBlock : MonoBehaviour
         //    transform.position.z);
     }
 
-    public void select()
+    public void Select()
     {
-        selected = true;
+
+        selected = true; 
+
     }
 
-    public void selectExit()
+    public void SelectExit()
     {
         selected = false;
-        player.transform.position = new Vector3(
-            transform.position.x, 
-            player.transform.position.y, 
-            transform.position.z);
+        if (demo == null)
+        { // Teleportation
+            player.transform.position = new Vector3(
+                transform.position.x,
+                player.transform.position.y,
+                transform.position.z);
+        }
+        else
+        { // Placing of the demo
+            demo.GetComponent<BuildingData>().PlaceModel(_x, _z);
+            demo = null;
+        }
     }
 
+    public TextMeshProUGUI text;
+    public void Activate()
+    {
+        text.text = "Activated";
+    }
+
+    public void Deactivate()
+    {
+        text.text = "Deactivated";
+    }
+
+    public void Focus()
+    {
+        text.text = "Focused";
+    }
+
+    public void Blur()
+    {
+        text.text = "Blur";
+    }
 
     // Getter
     public int GetX()

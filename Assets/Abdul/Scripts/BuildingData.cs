@@ -47,12 +47,12 @@ public class BuildingData : MonoBehaviour
             throw new System.Exception("The TownData does not exists in this scene or is inactive!");
         }
 
-        if(_placeableModel)
-        {
-            _SyncPosition();
-        }
+        //if(_placeableModel)
+        //{
+        //}
 
         retriveData();
+        _SyncPosition();
     }
 
     // Update is called once per frame
@@ -69,10 +69,22 @@ public class BuildingData : MonoBehaviour
 
 
     // Getter
-    public void InitializeModelDemo()
+    public void PlaceModel(int x, int z)
     {
-        _model = Resources.Load<GameObject>(_modelPath);
-        _placing = true;
+        if(_model == null) _model = Resources.Load<GameObject>(_modelPath);
+
+
+        // Create the model, the data will be synced automatically
+        BuildingData modelData = Instantiate(_model).GetComponent<BuildingData>();
+
+        modelData._AssignX(x);
+        modelData._AssignZ(z);
+
+        // Destroy the demo
+        GroundBlock.demo = null;
+        Destroy(gameObject, 0f);
+
+        //_placing = true;
     }
 
 
