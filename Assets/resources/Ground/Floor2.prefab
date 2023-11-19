@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6959407074219719831
 RectTransform:
   m_ObjectHideFlags: 0
@@ -257,6 +257,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _x: 0
   _z: 0
+  _clickActions:
+  - {fileID: -5982496924579745919, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  - {fileID: 83097790271614945, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  hovered: 0
   text: {fileID: 2090112113484502679}
 --- !u!114 &-3645105305378044923
 MonoBehaviour:
@@ -311,7 +315,19 @@ MonoBehaviour:
         m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7154010334219686112}
+        m_TargetAssemblyTypeName: GroundBlock, Assembly-CSharp
+        m_MethodName: HoverExit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_FirstSelectEntered:
     m_PersistentCalls:
       m_Calls: []

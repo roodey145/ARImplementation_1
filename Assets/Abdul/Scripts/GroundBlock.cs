@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GroundBlock : MonoBehaviour
 {
@@ -11,10 +12,13 @@ public class GroundBlock : MonoBehaviour
 
     [SerializeField] private int _x = 0;
     [SerializeField] private int _z = 0;
+    [SerializeField] private InputActionReference[] _clickActions;
 
     public static GameObject player = null;
     public static bool selected = false;
     public static GameObject demo = null;
+
+    public bool hovered = false;
 
     private void Start()
     {
@@ -22,6 +26,14 @@ public class GroundBlock : MonoBehaviour
         {
             player = GameObject.FindGameObjectWithTag("Player");
             Select();
+        }
+
+        if(_clickActions != null)
+        {
+            for(int i = 0; i < _clickActions.Length; i++)
+            {
+                _clickActions[i].action.performed += _ClickAction;
+            }
         }
     }
 
@@ -36,12 +48,17 @@ public class GroundBlock : MonoBehaviour
     {
         X = GetX();
         Z = GetZ();
-
+        hovered = true;
 
         //player.transform.position = new Vector3(
         //    transform.position.x,
         //    player.transform.position.y,
         //    transform.position.z);
+    }
+
+    public void HoverExit()
+    {
+        hovered = false;
     }
 
     public void Select()
@@ -54,17 +71,23 @@ public class GroundBlock : MonoBehaviour
     public void SelectExit()
     {
         selected = false;
-        if (demo == null)
-        { // Teleportation
-            player.transform.position = new Vector3(
+
+        // Teleport the player to the center of this cell.
+        player.transform.position = new Vector3(
                 transform.position.x,
                 player.transform.position.y,
                 transform.position.z);
-        }
-        else
-        { // Placing of the demo
-            demo.GetComponent<BuildingData>().PlaceModel(_x, _z);
-            demo = null;
+    }
+
+    private void _ClickAction(InputAction.CallbackContext callbackContext)
+    {
+        if (hovered && callbackContext.performed)
+        { // The player clicked on the left/right hand controller's activate button
+            if(demo != null)
+            { // Place the model at the specified area if there is a demo to place
+                demo.GetComponent<BuildingData>().PlaceModel(_x, _z);
+                demo = null;
+            }
         }
     }
 
