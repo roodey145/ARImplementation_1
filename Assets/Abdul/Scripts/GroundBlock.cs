@@ -49,11 +49,6 @@ public class GroundBlock : MonoBehaviour
         X = GetX();
         Z = GetZ();
         hovered = true;
-
-        //player.transform.position = new Vector3(
-        //    transform.position.x,
-        //    player.transform.position.y,
-        //    transform.position.z);
     }
 
     public void HoverExit()
@@ -85,7 +80,7 @@ public class GroundBlock : MonoBehaviour
         { // The player clicked on the left/right hand controller's activate button
             if(demo != null)
             { // Place the model at the specified area if there is a demo to place
-                demo.GetComponent<BuildingData>().PlaceModel(_x, _z);
+                demo.GetComponent<BuildingData>().PlaceModel(X, Z);
                 demo = null;
             }
         }
