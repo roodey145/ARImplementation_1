@@ -100,9 +100,8 @@ public class BuildingData : MonoBehaviour
         modelData._AssignX(x);
         modelData._AssignZ(z);
 
-        // Assign the model to the ground area
-        GroundData.GetGroundBlock(x, z).SetBuilding(modelData);
-
+        // Assign the model to the ground areas it will occupy
+        _AssignBuildingToGroundBlock(modelData);
 
         // Destroy the demo
         GroundBlock.demo = null;
@@ -111,6 +110,22 @@ public class BuildingData : MonoBehaviour
         return true;
     }
 
+    private void _AssignBuildingToGroundBlock(BuildingData modelData)
+    {
+        // Assign the model to the ground areas it will occupy
+        int startX = appliedX - (int)(_width / 2f);
+        int endX = appliedX + (int)(_width / 2f);
+        int startZ = appliedZ - (int)(_length / 2f);
+        int endZ = appliedZ + (int)(_length / 2f);
+
+        for (int row = startX; row <= endX; row++)
+        {
+            for (int col = startZ; col <= endZ; col++)
+            {
+                GroundData.GetGroundBlock(row, col).SetBuilding(modelData);
+            }
+        }
+    }
 
     private bool _CheckCollision(int x, int z)
     {
