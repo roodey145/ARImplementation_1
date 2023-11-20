@@ -30,6 +30,7 @@ public class BuildingData : MonoBehaviour
     [Header("Model Data")]
     [SerializeField] private string _modelPath = "";
     [SerializeField] private GameObject _model = null;
+    private MeshRenderer[] _childremMeshRenderers;
 
 
     public TextMeshProUGUI xInfo;
@@ -47,8 +48,32 @@ public class BuildingData : MonoBehaviour
             throw new System.Exception("The TownData does not exists in this scene or is inactive!");
         }
 
-        //if(_placeableModel)
+        //_childremMeshRenderers = GetComponentsInChildren<MeshRenderer>();
+
+        //if(_childremMeshRenderers.Length == 0)
         //{
+        //    _childremMeshRenderers = new MeshRenderer[]
+        //    {
+        //        GetComponent<MeshRenderer>()
+        //    };
+        //}
+        //if (_placeableModel)
+        //{ // This is a demo and not the real model
+        //    // Change the alpha of the object to make it transparent, which will allow us to see the areas it will occupy 
+        //    foreach (MeshRenderer meshRenderer in _childremMeshRenderers)
+        //    {
+        //        meshRenderer.material.SetOverrideTag("RenderType", "Transparent");
+        //        meshRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        //        meshRenderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        //        meshRenderer.material.SetInt("_ZWrite", 0);
+        //        meshRenderer.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        //        meshRenderer.material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+        //        meshRenderer.material.SetShaderPassEnabled("ShadowCaster", false);
+
+        //        Color color = meshRenderer.material.GetColor("_Color");
+        //        //color.a = 0.25f;
+        //        meshRenderer.material.SetColor("_Color", new Color(color.r, color.g, color.b, 0.1f));
+        //    }
         //}
 
         retriveData();
