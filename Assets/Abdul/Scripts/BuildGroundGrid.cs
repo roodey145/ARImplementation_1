@@ -15,6 +15,7 @@ public class BuildGroundGrid : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        GroundData.awake();
         _groundBlocks = GetGroundBlockPrefabs();
         //_interactionManager = FindObjectOfType<XRInteractionManager>();
         //_teleportationArea = GetComponent<TeleportationArea>();

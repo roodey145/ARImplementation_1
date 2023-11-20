@@ -10,7 +10,7 @@ public class TownData : MonoBehaviour
 
     private void Awake()
     {
-        GroundData.awake();
+        //GroundData.awake();
     }
 
     // Start is called before the first frame update
@@ -18,6 +18,9 @@ public class TownData : MonoBehaviour
     {
         //_width = GetComponent<BuildGroundGrid>().Width();
         //_length = GetComponent<BuildGroundGrid>().Length();
+
+        _width = GroundData.Width();
+        _length = GroundData.Length();
         // Retrive town data
         _retriveTownData();
     }

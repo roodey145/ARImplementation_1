@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,7 @@ public class GroundData
 
     public static GroundBlock GetGroundBlock(int x, int z)
     {
-        MonoBehaviour.print($"Before: ({x}, {z}) \n ({groundBlocks.GetLength(0)}, {groundBlocks.GetLength(1)})");
+        //MonoBehaviour.print($"Before: ({x}, {z}) \n ({groundBlocks.GetLength(0)}, {groundBlocks.GetLength(1)})");
         // the actual position is shifted by "width, length" since the incoming x,z can be negative.
         x += width; 
         z += length;
@@ -28,7 +29,17 @@ public class GroundData
     {
         x += width;
         z += length;
-        MonoBehaviour.print($"({x}, {z}) {groundBlock}");
+        //MonoBehaviour.print($"({x}, {z}) {groundBlock}");
         groundBlocks[x, z] = groundBlock;
+    }
+
+    internal static int Width()
+    {
+        return width * 2 + 1;
+    }
+
+    internal static int Length()
+    {
+        return length * 2 + 1;
     }
 }

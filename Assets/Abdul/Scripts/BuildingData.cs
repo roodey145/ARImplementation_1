@@ -116,15 +116,39 @@ public class BuildingData : MonoBehaviour
     {
         bool collieded = false; ;
 
-        // Get the start and the end of the model
+        // Get the start and the end positions of the model
+        int startX = appliedX - (int)(_width / 2f);
+        int endX = appliedX + (int)(_width / 2f);
+        int startZ = appliedZ - (int)(_length / 2f);
+        int endZ = appliedZ + (int)(_length / 2f);
+
+        print($"X: ({startX}, {endX}), Z: ({startZ}, {endZ}), Applied: ({appliedX}, {appliedZ})");
+
+        GroundBlock block;
+        for(int row = startX; row <= endX; row++)
+        {
+            for(int col = startZ; col <= endZ; col++)
+            {
+                block = GroundData.GetGroundBlock(row, col);
+                if(block.IsOccupied())
+                {
+                    block.IndicateOccupiedGround();
+                    collieded = true;
+                }
+                else
+                {
+                    block.IndicateUnoccupiedGround();
+                }
+            }
+        }
 
         // Check if the ground block(s) are already occupied
-        GroundBlock block = GroundData.GetGroundBlock(x, z);
-        if (block.IsOccupied())
-        { // Indicate that this block is already occupied
-            block.IndicateOccupiedGround();
-            collieded = true;
-        }
+        //block = GroundData.GetGroundBlock(x, z);
+        //if (block.IsOccupied())
+        //{ // Indicate that this block is already occupied
+        //    block.IndicateOccupiedGround();
+        //    collieded = true;
+        //}
 
         return collieded;
     }
@@ -162,8 +186,8 @@ public class BuildingData : MonoBehaviour
         float groundZ = _townData.transform.position.z;
 
         // Get the width and height of the ground
-        int groundWidth = _townData.Width();
-        int groundLength = _townData.Length();
+        int groundWidth = GroundData.width;
+        int groundLength = GroundData.length;
 
         
 

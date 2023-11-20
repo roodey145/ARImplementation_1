@@ -19,6 +19,7 @@ public class GroundBlock : MonoBehaviour
     // Mesh Renderer 
     [SerializeField] private Color _originalColor;
     [SerializeField] private Color _occupiedAreaColor = Color.red;
+    [SerializeField] private Color _unoccupiedAreaColor = Color.green;
     private MeshRenderer _meshRenderer;
     private static List<GroundBlock> _occupiedGroundBlocks = new List<GroundBlock>();
 
@@ -97,13 +98,14 @@ public class GroundBlock : MonoBehaviour
     private static void _ResetColors()
     {
         // Reset and clear the color of the ground blocks
-        if (demo != null)
-        {
+        //if (demo != null)
+        //{
             for (int i = 0; i < _occupiedGroundBlocks.Count; i++)
             {
                 _occupiedGroundBlocks[i].ResetColor();
             }
-        }
+            _occupiedGroundBlocks.Clear();
+        //}
     }
 
     private void _ClickAction(InputAction.CallbackContext callbackContext)
@@ -181,9 +183,17 @@ public class GroundBlock : MonoBehaviour
         _occupiedGroundBlocks.Add(this);
     }
 
+    internal void IndicateUnoccupiedGround()
+    {
+        _meshRenderer.material.SetColor("_EmissionColor", _unoccupiedAreaColor);
+        _occupiedGroundBlocks.Add(this);
+    }
+
     internal void ResetColor()
     {
         _meshRenderer.material.SetColor("_EmissionColor", _originalColor);
-        _occupiedGroundBlocks.Remove(this);
+        //_occupiedGroundBlocks.Remove(this);
     }
+
+    
 }
