@@ -62,17 +62,37 @@ public class BuildingData : MonoBehaviour
         if(_placing && _placeableModel)
         {
             //print("Positning");
-            AssignPosition(GroundBlock.X, GroundBlock.Z);
+            //AssignPosition(GroundBlock.X, GroundBlock.Z);
+            //MoveDemo(GroundBlock.X, GroundBlock.Z);
+        }
+    }
+
+
+    public void MoveDemo(int x, int z)
+    {
+        if (_placing && _placeableModel)
+        {
+            AssignPosition(x, z);
+
+            _CheckCollision(x, z);
         }
     }
 
 
 
     // Getter
-    public void PlaceModel(int x, int z)
+    public bool PlaceModel(int x, int z)
     {
         if(_model == null) _model = Resources.Load<GameObject>(_modelPath);
 
+
+        // Check if there is any collision
+        if(_CheckCollision(x, z))
+        {
+            // Play collision sound
+            print("Building can not be placed here");
+            return false;
+        }
 
         // Create the model, the data will be synced automatically
         BuildingData modelData = Instantiate(_model).GetComponent<BuildingData>();
@@ -80,20 +100,41 @@ public class BuildingData : MonoBehaviour
         modelData._AssignX(x);
         modelData._AssignZ(z);
 
+        // Assign the model to the ground area
+        GroundData.GetGroundBlock(x, z).SetBuilding(modelData);
+
+
         // Destroy the demo
         GroundBlock.demo = null;
         Destroy(gameObject, 0f);
 
-        //_placing = true;
+        return true;
     }
 
 
+    private bool _CheckCollision(int x, int z)
+    {
+        bool collieded = false; ;
+
+        // Get the start and the end of the model
+
+        // Check if the ground block(s) are already occupied
+        GroundBlock block = GroundData.GetGroundBlock(x, z);
+        if (block.IsOccupied())
+        { // Indicate that this block is already occupied
+            block.IndicateOccupiedGround();
+            collieded = true;
+        }
+
+        return collieded;
+    }
+
 
     // Setters
-    public void AssignPosition(int x, int y)
+    public void AssignPosition(int x, int z)
     {
         _AssignX(x);
-        _AssignZ(y);
+        _AssignZ(z);
 
         _SyncPosition();
     }

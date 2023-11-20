@@ -24,6 +24,10 @@ public class BuildGroundGrid : MonoBehaviour
         //_teleportationArea.matchDirectionalInput = true;
         //_teleportationArea.interactionLayers = InteractionLayerMask.GetMask("Teleport");
 
+        // Get the width and length of the ground
+        _width = GroundData.width;
+        _length = GroundData.length;
+
         if (_groundBlocks.Length < 1)
         {
             throw new System.Exception("The blocks was not found");
@@ -45,7 +49,11 @@ public class BuildGroundGrid : MonoBehaviour
                 );
                 gridBlock.transform.parent = gameObject.transform;
 
-                gridBlock.GetComponent<GroundBlock>().SetPosition(x, z);
+                // Get the ground block component
+                GroundBlock groundBlock = gridBlock.GetComponent<GroundBlock>();
+                groundBlock.SetPosition(x, z); // Assign the position
+                GroundData.AssignGroundBlock(x, z, groundBlock); // Assign the ground block to the data.
+
                 gridBlock.GetComponent<XRSimpleInteractable>().interactionManager = _interactionManager;
                 //_teleportationArea.colliders.Add(gridBlock.GetComponent<Collider>());
             }
