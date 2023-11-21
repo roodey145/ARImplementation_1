@@ -91,10 +91,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: -211178866370417367}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6c3eeabe859a0ba439255e1387039dd9,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -5023180345469172657}
   m_SourcePrefab: {fileID: 100100000, guid: 6c3eeabe859a0ba439255e1387039dd9, type: 3}
 --- !u!1 &2906069183238015545 stripped
 GameObject:
@@ -126,25 +122,3 @@ MonoBehaviour:
   zInfo: {fileID: 0}
   _rotationActions:
   - {fileID: -7374733323251553461, guid: c348712bda248c246b8c49b3db54643f, type: 3}
---- !u!114 &-5023180345469172657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2906069183238015545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca16f6e962dbf1b4392edbed6a72ef6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _placeableModel: 1
-  _placing: 1
-  _width: 3
-  _length: 4
-  _x: 5
-  _z: 5
-  _modelPath: TownHall_1
-  _model: {fileID: 711020021852124329, guid: 3ae2ef2038dceb3459cbe937c1391356, type: 3}
-  xInfo: {fileID: 0}
-  zInfo: {fileID: 0}
