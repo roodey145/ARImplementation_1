@@ -21,7 +21,7 @@ public class GroundData
         // the actual position is shifted by "width, length" since the incoming x,z can be negative.
         x += width; 
         z += length;
-        MonoBehaviour.print($"After: ({x}, {z}) \n ({groundBlocks[x, z]})");
+        //MonoBehaviour.print($"After: ({x}, {z}) \n ({groundBlocks[x, z]})");
         return groundBlocks[x, z];
     }
 

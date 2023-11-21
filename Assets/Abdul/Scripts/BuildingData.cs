@@ -8,12 +8,12 @@ using UnityEngine;
 public class BuildingData : MonoBehaviour
 {
     [Header("Data Container Info")]
-    [SerializeField] private bool _placeableModel = false;
-    [SerializeField] private bool _placing = false;
+    [SerializeField] protected bool _placeableModel = false;
+    [SerializeField] protected bool _placing = false;
 
     [Header("Size")]
-    [SerializeField] private int _width = 2; // The x-axis
-    [SerializeField] private int _length = 2; // The z-axis
+    [SerializeField] protected int _width = 2; // The x-axis
+    [SerializeField] protected int _length = 2; // The z-axis
 
     [Header("Location")]
     [SerializeField] private int _x = 0;
@@ -39,7 +39,7 @@ public class BuildingData : MonoBehaviour
     private string _townDataTag = "TownData";
     private TownData _townData;
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         // Get the town data
         _townData = GameObject.FindGameObjectWithTag(_townDataTag).GetComponent<TownData>();
@@ -127,6 +127,9 @@ public class BuildingData : MonoBehaviour
 
         // Assign the model to the ground areas it will occupy
         _AssignBuildingToGroundBlock(modelData);
+
+
+        _OverrideModelData(modelData.gameObject);
 
         // Destroy the demo
         GroundBlock.demo = null;
@@ -271,6 +274,12 @@ public class BuildingData : MonoBehaviour
             0.1f /*transform.lossyScale.y/2 + _townData.transform.position.y + _townData.transform.lossyScale.y/2*/,
             groundZ /* - groundHeight */ + appliedZ
         );
+    }
+
+
+    protected virtual void _OverrideModelData(GameObject gameObject)
+    { // This purpose of this method is to allow the sub-classes to override the model data before it is added.
+
     }
 
     // Retrive the project info
