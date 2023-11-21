@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 public class RotateableBuilding : BuildingData
 {
     [SerializeField] private InputActionReference[] _rotationActions;
+    [SerializeField] private int _rotationAmount = 90;
+    private int _rotation = 0;
     // Start is called before the first frame update
     protected new void Start()
     {
@@ -21,8 +23,13 @@ public class RotateableBuilding : BuildingData
     {
         if(!context.canceled)
         {
-            //Vector2 value = context.ReadValue<Vector2>();
-            transform.Rotate(new Vector3(0, 90, 0), Space.World);
+            Vector2 value = context.ReadValue<Vector2>();
+            if (value.y < 0) 
+                _rotation = _rotationAmount;
+            else 
+                _rotation = _rotationAmount;
+
+            transform.Rotate(new Vector3(0, _rotation, 0), Space.World);
         }
     }
 

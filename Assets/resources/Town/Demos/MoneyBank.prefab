@@ -165,7 +165,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d1a4b139ffb28c44ebafffdb128328d2,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9139167285417921933}
+      addedObject: {fileID: -4005366193545140612}
   m_SourcePrefab: {fileID: 100100000, guid: d1a4b139ffb28c44ebafffdb128328d2, type: 3}
 --- !u!1 &1880736000372971651 stripped
 GameObject:
@@ -173,7 +173,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1646310564559332818}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &9139167285417921933
+--- !u!114 &-4005366193545140612
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -182,16 +182,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1880736000372971651}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca16f6e962dbf1b4392edbed6a72ef6d, type: 3}
+  m_Script: {fileID: 11500000, guid: 97dda54d156acba4e888d457776def41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _placeableModel: 1
   _placing: 1
-  _width: 2
-  _length: 2
+  _width: 3
+  _length: 3
   _x: 5
   _z: 5
   _modelPath: MoneyBank
   _model: {fileID: 2568458275122730022, guid: 548422ac4ceaff745a855025883dbff8, type: 3}
   xInfo: {fileID: 0}
   zInfo: {fileID: 0}
+  _rotationActions:
+  - {fileID: -7374733323251553461, guid: c348712bda248c246b8c49b3db54643f, type: 3}
