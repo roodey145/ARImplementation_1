@@ -15,7 +15,7 @@ public class DemoAdder : MonoBehaviour
         _listData = GetComponent<ListItemData>();
     }
 
-    public void AddDemo(GameObject objectToCopy = null)
+    public void AddDemo()
     {
         if(!_listData.IsInStock())
         { // There is no more buildings of this type to place
@@ -42,9 +42,6 @@ public class DemoAdder : MonoBehaviour
         GroundBlock.demo = Instantiate(demo);
         //GroundBlock.demo.GetComponent<BuildingData>().PlaceModel(Random.Range(0, 5), Random.Range(0, 5));
 
-        // Copy the rotation
-        _CopyRotationInfo(objectToCopy, GroundBlock.demo);
-
         _listData.Decrease();
 
         // Register this as the last adder that added a demo
@@ -63,20 +60,46 @@ public class DemoAdder : MonoBehaviour
     {
         yield return new WaitForSeconds(delayInSeconds);
 
-        AddDemo(objectToCopy);
+        AddDemo();
+
+        // Copy the rotation, position info
+        _CopyInfo(objectToCopy, GroundBlock.demo);
+    }
+
+    private void _CopyInfo(GameObject objectToCopy, GameObject demo)
+    {
+        if (objectToCopy != null && demo != null)
+        {
+            _CopyPositionInfo(objectToCopy, demo);
+
+            _CopyRotationInfo(objectToCopy, demo);
+        }
+    }
+
+    private void _CopyPositionInfo(GameObject objectToCopy, GameObject demo)
+    {
+        BuildingData dataToCopy = objectToCopy.GetComponent<BuildingData>();
+        BuildingData demoData;
+        demo.TryGetComponent(out demoData);
+
+        //if(demoData == null)
+        //{
+        //    demoData = demo.GetComponent<RotateableBuilding>();
+        //}
+
+        demoData.AssignX(dataToCopy.X);
+        demoData.AssignZ(dataToCopy.Z);
+        //demoData.MoveDemo(dataToCopy.X, dataToCopy.Z);
     }
 
     private void _CopyRotationInfo(GameObject objectToCopy, GameObject demo)
     {
-        if (objectToCopy != null)
-        {
-            RotateableBuilding rotateableBuildingToCopy = objectToCopy.GetComponent<RotateableBuilding>();
-            RotateableBuilding demoRotateable = demo.GetComponent<RotateableBuilding>();
+        RotateableBuilding rotateableBuildingToCopy = objectToCopy.GetComponent<RotateableBuilding>();
+        RotateableBuilding demoRotateable = demo.GetComponent<RotateableBuilding>();
 
-            if (rotateableBuildingToCopy != null && demoRotateable != null)
-            {
-                demoRotateable.SetRotation(rotateableBuildingToCopy.RotatedAmount);
-            }
+        if (rotateableBuildingToCopy != null && demoRotateable != null)
+        {
+            demoRotateable.SetRotation(rotateableBuildingToCopy.RotatedAmount);
         }
     }
 

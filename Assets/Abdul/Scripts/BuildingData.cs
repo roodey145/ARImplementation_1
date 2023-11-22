@@ -19,6 +19,9 @@ public class BuildingData : MonoBehaviour
     [SerializeField] private int _x = 0;
     [SerializeField] private int _z = 0;
 
+    internal int X { get { return _x; } private set {  } }
+    internal int Z { get { return _z; } private set {  } }
+
     // The x and z might cause the bulding to be out of range
     // therefore, the applied x and z will hold the value of
     // _x and _z after limiting the values to ensure the building 
@@ -38,11 +41,22 @@ public class BuildingData : MonoBehaviour
 
     private string _townDataTag = "TownData";
     private TownData _townData;
+    protected TownData _TownData { get
+        {
+            TownData townData = _townData;
+
+            if(townData == null)
+                _townData = GameObject.FindGameObjectWithTag(_townDataTag).GetComponent<TownData>();
+
+            return townData;
+        }
+    }
     // Start is called before the first frame update
     protected void Start()
     {
         // Get the town data
         _townData = GameObject.FindGameObjectWithTag(_townDataTag).GetComponent<TownData>();
+        print("Initialized _ " + _townData);
         if(_townData == null)
         { // Handle error
             throw new System.Exception("The TownData does not exists in this scene or is inactive!");
@@ -122,8 +136,8 @@ public class BuildingData : MonoBehaviour
         // Create the model, the data will be synced automatically
         BuildingData modelData = Instantiate(_model).GetComponent<BuildingData>();
 
-        modelData._AssignX(x);
-        modelData._AssignZ(z);
+        modelData.AssignX(x);
+        modelData.AssignZ(z);
 
         // Assign the model to the ground areas it will occupy
         _AssignBuildingToGroundBlock(modelData);
@@ -170,7 +184,7 @@ public class BuildingData : MonoBehaviour
         int startZ = appliedZ - (int)(_length / 2f);
         int endZ = appliedZ + (int)(_length / 2f);
 
-        print($"X: ({startX}, {endX}), Z: ({startZ}, {endZ}), Applied: ({appliedX}, {appliedZ})");
+        //print($"X: ({startX}, {endX}), Z: ({startZ}, {endZ}), Applied: ({appliedX}, {appliedZ})");
 
         GroundBlock block;
         for(int row = startX; row <= endX; row++)
@@ -205,20 +219,20 @@ public class BuildingData : MonoBehaviour
     // Setters
     public void AssignPosition(int x, int z)
     {
-        _AssignX(x);
-        _AssignZ(z);
+        AssignX(x);
+        AssignZ(z);
 
         _SyncPosition();
     }
 
 
-    private void _AssignX(int x)
+    internal void AssignX(int x)
     {
         _x = x;
         //xInfo.text = "x: " + x;
     }
 
-    public void _AssignZ(int z)
+    internal void AssignZ(int z)
     {
         _z = z;
         //zInfo.text = "z: " + z;
@@ -230,8 +244,8 @@ public class BuildingData : MonoBehaviour
     {
         //print(transform.lossyScale.y / 2);
         // Get the center position of the ground
-        float groundX = _townData.transform.position.x;
-        float groundZ = _townData.transform.position.z;
+        float groundX = _TownData.transform.position.x;
+        float groundZ = _TownData.transform.position.z;
 
         // Get the width and height of the ground
         int groundWidth = GroundData.width;
@@ -297,3 +311,4 @@ public class BuildingData : MonoBehaviour
         // Retrive and assign the data
     }
 }
+

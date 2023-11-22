@@ -54,4 +54,12 @@ public class RotateableBuilding : BuildingData
         // Rotate the object
         transform.Rotate(new Vector3(0, rotation, 0), Space.World);
     }
+
+    private void OnDestroy()
+    {
+        for (int i = 0; i < _rotationActions.Length; i++)
+        {
+            _rotationActions[i].action.performed -= _Rotate;
+        }
+    }
 }
