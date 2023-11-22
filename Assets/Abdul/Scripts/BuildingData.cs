@@ -56,7 +56,6 @@ public class BuildingData : MonoBehaviour
     {
         // Get the town data
         _townData = GameObject.FindGameObjectWithTag(_townDataTag).GetComponent<TownData>();
-        print("Initialized _ " + _townData);
         if(_townData == null)
         { // Handle error
             throw new System.Exception("The TownData does not exists in this scene or is inactive!");
