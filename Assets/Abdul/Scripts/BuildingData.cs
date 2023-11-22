@@ -131,9 +131,14 @@ public class BuildingData : MonoBehaviour
 
         _OverrideModelData(modelData.gameObject);
 
+        // Try to add a new demo of the same type as this one
+        DemoAdder.LastDemoAdded.AddDelayedDemo(GroundBlock.demo, InteractionsData.addDemoDelayInSeconds);
+
+
         // Destroy the demo
         GroundBlock.demo = null;
-        Destroy(gameObject, 0f);
+        gameObject.SetActive(false);
+        Destroy(gameObject, InteractionsData.addDemoDelayInSeconds + 0.1f);
 
         return true;
     }
@@ -277,6 +282,10 @@ public class BuildingData : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// This method is called when the model is being placed.
+    /// </summary>
+    /// <param name="gameObject">The new model that has been initialized.</param>
     protected virtual void _OverrideModelData(GameObject gameObject)
     { // This purpose of this method is to allow the sub-classes to override the model data before it is added.
 

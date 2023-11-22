@@ -8,12 +8,14 @@ public class DemoAdder : MonoBehaviour
     [SerializeField] private string _buildingName;
     private ListItemData _listData;
 
+    internal static DemoAdder LastDemoAdded { get; private set; }
+
     private void Start()
     {
         _listData = GetComponent<ListItemData>();
     }
 
-    public void AddDemo()
+    public void AddDemo(GameObject objectToCopy = null)
     {
         if(!_listData.IsInStock())
         { // There is no more buildings of this type to place
@@ -29,7 +31,10 @@ public class DemoAdder : MonoBehaviour
 
         // Get the demo
         GameObject demo = Resources.Load<GameObject>(_demosPath + _buildingName);
-        if(demo == null)
+
+        
+
+        if (demo == null)
         {
             throw new System.Exception("The demo with the name (" + 
                 _buildingName + ") deos not exists inside the folder (" + _demosPath + " )!");
@@ -37,9 +42,42 @@ public class DemoAdder : MonoBehaviour
         GroundBlock.demo = Instantiate(demo);
         //GroundBlock.demo.GetComponent<BuildingData>().PlaceModel(Random.Range(0, 5), Random.Range(0, 5));
 
+        // Copy the rotation
+        _CopyRotationInfo(objectToCopy, GroundBlock.demo);
+
         _listData.Decrease();
 
+        // Register this as the last adder that added a demo
+        LastDemoAdded = this;
+
         //Destroy(gameObject, 0f); // TODO: Maybe this should be re-added later on?
+    }
+
+
+    public void AddDelayedDemo(GameObject objectToCopy, float delayInSeconds)
+    {
+        StartCoroutine(_AddDemo(objectToCopy, delayInSeconds));
+    }
+
+    private IEnumerator _AddDemo(GameObject objectToCopy, float delayInSeconds)
+    {
+        yield return new WaitForSeconds(delayInSeconds);
+
+        AddDemo(objectToCopy);
+    }
+
+    private void _CopyRotationInfo(GameObject objectToCopy, GameObject demo)
+    {
+        if (objectToCopy != null)
+        {
+            RotateableBuilding rotateableBuildingToCopy = objectToCopy.GetComponent<RotateableBuilding>();
+            RotateableBuilding demoRotateable = demo.GetComponent<RotateableBuilding>();
+
+            if (rotateableBuildingToCopy != null && demoRotateable != null)
+            {
+                demoRotateable.SetRotation(rotateableBuildingToCopy.RotatedAmount);
+            }
+        }
     }
 
 
