@@ -80,6 +80,8 @@ public class GroundBlock : MonoBehaviour
         hovered = true;
 
 
+        print($"({_x}, {_z}) Hovered");
+
         // Move the demo
         if(demo != null)
         {
@@ -91,6 +93,7 @@ public class GroundBlock : MonoBehaviour
     public void HoverExit()
     {
         hovered = false; // This might be 
+        print($"({_x}, {_z}) Un-Hovered");
 
         //_ResetColors();
     }
@@ -112,6 +115,9 @@ public class GroundBlock : MonoBehaviour
     {
         if (hovered && callbackContext.performed)
         { // The player clicked on the left/right hand controller's activate button
+
+            print($"My: ({_x}, {_z}), Ground: ({X}, {Z})");
+
             if (demo != null)
             { // Place the model at the specified area if there is a demo to place
                 demo.GetComponent<BuildingData>().PlaceModel(X, Z);
@@ -120,11 +126,10 @@ public class GroundBlock : MonoBehaviour
         }
     }
 
-    #region DELETE LATER ?
     public void Select()
     {
 
-        selected = true; 
+        selected = true;
 
     }
 
@@ -138,28 +143,6 @@ public class GroundBlock : MonoBehaviour
                 player.transform.position.y,
                 transform.position.z);
     }
-
-    public TextMeshProUGUI text;
-    public void Activate()
-    {
-        text.text = "Activated";
-    }
-
-    public void Deactivate()
-    {
-        text.text = "Deactivated";
-    }
-
-    public void Focus()
-    {
-        text.text = "Focused";
-    }
-
-    public void Blur()
-    {
-        text.text = "Blur";
-    }
-    #endregion
 
     // Getter
     public int GetX()
