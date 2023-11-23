@@ -80,7 +80,7 @@ public class GroundBlock : MonoBehaviour
         hovered = true;
 
 
-        print($"({_x}, {_z}) Hovered");
+        //print($"({_x}, {_z}) Hovered");
 
         // Move the demo
         if(demo != null)
@@ -93,7 +93,7 @@ public class GroundBlock : MonoBehaviour
     public void HoverExit()
     {
         hovered = false; // This might be 
-        print($"({_x}, {_z}) Un-Hovered");
+        //print($"({_x}, {_z}) Un-Hovered");
 
         //_ResetColors();
     }
@@ -116,7 +116,7 @@ public class GroundBlock : MonoBehaviour
         if (hovered && callbackContext.performed)
         { // The player clicked on the left/right hand controller's activate button
 
-            print($"My: ({_x}, {_z}), Ground: ({X}, {Z})");
+            //print($"My: ({_x}, {_z}), Ground: ({X}, {Z})");
 
             if (demo != null)
             { // Place the model at the specified area if there is a demo to place
