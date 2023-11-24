@@ -6,8 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer))]
 public class SliderBarsController : MonoBehaviour
 {
-    [SerializeField] private int _maxAmount = 500;
-    [SerializeField] private int _value = 150;
+    [SerializeField] protected int _maxAmount = 500;
+    [SerializeField] protected float _value = 150;
     [SerializeField] private TextMeshProUGUI _text;
 
     private MeshRenderer _renderer;
@@ -31,7 +31,7 @@ public class SliderBarsController : MonoBehaviour
         
     }
 
-    internal void SetValue(int value)
+    internal void SetValue(float value)
     {
         _value = value;
 
@@ -40,13 +40,19 @@ public class SliderBarsController : MonoBehaviour
         _UpdateUI();
     }
 
+    internal void IncreaseDecreaseValue(float value)
+    {
+        _value += value;
+        SetValue(_value);
+    }
+
     internal float GetValueInPercentage()
     {
-        return (float)_value / _maxAmount;
+        return _value / _maxAmount;
     }
 
     private void _UpdateUI()
     {
-        _text.text = $"{_value} / {_maxAmount}";
+        _text.text = $"{(int)_value} / {_maxAmount}";
     }
 }
