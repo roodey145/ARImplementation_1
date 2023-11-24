@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BuildingData : MonoBehaviour
 {
@@ -36,11 +37,19 @@ public class BuildingData : MonoBehaviour
     private MeshRenderer[] _childremMeshRenderers;
 
 
+    [Header("Interactions")]
+    [SerializeField] private InputActionReference _removeAction;
+
+
+    private ListItemData _listData; // Used to return the object to be reorganized. 
+    private bool _removed = false;
+
     public TextMeshProUGUI xInfo;
     public TextMeshProUGUI zInfo;
 
     private string _townDataTag = "TownData";
     private TownData _townData;
+    
     protected TownData _TownData { get
         {
             TownData townData = _townData;
@@ -51,6 +60,9 @@ public class BuildingData : MonoBehaviour
             return townData;
         }
     }
+
+    private ColorChangeHoverInteractor _interactor;
+
     // Start is called before the first frame update
     protected void Start()
     {
@@ -60,6 +72,13 @@ public class BuildingData : MonoBehaviour
         { // Handle error
             throw new System.Exception("The TownData does not exists in this scene or is inactive!");
         }
+
+        if(_removeAction != null)
+        {
+            _removeAction.action.performed += _RemoveBuilding;
+            _listData = ListItemData.lastInteractedItemListData;
+        }
+        _interactor = GetComponent<ColorChangeHoverInteractor>();
 
         //_childremMeshRenderers = GetComponentsInChildren<MeshRenderer>();
 
@@ -102,6 +121,16 @@ public class BuildingData : MonoBehaviour
             //print("Positning");
             //AssignPosition(GroundBlock.X, GroundBlock.Z);
             //MoveDemo(GroundBlock.X, GroundBlock.Z);
+        }
+    }
+
+    private void _RemoveBuilding(InputAction.CallbackContext context)
+    {
+        if(!context.canceled && !_removed && _interactor.hovered)
+        {
+            _listData.Increase();
+            _removed = true;
+            Destroy(gameObject, 0f);
         }
     }
 

@@ -92,6 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7155924048728412207}
+  - component: {fileID: 2348045001814459807}
   - component: {fileID: 5612025951119479863}
   - component: {fileID: 4568792703325976544}
   - component: {fileID: 7663354920540369712}
@@ -129,6 +130,27 @@ Transform:
   - {fileID: 4417856555743476836}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2348045001814459807
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711020021852124329}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 7, y: 6, z: 7}
+  m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!114 &5612025951119479863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,6 +171,8 @@ MonoBehaviour:
   _z: 5
   _modelPath: TownHall_1
   _model: {fileID: 7825403222266454323, guid: 41e1230ce0330c946bc182c38eebca93, type: 3}
+  _removeAction: {fileID: -6131295136447488360, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
   xInfo: {fileID: 0}
   zInfo: {fileID: 0}
 --- !u!114 &4568792703325976544

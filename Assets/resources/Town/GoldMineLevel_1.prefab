@@ -57,6 +57,8 @@ MonoBehaviour:
   _z: 0
   _modelPath: GoldMineLevel_1
   _model: {fileID: 867275430359426778}
+  _removeAction: {fileID: -6131295136447488360, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
   xInfo: {fileID: 0}
   zInfo: {fileID: 0}
   _rotationActions: []
@@ -235,6 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b98d4529c81a950499f91cafe763c216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _goldBankTagName: GoldBank
   _goldProgressController: {fileID: 1464245833464485569}
   _capacity: 500
   _goldPerHour: 2500

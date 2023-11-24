@@ -14,7 +14,6 @@ public class GoldMineController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _text;
 
     [SerializeField] private InputActionReference _clickAction;
-    [SerializeField] private InputActionReference _selectAction;
 
     private ColorChangeHoverInteractor _interactor;
 
@@ -32,7 +31,7 @@ public class GoldMineController : MonoBehaviour
 
 
         // Register the method to be executed when the click action has be fired
-        _clickAction.action.performed += _CollectResrouces;
+        if(_clickAction != null) _clickAction.action.performed += _CollectResrouces;
 
         StartCoroutine(_UpdateGoldAmount());
 
