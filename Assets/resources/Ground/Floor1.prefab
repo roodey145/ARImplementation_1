@@ -119,9 +119,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06acbbd54b45492458a97d870cd1e5d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _building: {fileID: 0}
   _x: 0
   _z: 0
-  text: {fileID: 0}
+  _clickActions:
+  - {fileID: -5982496924579745919, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  - {fileID: 83097790271614945, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  _originalColor: {r: 0, g: 0, b: 0, a: 0}
+  _occupiedAreaColor: {r: 1, g: 0, b: 0, a: 1}
+  _unoccupiedAreaColor: {r: 0, g: 1, b: 0, a: 1}
+  hovered: 0
 --- !u!114 &-392299296224280822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,7 +182,19 @@ MonoBehaviour:
         m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4015749074667456816}
+        m_TargetAssemblyTypeName: GroundBlock, Assembly-CSharp
+        m_MethodName: HoverExit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_FirstSelectEntered:
     m_PersistentCalls:
       m_Calls: []

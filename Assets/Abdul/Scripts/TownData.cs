@@ -8,11 +8,19 @@ public class TownData : MonoBehaviour
     private int _width = 25; // The x-axis
     private int _length = 25; // The z-axis
 
+    private void Awake()
+    {
+        //GroundData.awake();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        _width = GetComponent<BuildGroundGrid>().Width();
-        _length = GetComponent<BuildGroundGrid>().Length();
+        //_width = GetComponent<BuildGroundGrid>().Width();
+        //_length = GetComponent<BuildGroundGrid>().Length();
+
+        _width = GroundData.Width();
+        _length = GroundData.Length();
         // Retrive town data
         _retriveTownData();
     }

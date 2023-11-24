@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd969d78f002b34cb5e639b28fd1893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buildingName: TownHall_1
+  _buildingName: TownHall_1_Transparent
 --- !u!1 &2395485186314947252
 GameObject:
   m_ObjectHideFlags: 0

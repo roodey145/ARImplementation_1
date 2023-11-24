@@ -4,20 +4,24 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BuildingData : MonoBehaviour
 {
     [Header("Data Container Info")]
-    [SerializeField] private bool _placeableModel = false;
-    [SerializeField] private bool _placing = false;
+    [SerializeField] protected bool _placeableModel = false;
+    [SerializeField] protected bool _placing = false;
 
     [Header("Size")]
-    [SerializeField] private int _width = 2; // The x-axis
-    [SerializeField] private int _length = 2; // The z-axis
+    [SerializeField] protected int _width = 2; // The x-axis
+    [SerializeField] protected int _length = 2; // The z-axis
 
     [Header("Location")]
     [SerializeField] private int _x = 0;
     [SerializeField] private int _z = 0;
+
+    internal int X { get { return _x; } private set {  } }
+    internal int Z { get { return _z; } private set {  } }
 
     // The x and z might cause the bulding to be out of range
     // therefore, the applied x and z will hold the value of
@@ -30,15 +34,37 @@ public class BuildingData : MonoBehaviour
     [Header("Model Data")]
     [SerializeField] private string _modelPath = "";
     [SerializeField] private GameObject _model = null;
+    private MeshRenderer[] _childremMeshRenderers;
 
+
+    [Header("Interactions")]
+    [SerializeField] private InputActionReference _removeAction;
+
+
+    private ListItemData _listData; // Used to return the object to be reorganized. 
+    private bool _removed = false;
 
     public TextMeshProUGUI xInfo;
     public TextMeshProUGUI zInfo;
 
     private string _townDataTag = "TownData";
     private TownData _townData;
+    
+    protected TownData _TownData { get
+        {
+            TownData townData = _townData;
+
+            if(townData == null)
+                _townData = GameObject.FindGameObjectWithTag(_townDataTag).GetComponent<TownData>();
+
+            return townData;
+        }
+    }
+
+    private ColorChangeHoverInteractor _interactor;
+
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         // Get the town data
         _townData = GameObject.FindGameObjectWithTag(_townDataTag).GetComponent<TownData>();
@@ -47,8 +73,39 @@ public class BuildingData : MonoBehaviour
             throw new System.Exception("The TownData does not exists in this scene or is inactive!");
         }
 
-        //if(_placeableModel)
+        if(_removeAction != null)
+        {
+            _removeAction.action.performed += _RemoveBuilding;
+            _listData = ListItemData.lastInteractedItemListData;
+        }
+        _interactor = GetComponent<ColorChangeHoverInteractor>();
+
+        //_childremMeshRenderers = GetComponentsInChildren<MeshRenderer>();
+
+        //if(_childremMeshRenderers.Length == 0)
         //{
+        //    _childremMeshRenderers = new MeshRenderer[]
+        //    {
+        //        GetComponent<MeshRenderer>()
+        //    };
+        //}
+        //if (_placeableModel)
+        //{ // This is a demo and not the real model
+        //    // Change the alpha of the object to make it transparent, which will allow us to see the areas it will occupy 
+        //    foreach (MeshRenderer meshRenderer in _childremMeshRenderers)
+        //    {
+        //        meshRenderer.material.SetOverrideTag("RenderType", "Transparent");
+        //        meshRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        //        meshRenderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        //        meshRenderer.material.SetInt("_ZWrite", 0);
+        //        meshRenderer.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        //        meshRenderer.material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+        //        meshRenderer.material.SetShaderPassEnabled("ShadowCaster", false);
+
+        //        Color color = meshRenderer.material.GetColor("_Color");
+        //        //color.a = 0.25f;
+        //        meshRenderer.material.SetColor("_Color", new Color(color.r, color.g, color.b, 0.1f));
+        //    }
         //}
 
         retriveData();
@@ -62,50 +119,148 @@ public class BuildingData : MonoBehaviour
         if(_placing && _placeableModel)
         {
             //print("Positning");
-            AssignPosition(GroundBlock.X, GroundBlock.Z);
+            //AssignPosition(GroundBlock.X, GroundBlock.Z);
+            //MoveDemo(GroundBlock.X, GroundBlock.Z);
+        }
+    }
+
+    private void _RemoveBuilding(InputAction.CallbackContext context)
+    {
+        if(!context.canceled && !_removed && _interactor.hovered)
+        {
+            _listData.Increase();
+            _removed = true;
+            Destroy(gameObject, 0f);
+        }
+    }
+
+
+    public void MoveDemo(int x, int z)
+    {
+        if (_placing && _placeableModel)
+        {
+            AssignPosition(x, z);
+
+            _CheckCollision(x, z);
         }
     }
 
 
 
     // Getter
-    public void PlaceModel(int x, int z)
+    public bool PlaceModel(int x, int z)
     {
         if(_model == null) _model = Resources.Load<GameObject>(_modelPath);
 
 
+        // Check if there is any collision
+        if(_CheckCollision(x, z))
+        {
+            // Play collision sound
+            print("Building can not be placed here");
+            return false;
+        }
+
         // Create the model, the data will be synced automatically
         BuildingData modelData = Instantiate(_model).GetComponent<BuildingData>();
 
-        modelData._AssignX(x);
-        modelData._AssignZ(z);
+        modelData.AssignX(x);
+        modelData.AssignZ(z);
+
+        // Assign the model to the ground areas it will occupy
+        _AssignBuildingToGroundBlock(modelData);
+
+
+        _OverrideModelData(modelData.gameObject);
+
+        // Try to add a new demo of the same type as this one
+        DemoAdder.LastDemoAdded.AddDelayedDemo(GroundBlock.demo, InteractionsData.addDemoDelayInSeconds);
+
 
         // Destroy the demo
         GroundBlock.demo = null;
-        Destroy(gameObject, 0f);
+        gameObject.SetActive(false);
+        Destroy(gameObject, InteractionsData.addDemoDelayInSeconds + 0.1f);
 
-        //_placing = true;
+        return true;
+    }
+
+    private void _AssignBuildingToGroundBlock(BuildingData modelData)
+    {
+        // Assign the model to the ground areas it will occupy
+        int startX = appliedX - (int)(_width / 2f);
+        int endX = appliedX + (int)(_width / 2f);
+        int startZ = appliedZ - (int)(_length / 2f);
+        int endZ = appliedZ + (int)(_length / 2f);
+
+        for (int row = startX; row <= endX; row++)
+        {
+            for (int col = startZ; col <= endZ; col++)
+            {
+                GroundData.GetGroundBlock(row, col).SetBuilding(modelData);
+            }
+        }
+    }
+
+    private bool _CheckCollision(int x, int z)
+    {
+        bool collieded = false; ;
+
+        // Get the start and the end positions of the model
+        int startX = appliedX - (int)(_width / 2f);
+        int endX = appliedX + (int)(_width / 2f);
+        int startZ = appliedZ - (int)(_length / 2f);
+        int endZ = appliedZ + (int)(_length / 2f);
+
+        //print($"X: ({startX}, {endX}), Z: ({startZ}, {endZ}), Applied: ({appliedX}, {appliedZ})");
+
+        GroundBlock block;
+        for(int row = startX; row <= endX; row++)
+        {
+            for(int col = startZ; col <= endZ; col++)
+            {
+                block = GroundData.GetGroundBlock(row, col);
+                if(block.IsOccupied())
+                {
+                    block.IndicateOccupiedGround();
+                    collieded = true;
+                }
+                else
+                {
+                    block.IndicateUnoccupiedGround();
+                }
+            }
+        }
+
+        // Check if the ground block(s) are already occupied
+        //block = GroundData.GetGroundBlock(x, z);
+        //if (block.IsOccupied())
+        //{ // Indicate that this block is already occupied
+        //    block.IndicateOccupiedGround();
+        //    collieded = true;
+        //}
+
+        return collieded;
     }
 
 
-
     // Setters
-    public void AssignPosition(int x, int y)
+    public void AssignPosition(int x, int z)
     {
-        _AssignX(x);
-        _AssignZ(y);
+        AssignX(x);
+        AssignZ(z);
 
         _SyncPosition();
     }
 
 
-    private void _AssignX(int x)
+    internal void AssignX(int x)
     {
         _x = x;
         //xInfo.text = "x: " + x;
     }
 
-    public void _AssignZ(int z)
+    internal void AssignZ(int z)
     {
         _z = z;
         //zInfo.text = "z: " + z;
@@ -117,12 +272,12 @@ public class BuildingData : MonoBehaviour
     {
         //print(transform.lossyScale.y / 2);
         // Get the center position of the ground
-        float groundX = _townData.transform.position.x;
-        float groundZ = _townData.transform.position.z;
+        float groundX = _TownData.transform.position.x;
+        float groundZ = _TownData.transform.position.z;
 
         // Get the width and height of the ground
-        int groundWidth = _townData.Width();
-        int groundLength = _townData.Length();
+        int groundWidth = GroundData.width;
+        int groundLength = GroundData.length;
 
         
 
@@ -168,9 +323,20 @@ public class BuildingData : MonoBehaviour
         );
     }
 
+
+    /// <summary>
+    /// This method is called when the model is being placed.
+    /// </summary>
+    /// <param name="gameObject">The new model that has been initialized.</param>
+    protected virtual void _OverrideModelData(GameObject gameObject)
+    { // This purpose of this method is to allow the sub-classes to override the model data before it is added.
+
+    }
+
     // Retrive the project info
     private void retriveData()
     {
         // Retrive and assign the data
     }
 }
+
