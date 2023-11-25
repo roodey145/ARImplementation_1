@@ -1614,6 +1614,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 867030073292498098}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d1a4b139ffb28c44ebafffdb128328d2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3926322098388596138}
     - targetCorrespondingSourceObject: {fileID: 2297574251137004977, guid: d1a4b139ffb28c44ebafffdb128328d2,
         type: 3}
       insertIndex: -1
@@ -1744,6 +1748,7 @@ MonoBehaviour:
   _length: 3
   _x: 5
   _z: 5
+  _level: 1
   _modelPath: MoneyBank
   _model: {fileID: 2568458275122730022}
   _buildingType: 2
@@ -1891,6 +1896,19 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3926322098388596138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2568458275122730022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fcc78be0f8df3c4c8aa7040532f7082, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _capacity: 0
 --- !u!4 &2949628636596670108 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d1a4b139ffb28c44ebafffdb128328d2,

@@ -6,13 +6,13 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer))]
 public class SliderBarsController : MonoBehaviour
 {
-    [SerializeField] protected int _maxAmount = 500;
+    [SerializeField] protected int _capacity = 500;
     [SerializeField] protected float _value = 150;
     [SerializeField] private TextMeshProUGUI _text;
 
     private MeshRenderer _renderer;
     // Start is called before the first frame update
-    void Start()
+    protected void Awake()
     {
         _renderer = GetComponent<MeshRenderer>();
         SetValue(_value);
@@ -25,34 +25,39 @@ public class SliderBarsController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     internal void SetValue(float value)
     {
         _value = value;
-
-        _renderer.material.SetFloat("_Value", GetValueInPercentage());
-
-        _UpdateUI();
+        UpdateSlider();        
     }
 
     internal void IncreaseDecreaseValue(float value)
     {
         _value += value;
-        SetValue(_value);
+        UpdateSlider();
     }
 
     internal float GetValueInPercentage()
     {
-        return _value / _maxAmount;
+        return _value / _capacity;
+    }
+
+    internal void UpdateSlider()
+    {
+        _renderer.material.SetFloat("_Value", GetValueInPercentage());
+
+        _UpdateUI();
     }
 
     private void _UpdateUI()
     {
-        _text.text = $"{(int)_value} / {_maxAmount}";
+        _text.text = $"{(int)_value} / {_capacity}";
+    }
+
+    protected void UpdateCapacity(int capacity)
+    {
+        _capacity = capacity;
+        UpdateSlider();
     }
 }

@@ -22,6 +22,7 @@ public class BuildingData : MonoBehaviour
     [SerializeField] private int _z = 0;
 
     [Header("Model Data")]
+    [SerializeField] private int _level = 1;
     [SerializeField] private string _modelPath = "";
     [SerializeField] private GameObject _model = null;
     private MeshRenderer[] _childremMeshRenderers;
@@ -68,7 +69,7 @@ public class BuildingData : MonoBehaviour
 
 
     private List<Action<int, int>> _locationUpdateCallbacksList = new List<Action<int, int>>(); 
-
+    private List<Action<int>> _levelUpdateCallbacksList = new List<Action<int>>();
 
     // Start is called before the first frame update
     protected void Start()
@@ -319,11 +320,24 @@ public class BuildingData : MonoBehaviour
         _locationUpdateCallbacksList.Add( callback );
     }
 
+    internal void RegisterLevelUpdateCallback(Action<int> callback)
+    {
+        _levelUpdateCallbacksList.Add(callback);
+    }
+
     internal bool isDemo()
     {
         return _placing && _placeableModel;
     }
 
+    internal void LevelUp()
+    {
+        _level++;
+        for(int i = 0; i < _levelUpdateCallbacksList.Count;  i++)
+        {
+            _levelUpdateCallbacksList[i](_level);
+        }
+    }
 
     /// <summary>
     /// This method is called when the model is being placed.
