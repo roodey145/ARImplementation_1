@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Enum defining different types of characters
 public enum CharacterType
 {
     GroundAlly,
@@ -10,13 +11,14 @@ public enum CharacterType
     AerialEnemy,
 }
 
+//enum defining different types of damage
 public enum DamageType
 {
     GroundAttack,
-    AerialAttack,
-    Both,
+    RangedAttack,
 }
 
+//Class defining the stats for game characters
 public class Stats : MonoBehaviour
 {
     public CharacterType characterType;
