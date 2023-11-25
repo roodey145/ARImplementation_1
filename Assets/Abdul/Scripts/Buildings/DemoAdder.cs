@@ -82,14 +82,8 @@ public class DemoAdder : MonoBehaviour
         BuildingData demoData;
         demo.TryGetComponent(out demoData);
 
-        //if(demoData == null)
-        //{
-        //    demoData = demo.GetComponent<RotateableBuilding>();
-        //}
 
-        demoData.AssignX(dataToCopy.X);
-        demoData.AssignZ(dataToCopy.Z);
-        //demoData.MoveDemo(dataToCopy.X, dataToCopy.Z);
+        demoData.UpdateLocation(dataToCopy.X, dataToCopy.Z);
     }
 
     private void _CopyRotationInfo(GameObject objectToCopy, GameObject demo)

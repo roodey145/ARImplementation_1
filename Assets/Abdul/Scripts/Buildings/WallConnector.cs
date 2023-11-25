@@ -6,9 +6,13 @@ public class WallConnector : MonoBehaviour
 {
     [SerializeField] private GameObject[] _children; // The walls in the four directions
     private BuildingData _buildingData;
+    private int _x;
+    private int _z;
+
+    private bool[] _connectedDirections = new bool[4];
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         // Get the children (Left, Top, Right, Bottom)
         _children = new GameObject[transform.childCount];
@@ -21,10 +25,23 @@ public class WallConnector : MonoBehaviour
         // Get the building data
         _buildingData = GetComponent<BuildingData>();
 
-        _UpdateToSurroundingWalls(connect: true);
+        _buildingData.RegisterLocationUpdateCallback(_LocationUpdateCallback);
+        print("Demo: " +  _buildingData.isDemo());
+        //_UpdateToSurroundingWalls(connect: true, _buildingData.isDemo());
     }
 
-    private void _UpdateToSurroundingWalls(bool connect)
+    private void _LocationUpdateCallback(int x, int z)
+    {
+        // Disconnect first from the old position
+        DisconnectDemo();
+        ResetToActualWallConnection();
+        // Update the x, y to the new position and then connect the walls
+        _x = x;
+        _z = z;
+        _UpdateToSurroundingWalls(connect: true, _buildingData.isDemo());
+    }
+
+    private void _UpdateToSurroundingWalls(bool connect, bool demo)
     {
         // Get the block at the left direction
         BuildingData buildingData;
@@ -39,16 +56,19 @@ public class WallConnector : MonoBehaviour
                     if(connect)
                     {
                         // Connect this wall 
-                        ConnectWallTo((DirectionEnum)i); 
+                        ConnectWallTo((DirectionEnum)i, demo); 
                         // Connect the other wall
-                        buildingData.gameObject.GetComponent<WallConnector>().ConnectWallTo(DirectionEnumUtility.GetOpposite((DirectionEnum)i));
+                        buildingData.gameObject.GetComponent<WallConnector>().ConnectWallTo(DirectionEnumUtility.GetOpposite((DirectionEnum)i), demo);
                     }
                     else
                     {
                         // Connect this wall 
-                        DisconnectWall((DirectionEnum)i);
+                        DisconnectWall((DirectionEnum)i, demo);
                         // Connect the other wall
-                        buildingData.gameObject.GetComponent<WallConnector>().DisconnectWall(DirectionEnumUtility.GetOpposite((DirectionEnum)i));
+                        if(!demo)
+                            buildingData.gameObject.GetComponent<WallConnector>().DisconnectWall(DirectionEnumUtility.GetOpposite((DirectionEnum)i), demo);
+                        else
+                            buildingData.gameObject.GetComponent<WallConnector>().ResetToActualWallConnection();
                     }
                     
                 }
@@ -82,8 +102,8 @@ public class WallConnector : MonoBehaviour
 
     private BuildingData GetLeftBlockBuildingData()
     {
-        int x = _buildingData.X - 1;
-        int z = _buildingData.Z;
+        int x = _x - 1;
+        int z = _z;
 
         BuildingData groundBlockBuildingData = null;
 
@@ -96,8 +116,8 @@ public class WallConnector : MonoBehaviour
     }
     private BuildingData GetTopBlockBuildingData()
     {
-        int x = _buildingData.X;
-        int z = _buildingData.Z + 1;
+        int x = _x;
+        int z = _z + 1;
 
         BuildingData groundBlockBuildingData = null;
 
@@ -110,8 +130,8 @@ public class WallConnector : MonoBehaviour
     }
     private BuildingData GetRightBlockBuildingData()
     {
-        int x = _buildingData.X + 1;
-        int z = _buildingData.Z;
+        int x = _x + 1;
+        int z = _z;
 
         BuildingData groundBlockBuildingData = null;
 
@@ -124,8 +144,8 @@ public class WallConnector : MonoBehaviour
     }
     private BuildingData GetBottomBlockBuildingData()
     {
-        int x = _buildingData.X;
-        int z = _buildingData.Z - 1;
+        int x = _x;
+        int z = _z - 1;
 
         BuildingData groundBlockBuildingData = null;
 
@@ -138,19 +158,65 @@ public class WallConnector : MonoBehaviour
     }
 
 
-    public void ConnectWallTo(DirectionEnum direction)
+    public void ConnectWallTo(DirectionEnum direction, bool demo)
     {
+        if(!demo)
+        {
+            _connectedDirections[(int)direction] = true;
+        }
         _children[(int)direction].gameObject.SetActive(true);
     }
 
-    public void DisconnectWall(DirectionEnum direction)
+    public void DisconnectWall(DirectionEnum direction, bool demoRemoved)
     {
+        if(!demoRemoved)
+        {
+            _connectedDirections[(int)direction] = false;
+        }
         _children[(int)direction].gameObject.SetActive(false);
     }
+
+    public void DisconnectDemo()
+    {
+        // Get the block at the left direction
+        BuildingData buildingData;
+        for (int i = 0; i < _children.Length; i++)
+        {
+            buildingData = GetBlockBuildingData((DirectionEnum)i);
+            // Check if the buildiing is a wall
+            if (buildingData != null && buildingData.BuildingType == BuildingType.Wall)
+            {
+                buildingData.gameObject.GetComponent<WallConnector>().ResetToActualWallConnection();
+            }
+        }
+    }
+
+    public void ResetToActualWallConnection()
+    {
+        for (int i = 0; i < _children.Length; i++)
+        {
+            if (_connectedDirections[i])
+            {
+                ConnectWallTo((DirectionEnum)i, true);
+            }
+            else
+            {
+                DisconnectWall((DirectionEnum)i, true);
+            }
+        }
+    }
+
 
     private void OnDestroy()
     {
         // Make sure to notify the walls around so they will update and hide the connection to this wall
-        _UpdateToSurroundingWalls(connect: false);
+        if(_buildingData.isDemo())
+        {
+            DisconnectDemo();
+        }
+        else
+        {
+            _UpdateToSurroundingWalls(connect: false, _buildingData.isDemo());
+        }
     }
 }
