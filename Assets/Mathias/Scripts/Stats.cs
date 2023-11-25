@@ -16,6 +16,7 @@ public enum DamageType
 {
     GroundAttack,
     RangedAttack,
+    Both,
 }
 
 //Class defining the stats for game characters

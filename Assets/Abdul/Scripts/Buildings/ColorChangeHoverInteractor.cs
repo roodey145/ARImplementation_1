@@ -17,8 +17,9 @@ public class ColorChangeHoverInteractor : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        // Get the mesh renderer on awake incase they are disabled later on.
         _meshRenderers = GetComponentsInChildren<MeshRenderer>();
         _ProcessMaterials(ProcessMethod.AssignOriginalColors);
     }
