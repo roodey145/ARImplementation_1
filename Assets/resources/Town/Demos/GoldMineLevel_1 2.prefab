@@ -278,11 +278,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b98d4529c81a950499f91cafe763c216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _goldBankTagName: GoldBank
   _goldProgressController: {fileID: 4615825248451984105}
   _capacity: 500
   _goldPerHour: 2500
   _updateRateInSeconds: 10
   _text: {fileID: 8400596886681168973}
+  _clickAction: {fileID: 0}
 --- !u!114 &2016121679651324090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,6 +305,8 @@ MonoBehaviour:
   _z: 0
   _modelPath: GoldMineLevel_1
   _model: {fileID: 6047100608549878038, guid: 33cc687303b9e0b4281c81d97da7abb7, type: 3}
+  _buildingType: 3
+  _removeAction: {fileID: 0}
   xInfo: {fileID: 0}
   zInfo: {fileID: 0}
   _rotationActions: []

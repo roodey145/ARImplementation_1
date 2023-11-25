@@ -160,6 +160,11 @@ public class GroundBlock : MonoBehaviour
         return _building != null;
     }
 
+    internal BuildingData GetBuildingData()
+    {
+        return _building;
+    }
+
     internal void IndicateOccupiedGround()
     {
         _meshRenderer.material.SetColor("_EmissionColor", _occupiedAreaColor);

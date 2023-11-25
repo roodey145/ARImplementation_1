@@ -20,6 +20,8 @@ public class BuildingData : MonoBehaviour
     [SerializeField] private int _x = 0;
     [SerializeField] private int _z = 0;
 
+
+
     internal int X { get { return _x; } private set {  } }
     internal int Z { get { return _z; } private set {  } }
 
@@ -35,6 +37,8 @@ public class BuildingData : MonoBehaviour
     [SerializeField] private string _modelPath = "";
     [SerializeField] private GameObject _model = null;
     private MeshRenderer[] _childremMeshRenderers;
+    [SerializeField] private BuildingType _buildingType;
+    public BuildingType BuildingType { get { return _buildingType; } }
 
 
     [Header("Interactions")]
