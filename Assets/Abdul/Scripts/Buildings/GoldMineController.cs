@@ -80,8 +80,8 @@ public class GoldMineController : MonoBehaviour
     {
         if(_interactor.hovered == true && !context.canceled)
         { // Collect the resources
-            _goldBank.IncreaseDecreaseValue(goldMined);
-            goldMined = 0; // Reset
+            // The IncreaseDecreaseValue method returns the remining gold if the GoldStorages are filled
+            goldMined = _goldBank.IncreaseDecreaseValue(goldMined); ; // Reset
             _UpdateUI();
         }
     }

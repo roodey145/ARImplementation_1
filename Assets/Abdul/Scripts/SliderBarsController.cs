@@ -32,10 +32,28 @@ public class SliderBarsController : MonoBehaviour
         UpdateSlider();        
     }
 
-    internal void IncreaseDecreaseValue(float value)
+    /// <summary>
+    /// Store the gold in the storage and returns any gold that excceds the maximum storage cpacity.
+    /// </summary>
+    /// <param name="value">The mined amount of gold.</param>
+    /// <returns>The remining gold if the storage is filled.</returns>
+    internal float IncreaseDecreaseValue(float value)
     {
-        _value += value;
+        float remining = 0;
+        // Check if the value exceds the capacity
+        if((value + _value) > _capacity)
+        {
+            remining = (value + _value) - _capacity; // Make sure no gold will be wasted
+            _value = _capacity;
+        }
+        else
+        {
+            _value += value;
+        }
+
         UpdateSlider();
+
+        return remining;
     }
 
     internal float GetValueInPercentage()
