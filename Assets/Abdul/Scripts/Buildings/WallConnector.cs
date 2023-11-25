@@ -16,16 +16,15 @@ public class WallConnector : MonoBehaviour
         {
             _children[i] = transform.GetChild(i).gameObject;
             _children[i].SetActive(false);
-            print(_children[i].name);
         }
 
         // Get the building data
         _buildingData = GetComponent<BuildingData>();
 
-        _ConnectToSurroundingWalls();
+        _UpdateToSurroundingWalls(connect: true);
     }
 
-    private void _ConnectToSurroundingWalls()
+    private void _UpdateToSurroundingWalls(bool connect)
     {
         // Get the block at the left direction
         BuildingData buildingData;
@@ -37,9 +36,21 @@ public class WallConnector : MonoBehaviour
                 // Check if the buildiing is a wall
                 if (buildingData.BuildingType == BuildingType.Wall)
                 {
-                    ConnectWallTo((DirectionEnum)i); // Connect this wall 
-                    // Connect the other wall
-                    buildingData.gameObject.GetComponent<WallConnector>().ConnectWallTo(DirectionEnumUtility.GetOpposite((DirectionEnum)i));
+                    if(connect)
+                    {
+                        // Connect this wall 
+                        ConnectWallTo((DirectionEnum)i); 
+                        // Connect the other wall
+                        buildingData.gameObject.GetComponent<WallConnector>().ConnectWallTo(DirectionEnumUtility.GetOpposite((DirectionEnum)i));
+                    }
+                    else
+                    {
+                        // Connect this wall 
+                        DisconnectWall((DirectionEnum)i);
+                        // Connect the other wall
+                        buildingData.gameObject.GetComponent<WallConnector>().DisconnectWall(DirectionEnumUtility.GetOpposite((DirectionEnum)i));
+                    }
+                    
                 }
             }
         }
@@ -130,5 +141,16 @@ public class WallConnector : MonoBehaviour
     public void ConnectWallTo(DirectionEnum direction)
     {
         _children[(int)direction].gameObject.SetActive(true);
+    }
+
+    public void DisconnectWall(DirectionEnum direction)
+    {
+        _children[(int)direction].gameObject.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        // Make sure to notify the walls around so they will update and hide the connection to this wall
+        _UpdateToSurroundingWalls(connect: false);
     }
 }
