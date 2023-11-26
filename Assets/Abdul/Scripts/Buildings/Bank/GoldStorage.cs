@@ -10,20 +10,16 @@ public class GoldStorage : MonoBehaviour
 
     private BuildingData _buildingData;
     // Start is called before the first frame update
-    void Awake()
-    {
-        // Get access to the building data
-        _buildingData = GetComponent<BuildingData>();
-        // Register a level up listener
-        _buildingData.RegisterLevelUpdateCallback(_LevelUp);
-    }
-
     private void Start()
     {
         _UpdateData();
 
         // Register the storage
         GoldBank.RegisterStorage(this);
+
+        // Get access to the buildingData
+        _buildingData = GetComponent<BuildingData>();
+        _buildingData.RegisterLevelUpdateCallback(_LevelUp);
     }
 
     // Update is called once per frame
@@ -31,7 +27,6 @@ public class GoldStorage : MonoBehaviour
     {
         
     }
-
 
     // Getter
     internal int GetCapacity()
@@ -52,7 +47,6 @@ public class GoldStorage : MonoBehaviour
 
         GoldBank.UpdateData();
     }
-
 
     private void OnDestroy()
     {

@@ -26,6 +26,7 @@ public class UpgradeBuildingInfo : MonoBehaviour
     [SerializeField] private Color _textColorIfHasResources = Color.green;
     [SerializeField] private Color _textColorIfNoResources = Color.red;
 
+    private BuildingData _buildingData;
     private ColorChangeHoverInteractor _hoverInteractor;
 
     private int _constructionTimeProgress = 0;
@@ -54,6 +55,9 @@ public class UpgradeBuildingInfo : MonoBehaviour
 
         // Set the capacity of the progress slider
         _progressSlider.SetCapacity(_timeRequiredInSeconds);
+
+        // Get access to the building data
+        _buildingData = GetComponentInParent<BuildingData>();
 
         // Register the show/hide on hover and hoverExit respectively
         _hoverInteractor = GetComponentInParent<ColorChangeHoverInteractor>();
@@ -118,6 +122,7 @@ public class UpgradeBuildingInfo : MonoBehaviour
         {
             _upgrade = false;
             _ResetProgressBar();
+            _buildingData.LevelUp();
         }
         //print("Progress Time: " + _constructionTimeProgress);
     }
