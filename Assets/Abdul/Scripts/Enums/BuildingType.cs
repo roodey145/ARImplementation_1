@@ -7,4 +7,5 @@ public enum BuildingType
     TownHall,
     Wall,
     MoneyBank,
+    GoldMine,
 }

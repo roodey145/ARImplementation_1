@@ -9,7 +9,7 @@ public class ListItemData : MonoBehaviour
     [SerializeField] private BuildingType _buildingType;
     [SerializeField] private TextMeshProUGUI _counter;
 
-    private static ListItemData _lastInteractedItemListData;
+    internal static ListItemData lastInteractedItemListData { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +33,7 @@ public class ListItemData : MonoBehaviour
 
         // Register this as the last interacted item list, this will allow for returning the building
         // without placing it on the ground.
-        _lastInteractedItemListData = this;
+        lastInteractedItemListData = this;
 
         if (_count <= 0)
         {
@@ -41,7 +41,7 @@ public class ListItemData : MonoBehaviour
         }
     }
 
-    private void _Increase()
+    internal void Increase()
     {
         _count++;
         _UpdateCounterUI();
@@ -59,9 +59,9 @@ public class ListItemData : MonoBehaviour
 
     public static void CancelBuildingPlacement()
     {
-        if( _lastInteractedItemListData != null )
+        if( lastInteractedItemListData != null )
         {
-            _lastInteractedItemListData._Increase();
+            lastInteractedItemListData.Increase();
         }
     }
 

@@ -24,11 +24,11 @@ public class Character : MonoBehaviour
             case CharacterType.GroundAlly:
                 return (damageType == DamageType.GroundAttack || damageType == DamageType.Both);
             case CharacterType.AerialAlly:
-                return (damageType == DamageType.AerialAttack || damageType == DamageType.Both);
+                return (damageType == DamageType.RangedAttack || damageType == DamageType.Both);
             case CharacterType.GroundEnemy:
                 return (damageType == DamageType.GroundAttack || damageType == DamageType.Both);
             case CharacterType.AerialEnemy:
-                return (damageType == DamageType.AerialAttack || damageType == DamageType.Both);
+                return (damageType == DamageType.RangedAttack || damageType == DamageType.Both);
             default:
                 return true; // Allow all other combinations by default
         }

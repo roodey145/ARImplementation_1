@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BuildingData : MonoBehaviour
 {
+    #region Adjustable data
     [Header("Data Container Info")]
     [SerializeField] protected bool _placeableModel = false;
     [SerializeField] protected bool _placing = false;
@@ -19,6 +21,18 @@ public class BuildingData : MonoBehaviour
     [SerializeField] private int _x = 0;
     [SerializeField] private int _z = 0;
 
+    [Header("Model Data")]
+    [SerializeField] private int _level = 1;
+    [SerializeField] private string _modelPath = "";
+    [SerializeField] private GameObject _model = null;
+    private MeshRenderer[] _childremMeshRenderers;
+    [SerializeField] private BuildingType _buildingType;
+    public BuildingType BuildingType { get { return _buildingType; } }
+    
+    [Header("Interactions")]
+    [SerializeField] private InputActionReference _removeAction;
+    #endregion
+
     internal int X { get { return _x; } private set {  } }
     internal int Z { get { return _z; } private set {  } }
 
@@ -30,18 +44,17 @@ public class BuildingData : MonoBehaviour
     private int appliedZ = 0;
 
 
-    [Header("Model Data")]
-    [SerializeField] private string _modelPath = "";
-    [SerializeField] private GameObject _model = null;
-    private MeshRenderer[] _childremMeshRenderers;
-
+    private ListItemData _listData; // Used to return the object to be reorganized. 
+    private bool _removed = false;
 
     public TextMeshProUGUI xInfo;
     public TextMeshProUGUI zInfo;
 
     private string _townDataTag = "TownData";
     private TownData _townData;
-    protected TownData _TownData { get
+    
+    protected TownData _TownData { 
+        get
         {
             TownData townData = _townData;
 
@@ -51,6 +64,13 @@ public class BuildingData : MonoBehaviour
             return townData;
         }
     }
+
+    private ColorChangeHoverInteractor _interactor;
+
+
+    private List<Action<int, int>> _locationUpdateCallbacksList = new List<Action<int, int>>(); 
+    private List<Action<int>> _levelUpdateCallbacksList = new List<Action<int>>();
+
     // Start is called before the first frame update
     protected void Start()
     {
@@ -61,33 +81,15 @@ public class BuildingData : MonoBehaviour
             throw new System.Exception("The TownData does not exists in this scene or is inactive!");
         }
 
-        //_childremMeshRenderers = GetComponentsInChildren<MeshRenderer>();
+        if(_removeAction != null)
+        {
+            _removeAction.action.performed += _RemoveBuilding;
+            _listData = ListItemData.lastInteractedItemListData;
+        }
+        _interactor = GetComponent<ColorChangeHoverInteractor>();
 
-        //if(_childremMeshRenderers.Length == 0)
-        //{
-        //    _childremMeshRenderers = new MeshRenderer[]
-        //    {
-        //        GetComponent<MeshRenderer>()
-        //    };
-        //}
-        //if (_placeableModel)
-        //{ // This is a demo and not the real model
-        //    // Change the alpha of the object to make it transparent, which will allow us to see the areas it will occupy 
-        //    foreach (MeshRenderer meshRenderer in _childremMeshRenderers)
-        //    {
-        //        meshRenderer.material.SetOverrideTag("RenderType", "Transparent");
-        //        meshRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-        //        meshRenderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-        //        meshRenderer.material.SetInt("_ZWrite", 0);
-        //        meshRenderer.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-        //        meshRenderer.material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
-        //        meshRenderer.material.SetShaderPassEnabled("ShadowCaster", false);
-
-        //        Color color = meshRenderer.material.GetColor("_Color");
-        //        //color.a = 0.25f;
-        //        meshRenderer.material.SetColor("_Color", new Color(color.r, color.g, color.b, 0.1f));
-        //    }
-        //}
+        // Update the x, y position
+        UpdateLocation(_x, _z); // Ensure that the other callbacks that are listnening for the position are notified of the start position
 
         retriveData();
         _SyncPosition();
@@ -105,6 +107,16 @@ public class BuildingData : MonoBehaviour
         }
     }
 
+    private void _RemoveBuilding(InputAction.CallbackContext context)
+    {
+        if(!context.canceled && !_removed && _interactor.hovered)
+        {
+            _listData.Increase();
+            _removed = true;
+            Destroy(gameObject, 0f);
+        }
+    }
+
 
     public void MoveDemo(int x, int z)
     {
@@ -115,7 +127,6 @@ public class BuildingData : MonoBehaviour
             _CheckCollision(x, z);
         }
     }
-
 
 
     // Getter
@@ -218,12 +229,23 @@ public class BuildingData : MonoBehaviour
     // Setters
     public void AssignPosition(int x, int z)
     {
-        AssignX(x);
-        AssignZ(z);
+        UpdateLocation(x, z);
 
         _SyncPosition();
     }
 
+
+    internal void UpdateLocation(int x, int z)
+    {
+        AssignX(x);
+        AssignZ(z);
+
+        // Notify the other locations
+        for(int i = 0; i < _locationUpdateCallbacksList.Count; i++)
+        {
+            _locationUpdateCallbacksList[i](x, z);
+        }
+    }
 
     internal void AssignX(int x)
     {
@@ -236,8 +258,6 @@ public class BuildingData : MonoBehaviour
         _z = z;
         //zInfo.text = "z: " + z;
     }
-
-
 
     private void _SyncPosition()
     {
@@ -294,6 +314,30 @@ public class BuildingData : MonoBehaviour
         );
     }
 
+
+    internal void RegisterLocationUpdateCallback(Action<int, int> callback)
+    {
+        _locationUpdateCallbacksList.Add( callback );
+    }
+
+    internal void RegisterLevelUpdateCallback(Action<int> callback)
+    {
+        _levelUpdateCallbacksList.Add(callback);
+    }
+
+    internal bool isDemo()
+    {
+        return _placing && _placeableModel;
+    }
+
+    internal void LevelUp()
+    {
+        _level++;
+        for(int i = 0; i < _levelUpdateCallbacksList.Count;  i++)
+        {
+            _levelUpdateCallbacksList[i](_level);
+        }
+    }
 
     /// <summary>
     /// This method is called when the model is being placed.

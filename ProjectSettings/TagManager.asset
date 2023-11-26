@@ -8,9 +8,7 @@ TagManager:
   - UI
   - TownData
   - UI3D
-  - Wall
-  - attacking
-  - passive
+
   layers:
   - Default
   - TransparentFX
