@@ -61,6 +61,12 @@ public class SliderBarsController : MonoBehaviour
         return _value / _capacity;
     }
 
+    internal bool HasResources(float value)
+    {
+        return _value >= value;
+    }
+
+
     internal void UpdateSlider()
     {
         _renderer.material.SetFloat("_Value", GetValueInPercentage());

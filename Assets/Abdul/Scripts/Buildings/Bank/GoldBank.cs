@@ -6,12 +6,12 @@ using UnityEngine;
 public class GoldBank : SliderBarsController
 {
     private static List<GoldStorage> _storages = new List<GoldStorage>();
-    private static GoldBank _isntance;
+    public static GoldBank instance;
 
     private new void Awake()
     {
         base.Awake();
-        _isntance = this;
+        instance = this;
     }
 
     // Update is called once per frame
@@ -23,7 +23,7 @@ public class GoldBank : SliderBarsController
     internal static void RegisterStorage(GoldStorage goldStorage)
     {
         _storages.Add(goldStorage);
-        _isntance._UpdateData();
+        instance._UpdateData();
     }
 
     internal static void RemoveStorageData(GoldStorage goldStorage)
@@ -36,12 +36,12 @@ public class GoldBank : SliderBarsController
             }
         }
 
-        _isntance._UpdateData();
+        instance._UpdateData();
     }
 
     internal static void UpdateData()
     {
-        _isntance._UpdateData();
+        instance._UpdateData();
     }
 
     private void _UpdateData()
