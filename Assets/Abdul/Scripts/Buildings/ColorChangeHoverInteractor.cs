@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,8 @@ public class ColorChangeHoverInteractor : MonoBehaviour
 {
     [SerializeField] private Color _hoveredColor = Color.red;
     [SerializeField] private MeshRenderer[] _meshRenderers;
+    [SerializeField] private List<Action> _hoverCallbacks = new List<Action>();
+    [SerializeField] private List<Action> _hoverExitCallbacks = new List<Action>();
     private Dictionary<Material, Color> originalMatsColor = new Dictionary<Material, Color>();
     internal bool hovered = false;
 
@@ -24,16 +27,48 @@ public class ColorChangeHoverInteractor : MonoBehaviour
         _ProcessMaterials(ProcessMethod.AssignOriginalColors);
     }
 
+    internal void RegisterHoverCallback(Action callback)
+    {
+        _hoverCallbacks.Add(callback);
+    }
+
+    internal void UnregisterHoverCallback(Action callback)
+    {
+        _hoverCallbacks.Remove(callback);
+    }
+
+    internal void RegisterHoverExitCallback(Action callback)
+    {
+        _hoverExitCallbacks.Add(callback);
+    }
+
+    internal void UnregisterHoverExitCallback(Action callback)
+    {
+        _hoverExitCallbacks.Remove(callback);
+    }
+
     public void Hover()
     {
         hovered = true;
         _ProcessMaterials(ProcessMethod.Hover);
+
+        // Notify other registed components
+        for(int i = 0; i < _hoverCallbacks.Count; i++)
+        {
+            _hoverCallbacks[i]();
+        }
     }
 
     public void HoverExit()
     {
         hovered = false;
         _ProcessMaterials(ProcessMethod.HoverExit);
+
+        // Notify other registed components
+        for (int i = 0; i < _hoverExitCallbacks.Count; i++)
+        {
+            _hoverExitCallbacks[i]();
+        }
     }
 
     private void _ProcessMaterials(ProcessMethod method)
@@ -63,4 +98,5 @@ public class ColorChangeHoverInteractor : MonoBehaviour
             }
         }
     }
+
 }

@@ -26,6 +26,7 @@ public class UpgradeBuildingInfo : MonoBehaviour
     [SerializeField] private Color _textColorIfHasResources = Color.green;
     [SerializeField] private Color _textColorIfNoResources = Color.red;
 
+    private ColorChangeHoverInteractor _hoverInteractor;
 
     private int _constructionTimeProgress = 0;
 
@@ -53,6 +54,11 @@ public class UpgradeBuildingInfo : MonoBehaviour
 
         // Set the capacity of the progress slider
         _progressSlider.SetCapacity(_timeRequiredInSeconds);
+
+        // Register the show/hide on hover and hoverExit respectively
+        _hoverInteractor = GetComponentInParent<ColorChangeHoverInteractor>();
+        _hoverInteractor.RegisterHoverCallback(_ShowMenu);
+        _hoverInteractor.RegisterHoverExitCallback(_HideMenu);
     }
 
     internal void UpdatePriceColor()
@@ -79,6 +85,7 @@ public class UpgradeBuildingInfo : MonoBehaviour
             // Hide the upgrade menu and show the progress bar
             _upgradeMenu.SetActive(false);
             _progressSlider.gameObject.SetActive(true);
+            _constructionTimeProgress = 0;
 
             StartCoroutine(_Upgrade());    
         }
@@ -105,11 +112,45 @@ public class UpgradeBuildingInfo : MonoBehaviour
 
         if(_constructionTimeProgress < _timeRequiredInSeconds)
         {
-            _Upgrade();
+            StartCoroutine(_Upgrade());
         }
         else
         {
             _upgrade = false;
+            _ResetProgressBar();
         }
+        //print("Progress Time: " + _constructionTimeProgress);
+    }
+
+    // Show the menu
+    private void _ShowMenu()
+    {
+        //if(_upgrade)
+        //{
+        //    _progressSlider.gameObject.SetActive(true);
+        //}
+        //else
+        //{
+        //    UpdatePriceColor();
+        //    _upgradeMenu.SetActive(true);
+        //}
+
+        if( !_upgrade )
+        {
+            UpdatePriceColor();
+            _upgradeMenu.SetActive(true);
+        }
+    }
+
+    private void _HideMenu()
+    {
+        //_progressSlider.gameObject.SetActive(false);
+        _upgradeMenu.SetActive(false);
+    }
+
+    private void _ResetProgressBar()
+    {
+        _progressSlider.SetValue(0);
+        _progressSlider.gameObject.SetActive(false);
     }
 }

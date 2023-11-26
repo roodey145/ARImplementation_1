@@ -26,7 +26,7 @@ public class WallConnector : MonoBehaviour
         _buildingData = GetComponent<BuildingData>();
 
         _buildingData.RegisterLocationUpdateCallback(_LocationUpdateCallback);
-        print("Demo: " +  _buildingData.isDemo());
+        //print("Demo: " +  _buildingData.isDemo());
         //_UpdateToSurroundingWalls(connect: true, _buildingData.isDemo());
     }
 
