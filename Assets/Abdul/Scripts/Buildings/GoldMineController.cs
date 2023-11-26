@@ -37,7 +37,7 @@ public class GoldMineController : MonoBehaviour
 
         if(_text ==  null)
         {
-            _text = GetComponentInChildren<TextMeshProUGUI>();
+            _text = GetComponentsInChildren<TextMeshProUGUI>()[0];
         }
 
         if(_goldProgressController == null)

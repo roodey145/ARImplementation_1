@@ -26,6 +26,11 @@ public class SliderBarsController : MonoBehaviour
     }
 
 
+    internal void SetCapacity(int capacity)
+    {
+        _capacity = capacity;
+    }
+
     internal void SetValue(float value)
     {
         _value = value;
