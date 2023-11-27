@@ -64,6 +64,9 @@ public class UpgradeBuildingInfo : MonoBehaviour
         _hoverInteractor = GetComponentInParent<ColorChangeHoverInteractor>();
         _hoverInteractor.RegisterHoverCallback(_ShowMenu);
         _hoverInteractor.RegisterHoverExitCallback(_HideMenu);
+
+        // Hide the menu and the timer
+        _HideData();
     }
 
     private void _RetrieveUpgradeInfo()
