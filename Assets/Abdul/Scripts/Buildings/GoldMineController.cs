@@ -23,15 +23,27 @@ public class GoldMineController : MonoBehaviour
 
     private SliderBarsController _goldBank;
 
+    private int _level = 1;
+    private BuildingData _buildingData;
+
+    private void Awake()
+    {
+        // Get access to the buildingData
+        _buildingData = GetComponent<BuildingData>();
+        _buildingData.RegisterLevelUpdateCallback(_LevelUp);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         _interactor = GetComponent<ColorChangeHoverInteractor>();
         _goldBank = GameObject.FindGameObjectWithTag(_goldBankTagName).GetComponent<SliderBarsController>();
 
+        // Update the progress bar data
+        _UpdateData();
 
         // Register the method to be executed when the click action has be fired
-        if(_clickAction != null) _clickAction.action.performed += _CollectResrouces;
+        if (_clickAction != null) _clickAction.action.performed += _CollectResrouces;
 
         StartCoroutine(_UpdateGoldAmount());
 
@@ -46,6 +58,8 @@ public class GoldMineController : MonoBehaviour
         }
 
         _UpdateUI();
+
+        
     }
 
     // Update is called once per frame
@@ -81,9 +95,28 @@ public class GoldMineController : MonoBehaviour
         if(_interactor.hovered == true && !context.canceled)
         { // Collect the resources
             // The IncreaseDecreaseValue method returns the remining gold if the GoldStorages are filled
-            goldMined = _goldBank.IncreaseDecreaseValue(goldMined); ; // Reset
+            goldMined = _goldBank.IncreaseDecreaseValue(goldMined); // Reset
             _UpdateUI();
         }
+    }
+
+
+    private void _LevelUp(int level)
+    {
+        _level = level;
+        _UpdateData();
+    }
+
+    private void _UpdateData()
+    {
+        GoldMineLevelData storageData = GoldMineLevelsData.GetStorageData(_level);
+
+        _capacity = storageData.capacity;
+        _goldPerHour = storageData.productionSpeed;
+        _buildingData.AssignUpgradeCost(storageData.cost);
+        _buildingData.AssignUpgradeTime(storageData.upgradeTimeInSeconds);
+
+        _UpdateUI();
     }
 
     private void RetriveDataFromDatabase()

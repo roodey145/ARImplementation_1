@@ -27,6 +27,7 @@ public class ColorChangeHoverInteractor : MonoBehaviour
         _ProcessMaterials(ProcessMethod.AssignOriginalColors);
     }
 
+    #region Hover callback getters and setters
     internal void RegisterHoverCallback(Action callback)
     {
         _hoverCallbacks.Add(callback);
@@ -46,6 +47,7 @@ public class ColorChangeHoverInteractor : MonoBehaviour
     {
         _hoverExitCallbacks.Remove(callback);
     }
+    #endregion
 
     public void Hover()
     {
@@ -79,22 +81,29 @@ public class ColorChangeHoverInteractor : MonoBehaviour
             materials = renderer.materials;
             foreach (Material mat in materials)
             {
-                switch(method)
+                try
                 {
-                    case ProcessMethod.Hover:
-                        mat.SetColor("_EmissionColor", _hoveredColor);
-                        break;
-                    case ProcessMethod.HoverExit:
-                        Color color;
-                        originalMatsColor.TryGetValue(mat, out color);
-                        mat.SetColor("_EmissionColor", color);
-                        break;
-                    case ProcessMethod.AssignOriginalColors:
-                        mat.EnableKeyword("_EMISSION");
-                        originalMatsColor.Add(mat, mat.GetColor("_EmissionColor"));
-                        break;
+                    switch (method)
+                    {
+                        case ProcessMethod.Hover:
+                            mat.SetColor("_EmissionColor", _hoveredColor);
+                            break;
+                        case ProcessMethod.HoverExit:
+                            Color color;
+                            originalMatsColor.TryGetValue(mat, out color);
+                            mat.SetColor("_EmissionColor", color);
+                            break;
+                        case ProcessMethod.AssignOriginalColors:
+                            mat.EnableKeyword("_EMISSION");
+                            originalMatsColor.Add(mat, mat.GetColor("_EmissionColor"));
+                            break;
+                    }
                 }
-
+                catch (Exception e)
+                {
+                    print(e);
+                    continue;
+                }
             }
         }
     }

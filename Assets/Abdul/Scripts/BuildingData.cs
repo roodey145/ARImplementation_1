@@ -67,9 +67,11 @@ public class BuildingData : MonoBehaviour
 
     private ColorChangeHoverInteractor _interactor;
 
-
     private List<Action<int, int>> _locationUpdateCallbacksList = new List<Action<int, int>>(); 
     private List<Action<int>> _levelUpdateCallbacksList = new List<Action<int>>();
+
+    private int _cost = 0;
+    private int _requiredUpgradeTime = 0;
 
     protected void Awake()
     {
@@ -342,6 +344,31 @@ public class BuildingData : MonoBehaviour
         {
             _levelUpdateCallbacksList[i](_level);
         }
+    }
+
+    internal int GetLevel()
+    {
+        return _level;
+    }
+
+    internal int GetUpgradeCost()
+    {
+        return _cost;
+    }
+
+    internal int GetRequiredUpgradeTime()
+    {
+        return _requiredUpgradeTime;
+    }
+
+    internal void AssignUpgradeCost(int cost)
+    {
+        _cost = cost; ;
+    }
+
+    internal void AssignUpgradeTime(int timeInSeconds)
+    {
+        _requiredUpgradeTime = timeInSeconds;
     }
 
     /// <summary>

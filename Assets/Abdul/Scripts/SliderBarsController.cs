@@ -10,10 +10,11 @@ public class SliderBarsController : MonoBehaviour
     [SerializeField] protected float _value = 150;
     [SerializeField] private TextMeshProUGUI _text;
 
-    private MeshRenderer _renderer;
+    [SerializeField] private MeshRenderer _renderer;
     // Start is called before the first frame update
     protected void Awake()
     {
+        print("Awake");
         _renderer = GetComponent<MeshRenderer>();
         SetValue(_value);
 
@@ -34,7 +35,7 @@ public class SliderBarsController : MonoBehaviour
     internal void SetValue(float value)
     {
         _value = value;
-        UpdateSlider();        
+        UpdateSlider();
     }
 
     /// <summary>
@@ -74,6 +75,8 @@ public class SliderBarsController : MonoBehaviour
 
     internal void UpdateSlider()
     {
+        if (_renderer == null)
+            print("Renderer is not assigned");
         _renderer.material.SetFloat("_Value", GetValueInPercentage());
 
         _UpdateUI();
