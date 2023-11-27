@@ -23,8 +23,24 @@ public class ColorChangeHoverInteractor : MonoBehaviour
     void Awake()
     {
         // Get the mesh renderer on awake incase they are disabled later on.
-        _meshRenderers = GetComponentsInChildren<MeshRenderer>();
+        _meshRenderers = _GetMeshRenderers(); 
         _ProcessMaterials(ProcessMethod.AssignOriginalColors);
+    }
+
+    private MeshRenderer[] _GetMeshRenderers()
+    {
+        MeshRenderer[] unfilteredRenderers = GetComponentsInChildren<MeshRenderer>(); 
+        List<MeshRenderer> filtteredRenderers = new List<MeshRenderer>();
+
+        for(int i = 0; i < unfilteredRenderers.Length; i++)
+        {
+            if (unfilteredRenderers[i].material.HasProperty("_EmissionColor"))
+            {
+                filtteredRenderers.Add(unfilteredRenderers[i]);
+            }
+        }
+
+        return filtteredRenderers.ToArray();
     }
 
     #region Hover callback getters and setters
@@ -81,28 +97,20 @@ public class ColorChangeHoverInteractor : MonoBehaviour
             materials = renderer.materials;
             foreach (Material mat in materials)
             {
-                try
+                switch (method)
                 {
-                    switch (method)
-                    {
-                        case ProcessMethod.Hover:
-                            mat.SetColor("_EmissionColor", _hoveredColor);
-                            break;
-                        case ProcessMethod.HoverExit:
-                            Color color;
-                            originalMatsColor.TryGetValue(mat, out color);
-                            mat.SetColor("_EmissionColor", color);
-                            break;
-                        case ProcessMethod.AssignOriginalColors:
-                            mat.EnableKeyword("_EMISSION");
-                            originalMatsColor.Add(mat, mat.GetColor("_EmissionColor"));
-                            break;
-                    }
-                }
-                catch (Exception e)
-                {
-                    print(e);
-                    continue;
+                    case ProcessMethod.Hover:
+                        mat.SetColor("_EmissionColor", _hoveredColor);
+                        break;
+                    case ProcessMethod.HoverExit:
+                        Color color;
+                        originalMatsColor.TryGetValue(mat, out color);
+                        mat.SetColor("_EmissionColor", color);
+                        break;
+                    case ProcessMethod.AssignOriginalColors:
+                        mat.EnableKeyword("_EMISSION");
+                        originalMatsColor.Add(mat, mat.GetColor("_EmissionColor"));
+                        break;
                 }
             }
         }

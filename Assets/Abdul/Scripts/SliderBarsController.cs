@@ -14,7 +14,6 @@ public class SliderBarsController : MonoBehaviour
     // Start is called before the first frame update
     protected void Awake()
     {
-        print("Awake");
         _renderer = GetComponent<MeshRenderer>();
         SetValue(_value);
 
