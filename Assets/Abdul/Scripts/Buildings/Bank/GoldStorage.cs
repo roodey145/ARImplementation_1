@@ -15,7 +15,7 @@ public class GoldStorage : MonoBehaviour
         _UpdateData();
 
         // Register the storage
-        GoldBank.RegisterStorage(this);
+        GoldBank.GetInstance().RegisterStorage(this);
 
         // Get access to the buildingData
         _buildingData = GetComponent<BuildingData>();
@@ -42,14 +42,14 @@ public class GoldStorage : MonoBehaviour
 
     private void _UpdateData()
     {
-        GoldStorageLevelData storageData = GoldStorageLevelsData.GetStorageData(_level);
+        GoldStorageLevelData storageData = (GoldStorageLevelData)GoldStorageLevelsData.GetInstance().GetLevelData(_level);
         _capacity = storageData.capacity;
 
-        GoldBank.UpdateData();
+        GoldBank.GetInstance().UpdateData();
     }
 
     private void OnDestroy()
     {
-        GoldBank.RemoveStorageData(this);
+        GoldBank.GetInstance().RemoveStorageData(this);
     }
 }

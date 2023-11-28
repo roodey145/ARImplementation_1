@@ -26,7 +26,7 @@ public class BuildingData : MonoBehaviour
     [SerializeField] private string _modelPath = "";
     [SerializeField] private GameObject _model = null;
     private MeshRenderer[] _childremMeshRenderers;
-    [SerializeField] private BuildingType _buildingType;
+    [SerializeField] protected BuildingType _buildingType;
     public BuildingType BuildingType { get { return _buildingType; } }
     
     [Header("Interactions")]
@@ -69,9 +69,6 @@ public class BuildingData : MonoBehaviour
 
     private List<Action<int, int>> _locationUpdateCallbacksList = new List<Action<int, int>>(); 
     private List<Action<int>> _levelUpdateCallbacksList = new List<Action<int>>();
-
-    private int _cost = 0;
-    private int _requiredUpgradeTime = 0;
 
     protected void Awake()
     {
@@ -351,25 +348,6 @@ public class BuildingData : MonoBehaviour
         return _level;
     }
 
-    internal int GetUpgradeCost()
-    {
-        return _cost;
-    }
-
-    internal int GetRequiredUpgradeTime()
-    {
-        return _requiredUpgradeTime;
-    }
-
-    internal void AssignUpgradeCost(int cost)
-    {
-        _cost = cost; ;
-    }
-
-    internal void AssignUpgradeTime(int timeInSeconds)
-    {
-        _requiredUpgradeTime = timeInSeconds;
-    }
 
     /// <summary>
     /// This method is called when the model is being placed.

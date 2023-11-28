@@ -3,51 +3,69 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoldStorageLevelsData
+public class GoldStorageLevelsData : BuildingLevelsData
 {
-    private static GoldStorageLevelData[] _data;
-    private static int _maxLevel = 3;
+    protected GoldStorageLevelsData() { }
 
-    public static GoldStorageLevelData GetStorageData(int level)
+    private static GoldStorageLevelsData _instance;
+
+    public static GoldStorageLevelsData GetInstance()
+    {
+        if (_instance == null)
+        {
+            _instance = new GoldStorageLevelsData();
+        }
+
+        return _instance;
+    }
+
+    public override BuildingLevelData GetLevelData(int level)
     {
         if(level > _maxLevel)
         {
             level = _maxLevel;
         }
 
-        if(_data == null)
+        if(_buildingLevelsData == null)
         {
             _RetrieveData();
         }
 
-        return _data[level - 1];
+        return _buildingLevelsData[level - 1];
     }
 
-    private static void _RetrieveData()
+
+    protected override void _RetrieveData()
     {
-        _data = new GoldStorageLevelData[]
+        _buildingLevelsData = new GoldStorageLevelData[]
         {
             new GoldStorageLevelData()
             {
                 level = 1,
                 capacity = 2500,
+                upgradeTimeInSeconds = 30,
+                resourcesType = ResourcesType.Gold,
             },
             new GoldStorageLevelData()
             {
                 level = 2,
                 capacity = 5000,
+                upgradeTimeInSeconds = 60,
+                resourcesType = ResourcesType.Gold,
             },
             new GoldStorageLevelData()
             {
                 level = 3,
                 capacity = 10000,
+                upgradeTimeInSeconds = 150,
+                resourcesType = ResourcesType.Gold,
             }
         };
-        _maxLevel = 3;
+        _maxLevel = _buildingLevelsData.Length;
     }
 }
 
-public class GoldStorageLevelData
+public class GoldStorageLevelData : BuildingLevelData
 {
     internal int level;
     internal int capacity;

@@ -51,8 +51,9 @@ MonoBehaviour:
   _length: 3
   _x: 0
   _z: 0
+  _level: 1
   _modelPath: GoldMineLevel_1
-  _model: {fileID: 867275430359426778, guid: a9890bda6f225b54ba25df9263808457, type: 3}
+  _model: {fileID: 867275430359426778, guid: 79f8ebeef6504a54588e4db94bc690fc, type: 3}
   _buildingType: 3
   _removeAction: {fileID: 0}
   xInfo: {fileID: 0}

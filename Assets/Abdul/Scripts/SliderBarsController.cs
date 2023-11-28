@@ -4,19 +4,23 @@ using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshRenderer))]
-public class SliderBarsController : MonoBehaviour
+public class SliderBarsController : ResourceBank
 {
-    [SerializeField] protected int _capacity = 500;
-    [SerializeField] protected float _value = 150;
+    [Header("Slider Shader And Text References")]
     [SerializeField] private TextMeshProUGUI _text;
-
     [SerializeField] private MeshRenderer _renderer;
-    // Start is called before the first frame update
-    protected void Awake()
-    {
-        _renderer = GetComponent<MeshRenderer>();
-        SetValue(_value);
 
+    #region MonoBehavior Related Methods
+    // Start is called before the first frame update
+    protected new void Awake()
+    {
+        base.Awake();
+
+        // Get the mesh renderer to be able to adjust the value of the slider.
+        _renderer = GetComponent<MeshRenderer>();
+
+        // Update the slider data
+        UpdateSlider();
 
         // Get the text if its not already assigned
         if(_text == null)
@@ -24,16 +28,22 @@ public class SliderBarsController : MonoBehaviour
             _text = GetComponentInChildren<TextMeshProUGUI>();
         }
     }
+    #endregion
 
-
-    internal void SetCapacity(int capacity)
+    #region Setters overriden from ResourceBank
+    internal override void SetCapacity(int capacity)
     {
-        _capacity = capacity;
+        base.SetCapacity(capacity);
+
+        // Update the slider info to match with the new capacity
+        UpdateSlider();
     }
 
-    internal void SetValue(float value)
+    internal override void SetValue(float value)
     {
-        _value = value;
+        base.SetValue(value);
+        
+        // Update the slider to match the new stored resources
         UpdateSlider();
     }
 
@@ -42,40 +52,21 @@ public class SliderBarsController : MonoBehaviour
     /// </summary>
     /// <param name="value">The mined amount of gold.</param>
     /// <returns>The remining gold if the storage is filled.</returns>
-    internal float IncreaseDecreaseValue(float value)
+    internal override float IncreaseDecreaseValue(float value)
     {
-        float remining = 0;
-        // Check if the value exceds the capacity
-        if((value + _value) > _capacity)
-        {
-            remining = (value + _value) - _capacity; // Make sure no gold will be wasted
-            _value = _capacity;
-        }
-        else
-        {
-            _value += value;
-        }
+        float remining = base.IncreaseDecreaseValue(value);
 
+        // Update the slider data to match the new stored resources
         UpdateSlider();
 
+        // Return the remining
         return remining;
     }
+    #endregion
 
-    internal float GetValueInPercentage()
-    {
-        return _value / _capacity;
-    }
-
-    internal bool HasResources(float value)
-    {
-        return _value >= value;
-    }
-
-
+    #region Visual Update Related Methods
     internal void UpdateSlider()
     {
-        if (_renderer == null)
-            print("Renderer is not assigned");
         _renderer.material.SetFloat("_Value", GetValueInPercentage());
 
         _UpdateUI();
@@ -85,10 +76,5 @@ public class SliderBarsController : MonoBehaviour
     {
         _text.text = $"{(int)_value} / {_capacity}";
     }
-
-    protected void UpdateCapacity(int capacity)
-    {
-        _capacity = capacity;
-        UpdateSlider();
-    }
+    #endregion
 }

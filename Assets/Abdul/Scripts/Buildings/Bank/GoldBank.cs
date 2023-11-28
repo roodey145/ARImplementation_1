@@ -6,54 +6,64 @@ using UnityEngine;
 public class GoldBank : SliderBarsController
 {
     private static List<GoldStorage> _storages = new List<GoldStorage>();
-    public static GoldBank instance;
+    private static GoldBank _instance;
 
-    private new void Awake()
+    protected new void Awake()
     {
         base.Awake();
-        instance = this;
+        _instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public static GoldBank GetInstance()
     {
-        
+        return _instance;
     }
 
-    internal static void RegisterStorage(GoldStorage goldStorage)
+    #region Register And Remove Storages
+    internal void RegisterStorage(GoldStorage goldStorage)
     {
+        // Add the storage to the list
         _storages.Add(goldStorage);
-        instance._UpdateData();
+        // Update the capacity and the visual of the slider
+        _instance.UpdateData();
     }
 
-    internal static void RemoveStorageData(GoldStorage goldStorage)
+    internal void RemoveStorageData(GoldStorage goldStorage)
     {
+        // Remove the GoldStorage from the list
         for (int i = 0; i < _storages.Count; i++)
         {
             if (_storages[i] == goldStorage)
             {
                 _storages.RemoveAt(i);
+                break;
             }
         }
-
-        instance._UpdateData();
+        // Update the capacity and the visual of the slider
+        _instance.UpdateData();
     }
+    #endregion
 
-    internal static void UpdateData()
+    /// <summary>
+    /// Set the new capacity and updates the visual to match the new capacity
+    /// </summary>
+    internal void UpdateData()
     {
-        instance._UpdateData();
+        // Set the new capacity and updates the visual to match the new capacity
+        SetCapacity(_CalculateCapacity());
     }
 
-    private void _UpdateData()
+    /// <summary>
+    /// Calculates the capacity by calculating the sum of the registered storages capacity.
+    /// </summary>
+    /// <returns>The capacity</returns>
+    private int _CalculateCapacity()
     {
         int capacity = 0;
-        for(int i = 0;  i < _storages.Count; i++)
+        for (int i = 0; i < _storages.Count; i++)
         {
             capacity += _storages[i].GetCapacity();
         }
-        _capacity = capacity;
-        UpdateSlider();
+        return capacity;
     }
-
-    
 }

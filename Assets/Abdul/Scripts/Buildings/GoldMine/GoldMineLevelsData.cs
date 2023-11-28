@@ -2,29 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoldMineLevelsData 
+public class GoldMineLevelsData : BuildingLevelsData
 {
-    private static GoldMineLevelData[] _data;
-    private static int _maxLevel = 3;
+    protected GoldMineLevelsData() { }
 
-    public static GoldMineLevelData GetStorageData(int level)
+    private static GoldMineLevelsData _instance;
+    public static GoldMineLevelsData GetInstance()
+    {
+        if(_instance == null)
+        {
+            _instance = new GoldMineLevelsData();
+        }
+
+        return _instance;
+    }
+    public new GoldMineLevelData GetLevelData(int level)
     {
         if (level > _maxLevel)
         {
             level = _maxLevel;
         }
 
-        if (_data == null)
+        if (_buildingLevelsData == null)
         {
             _RetrieveData();
         }
 
-        return _data[level - 1];
+        return (GoldMineLevelData)_buildingLevelsData[level - 1];
     }
 
-    private static void _RetrieveData()
+    protected override void _RetrieveData()
     {
-        _data = new GoldMineLevelData[]
+        _buildingLevelsData = new GoldMineLevelData[]
         {
             new GoldMineLevelData()
             {
@@ -33,6 +42,7 @@ public class GoldMineLevelsData
                 productionSpeed = 2500,
                 cost = 10,
                 upgradeTimeInSeconds = 10,
+                resourcesType = ResourcesType.Gold,
             },
             new GoldMineLevelData()
             {
@@ -41,6 +51,7 @@ public class GoldMineLevelsData
                 productionSpeed = 3750,
                 cost = 25,
                 upgradeTimeInSeconds = 20,
+                resourcesType = ResourcesType.Gold,
             },
             new GoldMineLevelData()
             {
@@ -49,6 +60,7 @@ public class GoldMineLevelsData
                 productionSpeed = 5000,
                 cost = 50,
                 upgradeTimeInSeconds = 30,
+                resourcesType = ResourcesType.Gold,
             },
             new GoldMineLevelData()
             {
@@ -57,6 +69,7 @@ public class GoldMineLevelsData
                 productionSpeed = 6250,
                 cost = 100,
                 upgradeTimeInSeconds = 60,
+                resourcesType = ResourcesType.Gold,
             },
             new GoldMineLevelData()
             {
@@ -65,18 +78,17 @@ public class GoldMineLevelsData
                 productionSpeed = 12500,
                 cost = 250,
                 upgradeTimeInSeconds = 60 * 5,
+                resourcesType = ResourcesType.Gold,
             }
         };
-        _maxLevel = 5;
+        _maxLevel = _buildingLevelsData.Length;
     }
 }
 
 
-public class GoldMineLevelData
+public class GoldMineLevelData : BuildingLevelData
 {
     internal int level;
     internal int capacity;
     internal int productionSpeed;
-    internal int cost;
-    internal int upgradeTimeInSeconds;
 }

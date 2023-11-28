@@ -109,12 +109,10 @@ public class GoldMineController : MonoBehaviour
 
     private void _UpdateData()
     {
-        GoldMineLevelData storageData = GoldMineLevelsData.GetStorageData(_level);
+        GoldMineLevelData storageData = GoldMineLevelsData.GetInstance().GetLevelData(_level);
 
         _capacity = storageData.capacity;
         _goldPerHour = storageData.productionSpeed;
-        _buildingData.AssignUpgradeCost(storageData.cost);
-        _buildingData.AssignUpgradeTime(storageData.upgradeTimeInSeconds);
 
         _UpdateUI();
     }
