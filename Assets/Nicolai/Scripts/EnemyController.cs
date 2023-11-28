@@ -46,6 +46,7 @@ public class EnemyController : MonoBehaviour
         if (timer >= attackSpeed)
         {
             GetComponent<EnemyNav>().target.GetComponent<Defence>().health -= damages;
+            timer = 0;
         }
 
         
