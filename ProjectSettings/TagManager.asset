@@ -5,11 +5,15 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - UI
+  - TownData
+  - UI3D
+
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Teleport
   - Water
   - UI
   - 

@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Abdul/Scenes/Grid.unity
+    guid: 3d701257360c3d64a9ac20052170df79
+  - enabled: 1
+    path: Assets/Abdul/Scenes/TeleportationTest.unity
+    guid: 567e5fefeefbb1e41bb31432876a370e
+  - enabled: 1
+    path: Assets/Abdul/Scenes/UITest.unity
+    guid: 7c38cd122a88ad9459d054a1f81c4021
+  - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: fbc14901924e24e4cb9d83ec73bd23c1
   m_configObjects:

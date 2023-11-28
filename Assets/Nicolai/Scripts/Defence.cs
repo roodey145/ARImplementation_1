@@ -1,47 +1,105 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.AI.Navigation;
 using Unity.VisualScripting;
-using UnityEditor.Searcher;
 using UnityEngine;
 
 public class Defence : MonoBehaviour
 {
-    public int range;
     public int health;
-    public int damage;
+
+    public float range;
+    public int damages;
+    public float attackSpeed;
+    public float timer;
+
+    public NavMeshSurface navMeshSurface;
     public GameObject currentTarget;
+    public List<GameObject> targetList = new List<GameObject>();
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
-
-
-        // Find all GameObjects with the specified tag.
-        GameObject[] taggedObjects = GameObject.FindGameObjectsWithTag("Enemy");
-        if(currentTarget == null)
+        if (health <= 0)
         {
-            foreach (GameObject enemyObj in taggedObjects)
-            {
-                // Calculate the distance between the search origin and the object.
-                float distance = Vector3.Distance(transform.position, enemyObj.transform.position);
-
-                // Check if the object is within the specified distance.
-                if (distance <= range)
-                {
-                    Debug.Log("Found " + enemyObj.name + " within distance: " + distance);
-                    currentTarget = enemyObj;
-                    // The object is within the distance. You can perform actions here.
-                    
-                }
-            }
+            Destroy(gameObject);
+            //does not update so have to fix later
+            navMeshSurface.RemoveData(); // Remove previous baked data (if any)
+            navMeshSurface.BuildNavMesh(); // Rebuild the NavMesh at runtime
+    
         }
-        
+
+       if(currentTarget != null)
+       {
+            attack(damages);
+       }
+
+        if (currentTarget == null)
+        {
+            for (int i = 0; i < targetList.Count; i++)
+            {
+                if(targetList[i] != null)
+                {
+                    currentTarget = targetList[i];
+                    break;
+                }
+
+            }
+            
+            
+        }
+
+        // Check for overlapping colliders within the specified sphere area
+
+
+
 
     }
+    
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            targetList.Add(other.gameObject);
+        }
+
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        // Check if the exiting collider has the tag "Enemy"
+        if (other.CompareTag("Enemy"))
+        {
+            // Remove the game object from the target list
+            targetList.Remove(other.gameObject);
+        }
+    }
+
+
+    private void attack(int damages)
+    {
+        timer += Time.deltaTime;
+        if (timer >= attackSpeed)
+        {
+            currentTarget.GetComponent<EnemyController>().health -= damages;
+            timer = 0;
+            //get the heath from enemy
+        }
+    }
+
+    private void takeDamages(int damages)
+    {
+        health -= damages;
+    }
+   
 }

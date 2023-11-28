@@ -22,6 +22,7 @@ Library: G:\Unity\ARImplementation_1\ARImplementation_1\Temp\BurstOutput\tempbur
 --assembly-defines=Unity.RenderPipeline.Universal.ShaderLibrary;
 --assembly-defines=Unity.RenderPipelines.Core.Runtime;
 --assembly-defines=Unity.RenderPipelines.Universal.Runtime;
+--assembly-defines=Unity.TextMeshPro;
 --assembly-defines=Unity.XR.CoreUtils;
 --assembly-defines=Unity.XR.Interaction.Toolkit;
 --assembly-defines=Unity.XR.Interaction.Toolkit.Samples.StarterAssets;
@@ -125,6 +126,7 @@ Library: G:\Unity\ARImplementation_1\ARImplementation_1\Temp\BurstOutput\tempbur
 --assembly-defines=Unity.RenderPipeline.Universal.ShaderLibrary;
 --assembly-defines=Unity.RenderPipelines.Core.Runtime;
 --assembly-defines=Unity.RenderPipelines.Universal.Runtime;
+--assembly-defines=Unity.TextMeshPro;
 --assembly-defines=Unity.XR.CoreUtils;
 --assembly-defines=Unity.XR.Interaction.Toolkit;
 --assembly-defines=Unity.XR.Interaction.Toolkit.Samples.StarterAssets;
