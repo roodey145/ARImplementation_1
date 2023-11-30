@@ -6,8 +6,8 @@ using Unity.VisualScripting;
 
 public abstract class BuildingLevelsData
 {
-    protected static BuildingLevelData[] _buildingLevelsData;
-    protected static int _maxLevel = 3;
+    protected BuildingLevelData[] _buildingLevelsData;
+    protected int _maxLevel = 3;
 
     public virtual BuildingLevelData GetLevelData(int level)
     {

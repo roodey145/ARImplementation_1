@@ -42,7 +42,7 @@ public class GoldStorage : MonoBehaviour
 
     private void _UpdateData()
     {
-        GoldStorageLevelData storageData = (GoldStorageLevelData)GoldStorageLevelsData.GetInstance().GetLevelData(_level);
+        GoldStorageLevelData storageData = GoldStorageLevelsData.GetInstance().GetLevelData(_level);
         _capacity = storageData.capacity;
 
         GoldBank.GetInstance().UpdateData();

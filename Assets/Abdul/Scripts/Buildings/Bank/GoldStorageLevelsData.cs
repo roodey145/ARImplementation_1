@@ -19,7 +19,7 @@ public class GoldStorageLevelsData : BuildingLevelsData
         return _instance;
     }
 
-    public override BuildingLevelData GetLevelData(int level)
+    public new GoldStorageLevelData GetLevelData(int level)
     {
         if(level > _maxLevel)
         {
@@ -31,7 +31,7 @@ public class GoldStorageLevelsData : BuildingLevelsData
             _RetrieveData();
         }
 
-        return _buildingLevelsData[level - 1];
+        return (GoldStorageLevelData)_buildingLevelsData[level - 1];
     }
 
 
