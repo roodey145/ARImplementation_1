@@ -21,6 +21,7 @@ public class UpgradeBuildingInfo : MonoBehaviour
     [SerializeField] private SliderBarsController _progressSlider;
     [SerializeField] private ResourcesType _resourcesType;
     [SerializeField] private bool _upgrade;
+    [SerializeField] private Button _upgradeButton;
     [SerializeField] private TextMeshProUGUI _priceText;
     [SerializeField] private TextMeshProUGUI _timeText;
     [SerializeField] private Color _textColorIfHasResources = Color.green;
@@ -82,6 +83,16 @@ public class UpgradeBuildingInfo : MonoBehaviour
             //_priceText.color = _textColorIfNoResources;
             _priceText.text = $"<color=#{_textColorIfNoResources.ToHexString()}>{_buildingData.GetCost()} {_resourcesType.ToString().ToUpper()[0]}</color>";
         }
+
+        if(_buildingData.IsMaxLevel())
+        {
+            // Make the upgrade button inactive.
+            _upgradeButton.interactable = false;
+        }
+        else
+        {
+            _upgradeButton.interactable = true;
+        }
     }
 
     internal void UpdateTimeText()
@@ -98,7 +109,7 @@ public class UpgradeBuildingInfo : MonoBehaviour
     public void Upgrade()
     {
         // Check if there is enough money
-        if(!_upgrade && _buildingData.GetBank().HasResources(_buildingData.GetCost()))
+        if(!_upgrade && _buildingData.GetBank().HasResources(_buildingData.GetCost()) && !_buildingData.IsMaxLevel())
         {
             _buildingData.GetBank().IncreaseDecreaseValue(-_buildingData.GetCost());
 

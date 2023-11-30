@@ -561,6 +561,7 @@ MonoBehaviour:
   _progressSlider: {fileID: 3589485026114286514}
   _resourcesType: 0
   _upgrade: 0
+  _upgradeButton: {fileID: 2560630586248289436}
   _priceText: {fileID: 1021824738185564272}
   _timeText: {fileID: 6179974490431945115}
   _textColorIfHasResources: {r: 1, g: 1, b: 0.2509804, a: 1}
@@ -1608,7 +1609,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 0, b: 0, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1622,7 +1623,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 8474484678995027340}
   m_OnClick:
     m_PersistentCalls:

@@ -119,8 +119,14 @@ public class UpgradeableBuildingData : InteractableBuilding
             }
 
         }
+        _data = levelsData;
 
         return levelsData;
+    }
+
+    internal bool IsMaxLevel()
+    {
+        return _data.IsMaxLevel(_level);
     }
     #endregion
 }
