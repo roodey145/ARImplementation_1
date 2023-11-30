@@ -22,6 +22,7 @@ public class UpgradeBuildingInfo : MonoBehaviour
     [SerializeField] private ResourcesType _resourcesType;
     [SerializeField] private bool _upgrade;
     [SerializeField] private TextMeshProUGUI _priceText;
+    [SerializeField] private TextMeshProUGUI _timeText;
     [SerializeField] private Color _textColorIfHasResources = Color.green;
     [SerializeField] private Color _textColorIfNoResources = Color.red;
 
@@ -45,7 +46,7 @@ public class UpgradeBuildingInfo : MonoBehaviour
         _SetUpProgressBar();
 
         // Change the color of the text depeing on whether there is enough money or not
-        UpdatePriceColor();
+        _UpdateUI();
 
 
         // Register the show/hide on hover and hoverExit respectively
@@ -63,22 +64,29 @@ public class UpgradeBuildingInfo : MonoBehaviour
         _progressSlider.SetValue(0);
     }
 
+    private void _UpdateUI()
+    {
+        UpdatePriceColor();
+        UpdateTimeText();
+    }
+
     internal void UpdatePriceColor()
     {
-        print("Building Data:" + _buildingData);
-        print("Bank Data: " + _buildingData.GetBank());
-        print("Cost: " + _buildingData.GetCost());
-
         if (_buildingData.GetBank().HasResources(_buildingData.GetCost()))
         {
-            _priceText.color = _textColorIfHasResources;
+            //_priceText.color = _textColorIfHasResources;
             _priceText.text = $"<color=#{_textColorIfHasResources.ToHexString()}>{_buildingData.GetCost()} {_resourcesType.ToString().ToUpper()[0]}</color>";
         }
         else
         {
-            _priceText.color = _textColorIfNoResources;
+            //_priceText.color = _textColorIfNoResources;
             _priceText.text = $"<color=#{_textColorIfNoResources.ToHexString()}>{_buildingData.GetCost()} {_resourcesType.ToString().ToUpper()[0]}</color>";
         }
+    }
+
+    internal void UpdateTimeText()
+    {
+        _timeText.text = _buildingData.GetUpgradeTimeInSeconds() + " s";
     }
 
     private void _HideData()
@@ -132,7 +140,7 @@ public class UpgradeBuildingInfo : MonoBehaviour
             _buildingData.Upgrade();
             _SetUpProgressBar();
             // Change the color of the text depeing on whether there is enough money or not
-            UpdatePriceColor();
+            _UpdateUI();
         }
         //print("Progress Time: " + _constructionTimeProgress);
     }
@@ -140,19 +148,9 @@ public class UpgradeBuildingInfo : MonoBehaviour
     // Show the menu
     private void _ShowMenu()
     {
-        //if(_upgrade)
-        //{
-        //    _progressSlider.gameObject.SetActive(true);
-        //}
-        //else
-        //{
-        //    UpdatePriceColor();
-        //    _upgradeMenu.SetActive(true);
-        //}
-
         if( !_upgrade )
         {
-            UpdatePriceColor();
+            _UpdateUI();
             _upgradeMenu.SetActive(true);
         }
     }

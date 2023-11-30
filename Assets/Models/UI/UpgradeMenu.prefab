@@ -557,17 +557,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d7775386c9e3604fb280a6fd4eda9d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cost: 25
-  _timeRequiredInSeconds: 10
-  _updateRateInSeconds: 1
   _upgradeMenu: {fileID: 7429088416542486994}
   _progressSlider: {fileID: 3589485026114286514}
   _resourcesType: 0
-  _resourcesStorage: {fileID: 0}
   _upgrade: 0
   _priceText: {fileID: 1021824738185564272}
+  _timeText: {fileID: 6179974490431945115}
   _textColorIfHasResources: {r: 1, g: 1, b: 0.2509804, a: 1}
   _textColorIfNoResources: {r: 1, g: 0, b: 0.06666667, a: 1}
+  _buildingData: {fileID: 0}
 --- !u!1 &668039956271899261
 GameObject:
   m_ObjectHideFlags: 0
