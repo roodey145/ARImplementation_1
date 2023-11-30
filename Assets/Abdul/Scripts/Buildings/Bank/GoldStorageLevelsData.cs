@@ -42,6 +42,7 @@ public class GoldStorageLevelsData : BuildingLevelsData
             new GoldStorageLevelData()
             {
                 level = 1,
+                cost = 15,
                 capacity = 2500,
                 upgradeTimeInSeconds = 30,
                 resourcesType = ResourcesType.Gold,
@@ -49,6 +50,7 @@ public class GoldStorageLevelsData : BuildingLevelsData
             new GoldStorageLevelData()
             {
                 level = 2,
+                cost = 50,
                 capacity = 5000,
                 upgradeTimeInSeconds = 60,
                 resourcesType = ResourcesType.Gold,
@@ -56,6 +58,7 @@ public class GoldStorageLevelsData : BuildingLevelsData
             new GoldStorageLevelData()
             {
                 level = 3,
+                cost = 250,
                 capacity = 10000,
                 upgradeTimeInSeconds = 150,
                 resourcesType = ResourcesType.Gold,

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 
 enum ProcessMethod
 {
@@ -11,6 +12,7 @@ enum ProcessMethod
     RetrieveInitialColor,
 }
 
+[RequireComponent(typeof(XRSimpleInteractable))]
 public class InteractableBuilding : BuildingData
 {
     #region Fields
@@ -23,6 +25,7 @@ public class InteractableBuilding : BuildingData
     internal bool hovered = false;
     private MeshRenderer[] _meshRenderers;
     private Dictionary<Material, Color> originalMatsColor = new Dictionary<Material, Color>();
+    private XRSimpleInteractable _xrInteractable;
 
     [Header("External-Callbacks Setting")]
     [SerializeField] private List<Action> _hoverCallbacks = new List<Action>();
@@ -55,6 +58,13 @@ public class InteractableBuilding : BuildingData
     protected new void Awake()
     {
         base.Awake();
+
+
+        // Make sure to register a call back when hover enter and exit in the xr interactable
+        _xrInteractable = GetComponent<XRSimpleInteractable>();
+        _xrInteractable.hoverEntered.AddListener( (HoverEnterEventArgs call) => HoverEnter() );
+        _xrInteractable.hoverExited.AddListener( (HoverExitEventArgs call) => HoverExit() );
+
 
         // Get the mesh renderer on awake incase they are disabled later on.
         _meshRenderers = _GetMeshRenderers();
