@@ -8,14 +8,15 @@ using UnityEngine;
 
 public class Defence : MonoBehaviour
 {
+    public bool canAttack;
+    
     public int health;
 
     public float range;
     public int damages;
     public float attackSpeed;
     public float timer;
-
-    public NavMeshSurface navMeshSurface;
+    
     public GameObject currentTarget;
     public List<GameObject> targetList = new List<GameObject>();
 
@@ -33,30 +34,32 @@ public class Defence : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
-            //does not update so have to fix later
-            navMeshSurface.RemoveData(); // Remove previous baked data (if any)
-            navMeshSurface.BuildNavMesh(); // Rebuild the NavMesh at runtime
+            //need to bake new navmesh when destroyed if it is a wall
+
     
         }
 
-       if(currentTarget != null)
-       {
-            attack(damages);
-       }
-
-        if (currentTarget == null)
+        if (canAttack)
         {
-            for (int i = 0; i < targetList.Count; i++)
+            if (currentTarget != null)
             {
-                if(targetList[i] != null)
+                attack(damages);
+            }
+
+            if (currentTarget == null)
+            {
+                for (int i = 0; i < targetList.Count; i++)
                 {
-                    currentTarget = targetList[i];
-                    break;
+                    if (targetList[i] != null)
+                    {
+                        currentTarget = targetList[i];
+                        break;
+                    }
+
                 }
 
+
             }
-            
-            
         }
 
         // Check for overlapping colliders within the specified sphere area
