@@ -83,6 +83,15 @@ public class InteractableBuilding : BuildingData
         // Register the activate event
         if (_selectAction != null) _selectAction.action.performed += _Select;
     }
+
+    private void OnDestroy()
+    {
+        // Remove the Registered click event
+        if (_clickAction != null) _clickAction.action.performed -= _Click;
+
+        // Remove the Registered activate event
+        if (_selectAction != null) _selectAction.action.performed -= _Select;
+    }
     #endregion
 
     #region Events: Click, Select, Hover, HoverExit
