@@ -744,6 +744,7 @@ MonoBehaviour:
   timer: 0
   currentTarget: {fileID: 0}
   targetList: []
+  groundTag: Ground
 --- !u!1 &663765577
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,6 +808,7 @@ MonoBehaviour:
   timer: 0
   currentTarget: {fileID: 0}
   targetList: []
+  groundTag: Ground
 --- !u!65 &663765580
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1186,6 +1188,7 @@ MonoBehaviour:
   timer: 0
   currentTarget: {fileID: 0}
   targetList: []
+  groundTag: Ground
 --- !u!1 &1472051601
 GameObject:
   m_ObjectHideFlags: 0
@@ -1627,6 +1630,7 @@ MonoBehaviour:
   timer: 0
   currentTarget: {fileID: 0}
   targetList: []
+  groundTag: Ground
 --- !u!65 &1931580683
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1756,7 +1760,7 @@ GameObject:
   - component: {fileID: 1948959192}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

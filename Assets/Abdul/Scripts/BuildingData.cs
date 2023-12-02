@@ -28,9 +28,6 @@ public class BuildingData : MonoBehaviour
     private MeshRenderer[] _childremMeshRenderers;
     [SerializeField] protected BuildingType _buildingType;
     public BuildingType BuildingType { get { return _buildingType; } }
-    
-    [Header("Interactions")]
-    [SerializeField] private InputActionReference _removeAction;
     #endregion
 
     internal int X { get { return _x; } private set {  } }
@@ -44,8 +41,7 @@ public class BuildingData : MonoBehaviour
     private int appliedZ = 0;
 
 
-    private ListItemData _listData; // Used to return the object to be reorganized. 
-    private bool _removed = false;
+    protected ListItemData _listData; // Used to return the object to be reorganized. 
 
     public TextMeshProUGUI xInfo;
     public TextMeshProUGUI zInfo;
@@ -65,8 +61,6 @@ public class BuildingData : MonoBehaviour
         }
     }
 
-    private ColorChangeHoverInteractor _interactor;
-
     private List<Action<int, int>> _locationUpdateCallbacksList = new List<Action<int, int>>(); 
     private List<Action<int>> _levelUpdateCallbacksList = new List<Action<int>>();
 
@@ -85,12 +79,9 @@ public class BuildingData : MonoBehaviour
             throw new System.Exception("The TownData does not exists in this scene or is inactive!");
         }
 
-        if(_removeAction != null)
-        {
-            _removeAction.action.performed += _RemoveBuilding;
-            _listData = ListItemData.lastInteractedItemListData;
-        }
-        _interactor = GetComponent<ColorChangeHoverInteractor>();
+        
+        _listData = ListItemData.lastInteractedItemListData;
+
 
         // Update the x, y position
         UpdateLocation(_x, _z); // Ensure that the other callbacks that are listnening for the position are notified of the start position
@@ -111,17 +102,6 @@ public class BuildingData : MonoBehaviour
         }
     }
 
-    private void _RemoveBuilding(InputAction.CallbackContext context)
-    {
-        if(!context.canceled && !_removed && _interactor.hovered)
-        {
-            _listData.Increase();
-            _removed = true;
-            Destroy(gameObject, 0f);
-        }
-    }
-
-
     public void MoveDemo(int x, int z)
     {
         if (_placing && _placeableModel)
@@ -131,7 +111,6 @@ public class BuildingData : MonoBehaviour
             _CheckCollision(x, z);
         }
     }
-
 
     // Getter
     public bool PlaceModel(int x, int z)

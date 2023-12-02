@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -19,6 +20,9 @@ public class InteractableBuilding : BuildingData
     [Header("Actions Setting")]
     [SerializeField] private InputActionReference _clickAction;
     [SerializeField] private InputActionReference _selectAction;
+    [SerializeField] private InputActionReference _removeAction;
+    private bool _removed = false;
+
 
     [Header("Hover Setting")]
     [SerializeField] protected Color _hoveredColor = Color.red;
@@ -82,6 +86,11 @@ public class InteractableBuilding : BuildingData
 
         // Register the activate event
         if (_selectAction != null) _selectAction.action.performed += _Select;
+
+        if (_removeAction != null)
+        {
+            _removeAction.action.performed += Remove;
+        }
     }
 
     private void OnDestroy()
@@ -91,6 +100,9 @@ public class InteractableBuilding : BuildingData
 
         // Remove the Registered activate event
         if (_selectAction != null) _selectAction.action.performed -= _Select;
+
+        // Remove the registered remove event
+        if(_removeAction != null) _removeAction.action.performed -= Remove;
     }
     #endregion
 
@@ -126,6 +138,16 @@ public class InteractableBuilding : BuildingData
     /// If the building is a demo and the player hovered over the building on selected it, this method will be called
     /// </summary>
     protected virtual void SelectedDemo() { }
+
+    protected virtual void Remove(InputAction.CallbackContext context)
+    {
+        if (!context.canceled && !_removed && hovered)
+        {
+            _listData.Increase();
+            _removed = true;
+            Destroy(gameObject, 0f);
+        }
+    }
 
     public void HoverEnter()
     {

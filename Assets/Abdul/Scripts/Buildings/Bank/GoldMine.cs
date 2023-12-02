@@ -21,6 +21,7 @@ public class GoldMine : UpgradeableBuildingData
         base.Start();
 
         StartCoroutine(_MineGold());
+        _UpdateUI();
     }
 
 

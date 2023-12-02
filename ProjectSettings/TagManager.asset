@@ -8,12 +8,16 @@ TagManager:
   - UI
   - TownData
   - UI3D
-
+  - GoldBank
+  - Wall
+  - passive
+  - attacking
+  - Ground
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Teleport
+  - 
   - Water
   - UI
   - 

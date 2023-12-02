@@ -21,13 +21,14 @@ public class Defence : MonoBehaviour
     public List<GameObject> targetList = new List<GameObject>();
 
     public string groundTag = "Ground";
-    public NavMeshSurface groundMeshSurface;
+    public static NavMeshSurface groundMeshSurface;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        groundMeshSurface = GameObject.FindGameObjectWithTag(groundTag)?.GetComponent<NavMeshSurface>();
+        if(groundMeshSurface  == null)
+            groundMeshSurface = GameObject.FindGameObjectWithTag(groundTag)?.GetComponent<NavMeshSurface>();
     }
 
     // Update is called once per frame
