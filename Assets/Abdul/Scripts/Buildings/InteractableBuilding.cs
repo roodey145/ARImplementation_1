@@ -89,7 +89,7 @@ public class InteractableBuilding : BuildingData
 
         if (_removeAction != null)
         {
-            _removeAction.action.performed += Remove;
+            _removeAction.action.performed += _Remove;
         }
     }
 
@@ -102,11 +102,11 @@ public class InteractableBuilding : BuildingData
         if (_selectAction != null) _selectAction.action.performed -= _Select;
 
         // Remove the registered remove event
-        if(_removeAction != null) _removeAction.action.performed -= Remove;
+        if(_removeAction != null) _removeAction.action.performed -= _Remove;
     }
     #endregion
 
-    #region Events: Click, Select, Hover, HoverExit
+    #region Events: Click, Select, Remove, Hover, HoverExit
     private void _Click(InputAction.CallbackContext context)
     {
         if(!context.canceled && hovered)
@@ -139,14 +139,19 @@ public class InteractableBuilding : BuildingData
     /// </summary>
     protected virtual void SelectedDemo() { }
 
-    protected virtual void Remove(InputAction.CallbackContext context)
+    private void _Remove(InputAction.CallbackContext context)
     {
-        if (!context.canceled && !_removed && hovered)
+        if(!context.canceled && hovered)
         {
-            _listData.Increase();
-            _removed = true;
-            Destroy(gameObject, 0f);
+            Remove();
         }
+    }
+
+    protected virtual void Remove()
+    {
+        _listData.Increase();
+        _removed = true;
+        Destroy(gameObject, 0f);
     }
 
     public void HoverEnter()

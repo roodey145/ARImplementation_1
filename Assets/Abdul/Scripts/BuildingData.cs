@@ -37,8 +37,8 @@ public class BuildingData : MonoBehaviour
     // therefore, the applied x and z will hold the value of
     // _x and _z after limiting the values to ensure the building 
     // being inside of the boundries of the map
-    private int appliedX = 0; 
-    private int appliedZ = 0;
+    protected int appliedX = 0;
+    protected int appliedZ = 0;
 
 
     protected ListItemData _listData; // Used to return the object to be reorganized. 

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradeableBuildingData : InteractableBuilding
+public class UpgradeableBuildingData : IDableBuilding
 {
     [SerializeField] private int _updateRateInSeconds = 1;
     [SerializeField] protected BuildingLevelData _upgradeData;
