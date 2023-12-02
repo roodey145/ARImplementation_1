@@ -6,7 +6,8 @@ using UnityEngine;
 public class ListItemData : MonoBehaviour
 {
     [SerializeField] private int _count = 1;
-    [SerializeField] private BuildingType _buildingType;
+    [SerializeField] private List<Indestructible> _items;
+    [SerializeField] internal BuildingType _buildingType;
     [SerializeField] private TextMeshProUGUI _counter;
 
     internal static ListItemData lastInteractedItemListData { get; private set; }
@@ -39,6 +40,12 @@ public class ListItemData : MonoBehaviour
         {
             //gameObject.SetActive(false); // TODO: This should be added later on?
         }
+    }
+
+    internal void AddListItem(Indestructible item)
+    {
+        _items.Add(item);
+        Increase();
     }
 
     internal void Increase()

@@ -20,11 +20,12 @@ public class GoldMine : UpgradeableBuildingData
     {
         base.Start();
 
+        // Get the time passed since last update
+        _UpdateResources(_CalculateMinedResources((float)_indestructibleInfo.GetTimeDifferenceInSeconds()));
+
         StartCoroutine(_MineGold());
         _UpdateUI();
     }
-
-
 
     protected override void Clicked()
     {
@@ -34,27 +35,46 @@ public class GoldMine : UpgradeableBuildingData
         _CollectResrouces();
     }
 
+    internal override Indestructible CreateIndestructible(int id)
+    {
+        return new ResourceIndestructible(id, _level, _buildingType, appliedX, appliedZ, collectedResources);
+    }
+
     private IEnumerator _MineGold()
     {
         // Wait before collecting the new resources
         yield return new WaitForSeconds(_collectingRateInSeconds);
 
         // Calculate the amount of resources to be added to the collected resources
-        collectedResources += _collectingRateInSeconds / _SECONDS_PER_HOUR * _GetResourceCollectingSpeed();
+        _UpdateResources( _CalculateMinedResources(_collectingRateInSeconds) );
+
+        // Start mining again
+        StartCoroutine(_MineGold());
+    }
+
+    private float _CalculateMinedResources(float timePassed)
+    {
+        return timePassed / _SECONDS_PER_HOUR * _GetResourceCollectingSpeed();
+    }
+
+    private void _UpdateResources(float minedResources)
+    {
+        // Add the mined resources to the collected resources
+        collectedResources += minedResources;
 
         // Check if there is space to store the collected amount
         if (collectedResources > _GetCapacity())
             collectedResources = _GetCapacity(); // Throw the overflowing resources away
+
+        // Update Indesctructible
+        ((ResourceIndestructible)_indestructibleInfo).UpdateResources(collectedResources);
 
         // Update the resources text
         _UpdateUI();
 
         // Update the resources animation to indicate how full the storage is.
         _goldProgressController.UpdateAnimationProgress(collectedResources / _GetCapacity());
-
-        StartCoroutine(_MineGold());
     }
-
 
     private void _CollectResrouces()
     {

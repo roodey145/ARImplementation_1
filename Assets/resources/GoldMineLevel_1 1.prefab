@@ -94,24 +94,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1148208454241021782
-Transform:
+--- !u!224 &1148208454241021782
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6047100608549878038}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 1.458, y: 0, z: -4.085}
-  m_LocalScale: {x: 0.125, y: 0.125, z: 0.125}
-  m_ConstrainProportionsScale: 1
+  m_LocalPosition: {x: 0, y: 0, z: 23.8}
+  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6078108487588715338}
   - {fileID: 8334746061435023807}
   - {fileID: 4147868160364568853}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -40}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!33 &8982931836404170531
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -174,11 +178,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b98d4529c81a950499f91cafe763c216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _goldBankTagName: GoldBank
   _goldProgressController: {fileID: 7371336220093272481}
   _capacity: 500
   _goldPerHour: 2500
   _updateRateInSeconds: 10
   _text: {fileID: 9221345915177891526}
+  _clickAction: {fileID: 0}
 --- !u!1 &7498593312876859555
 GameObject:
   m_ObjectHideFlags: 0

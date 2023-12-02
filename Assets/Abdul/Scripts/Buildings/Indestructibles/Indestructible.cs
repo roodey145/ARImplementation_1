@@ -9,7 +9,7 @@ public class Indestructible
     internal BuildingType type;
     internal int appliedX = -1;
     internal int appliedZ = -1;
-    internal long lastUpdated = 0;
+    internal long lastUpdated = -1;
     
     public Indestructible(int id, int level, BuildingType type, int x, int z)
     {
@@ -28,10 +28,13 @@ public class Indestructible
 
     internal double GetLastUpdatedTimeInSeconds()
     {
+        if(lastUpdated < 0)
+            lastUpdated = System.DateTime.Now.Ticks;
+
         return new System.TimeSpan(lastUpdated).TotalSeconds;
     }
 
-    internal double GetTimeDifference()
+    internal double GetTimeDifferenceInSeconds()
     {
         return new System.TimeSpan(System.DateTime.Now.Ticks - lastUpdated).TotalSeconds;
     }
