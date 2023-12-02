@@ -20,24 +20,24 @@ public class Indestructible
         this.type = type;
         appliedX = x;
         appliedZ = z;
-        lastUpdated = System.DateTime.Now.Ticks;
+        lastUpdated = DateTime.Now.Ticks;
     }
 
     internal void UpdateTime()
     {
-        lastUpdated = System.DateTime.Now.Ticks;
+        lastUpdated = DateTime.Now.Ticks;
     }
 
     internal double GetLastUpdatedTimeInSeconds()
     {
         if(lastUpdated < 0)
-            lastUpdated = System.DateTime.Now.Ticks;
+            lastUpdated = DateTime.Now.Ticks;
 
-        return new System.TimeSpan(lastUpdated).TotalSeconds;
+        return new TimeSpan(lastUpdated).TotalSeconds;
     }
 
     internal double GetTimeDifferenceInSeconds()
     {
-        return new System.TimeSpan(System.DateTime.Now.Ticks - lastUpdated).TotalSeconds;
+        return new TimeSpan(DateTime.Now.Ticks - lastUpdated).TotalSeconds;
     }
 }

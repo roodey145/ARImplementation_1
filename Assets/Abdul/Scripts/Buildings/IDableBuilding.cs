@@ -5,24 +5,30 @@ using UnityEngine;
 public class IDableBuilding : InteractableBuilding
 {
     internal int ID = -1;
-    protected Indestructible _indestructibleInfo;
+    protected Indestructible _indestructibleInfo = null;
 
     // Start is called before the first frame update
     protected new void Awake()
     {
         base.Awake();
 
+        print("Awake ID: " + ID);
         // Get the ID from the building info container
         if (ID < 1)
+        {
+            print("Called In Awake");
             IndestructiblesManager.AddNewBuilding(this); // Indestructible added to the manager and to this building
+        }
         else
             _indestructibleInfo = IndestructiblesManager.GetIndestructible(ID);
     }
 
     internal virtual Indestructible CreateIndestructible(int  id)
     {
+        print("Indestructible: " + _indestructibleInfo);
         if (_indestructibleInfo == null)
         {
+            ID = id;
             _indestructibleInfo = new Indestructible(id, _level, _buildingType, appliedX, appliedZ);
         }
 

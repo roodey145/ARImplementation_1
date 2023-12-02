@@ -32,8 +32,6 @@ public class DemoAdder : MonoBehaviour
         // Get the demo
         GameObject demo = Resources.Load<GameObject>(_demosPath + _buildingName);
 
-        
-
         if (demo == null)
         {
             throw new System.Exception("The demo with the name (" + 
@@ -41,6 +39,10 @@ public class DemoAdder : MonoBehaviour
         }
         GroundBlock.demo = Instantiate(demo);
         //GroundBlock.demo.GetComponent<BuildingData>().PlaceModel(Random.Range(0, 5), Random.Range(0, 5));
+
+        // Assign the indestructible to the demo
+        IDableBuilding idableBuilding = GroundBlock.demo.GetComponent<IDableBuilding>();
+        idableBuilding.AssignIndestructible()
 
         _listData.Decrease();
 

@@ -9,11 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1639179969294583155}
-  - component: {fileID: 1513872904479848110}
   - component: {fileID: 8893494720093104325}
-  - component: {fileID: 5149815678921297160}
+  - component: {fileID: 8554664030778766137}
   - component: {fileID: 6189142139299293781}
-  - component: {fileID: 2244175127250173826}
   m_Layer: 2
   m_Name: GoldMineLevel_1
   m_TagString: Untagged
@@ -38,35 +36,6 @@ Transform:
   - {fileID: 6520922838781472499}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1513872904479848110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867275430359426778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97dda54d156acba4e888d457776def41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _placeableModel: 0
-  _placing: 0
-  _width: 3
-  _length: 3
-  _x: 0
-  _z: 0
-  _level: 1
-  _modelPath: GoldMineLevel_1
-  _model: {fileID: 867275430359426778}
-  _buildingType: 3
-  _removeAction: {fileID: -6131295136447488360, guid: c348712bda248c246b8c49b3db54643f,
-    type: 3}
-  xInfo: {fileID: 0}
-  zInfo: {fileID: 0}
-  _rotationActions: []
-  _rotationAmount: 90
-  _initialRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!65 &8893494720093104325
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -88,7 +57,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 1, z: 2}
   m_Center: {x: 0, y: 0.4, z: 0}
---- !u!114 &5149815678921297160
+--- !u!114 &8554664030778766137
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,11 +66,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 867275430359426778}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74207bf0bc48fcf45acc7c70b51284bc, type: 3}
+  m_Script: {fileID: 11500000, guid: 519bcf40d1a639d42a8f5523cf209ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _placeableModel: 1
+  _placing: 1
+  _width: 3
+  _length: 3
+  _x: 0
+  _z: 0
+  _level: 1
+  _modelPath: GoldMineLevel_1
+  _model: {fileID: 867275430359426778}
+  _buildingType: 3
+  xInfo: {fileID: 0}
+  zInfo: {fileID: 0}
+  _clickAction: {fileID: -5982496924579745919, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
+  _selectAction: {fileID: -6131295136447488360, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
+  _removeAction: {fileID: -6131295136447488360, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
   _hoveredColor: {r: 1, g: 0, b: 0, a: 1}
-  _meshRenderers: []
+  _updateRateInSeconds: 1
+  _bank: {fileID: 0}
+  _collectingRateInSeconds: 6
+  collectedResources: 0
+  _text: {fileID: 2362231551021760613}
+  _goldProgressController: {fileID: 1464245833464485569}
 --- !u!114 &6189142139299293781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,9 +133,9 @@ MonoBehaviour:
   m_HoverEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5149815678921297160}
-        m_TargetAssemblyTypeName: ColorChangeHoverInteractor, Assembly-CSharp
-        m_MethodName: Hover
+      - m_Target: {fileID: 8554664030778766137}
+        m_TargetAssemblyTypeName: InteractableBuilding, Assembly-CSharp
+        m_MethodName: HoverEnter
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -156,8 +148,8 @@ MonoBehaviour:
   m_HoverExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5149815678921297160}
-        m_TargetAssemblyTypeName: ColorChangeHoverInteractor, Assembly-CSharp
+      - m_Target: {fileID: 8554664030778766137}
+        m_TargetAssemblyTypeName: InteractableBuilding, Assembly-CSharp
         m_MethodName: HoverExit
         m_Mode: 1
         m_Arguments:
@@ -228,26 +220,6 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2244175127250173826
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867275430359426778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b98d4529c81a950499f91cafe763c216, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _goldBankTagName: GoldBank
-  _goldProgressController: {fileID: 1464245833464485569}
-  _capacity: 500
-  _goldPerHour: 2500
-  _updateRateInSeconds: 10
-  _text: {fileID: 2362231551021760613}
-  _clickAction: {fileID: -5982496924579745919, guid: c348712bda248c246b8c49b3db54643f,
-    type: 3}
 --- !u!1001 &3900470727650086729
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -261,15 +233,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: UpgradeMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 1051046357868062439, guid: 1523bc5619c78ee4ebcd5d042390ec59,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1051046357868062439, guid: 1523bc5619c78ee4ebcd5d042390ec59,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1051046357868062439, guid: 1523bc5619c78ee4ebcd5d042390ec59,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5204166049024677053, guid: 1523bc5619c78ee4ebcd5d042390ec59,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.353
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5204166049024677053, guid: 1523bc5619c78ee4ebcd5d042390ec59,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5439515881044750727, guid: 1523bc5619c78ee4ebcd5d042390ec59,
         type: 3}
@@ -289,7 +276,7 @@ PrefabInstance:
     - target: {fileID: 7429088416542486994, guid: 1523bc5619c78ee4ebcd5d042390ec59,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7605178285253580880, guid: 1523bc5619c78ee4ebcd5d042390ec59,
         type: 3}
@@ -299,17 +286,17 @@ PrefabInstance:
     - target: {fileID: 7773576771448969914, guid: 1523bc5619c78ee4ebcd5d042390ec59,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.353
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7773576771448969914, guid: 1523bc5619c78ee4ebcd5d042390ec59,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7773576771448969914, guid: 1523bc5619c78ee4ebcd5d042390ec59,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.353
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7809164460943843770, guid: 1523bc5619c78ee4ebcd5d042390ec59,
         type: 3}
@@ -414,27 +401,27 @@ PrefabInstance:
     - target: {fileID: 8519526600350900929, guid: 1523bc5619c78ee4ebcd5d042390ec59,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8519526600350900929, guid: 1523bc5619c78ee4ebcd5d042390ec59,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8519526600350900929, guid: 1523bc5619c78ee4ebcd5d042390ec59,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 750
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8519526600350900929, guid: 1523bc5619c78ee4ebcd5d042390ec59,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 375
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8519526600350900929, guid: 1523bc5619c78ee4ebcd5d042390ec59,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -30
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -913,8 +900,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8366684307180650545, guid: ff257883934b63c41b8b523da59ab429,
         type: 3}
+      propertyPath: m_Name
+      value: CollectedResourcesText
+      objectReference: {fileID: 0}
+    - target: {fileID: 8366684307180650545, guid: ff257883934b63c41b8b523da59ab429,
+        type: 3}
       propertyPath: m_Layer
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8400596886681168973, guid: ff257883934b63c41b8b523da59ab429,
+        type: 3}
+      propertyPath: m_text
+      value: ??/??
+      objectReference: {fileID: 0}
+    - target: {fileID: 8400596886681168973, guid: ff257883934b63c41b8b523da59ab429,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 8490152531115584074, guid: ff257883934b63c41b8b523da59ab429,
         type: 3}

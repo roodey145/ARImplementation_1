@@ -24,6 +24,10 @@ public class ProgressAnimatorController : MonoBehaviour
 
     public void UpdateAnimationProgress(float progress)
     {
+        if(_animator == null)
+        {
+            _animator = GetComponent<Animator>();
+        }
         _animator.Play(_goldProgressAnimationName, 0, progress * _animationDuration);
     }
 

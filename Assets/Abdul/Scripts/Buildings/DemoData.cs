@@ -1,17 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
-public class BuildingData : MonoBehaviour
+public class DemoData : MonoBehaviour
 {
-    #region Adjustable data
-    [Header("Data Container Info")]
-    [SerializeField] protected bool _placeableModel = false;
-    [SerializeField] protected bool _placing = false;
+    [Header("Model Data")]
+    [SerializeField] protected int _level = 1;
+    [SerializeField] private string _modelPath = "";
+    [SerializeField] private GameObject _model = null;
 
     [Header("Size")]
     [SerializeField] protected int _width = 2; // The x-axis
@@ -20,18 +18,8 @@ public class BuildingData : MonoBehaviour
     [Header("Location")]
     [SerializeField] private int _x = 0;
     [SerializeField] private int _z = 0;
-
-    [Header("Model Data")]
-    [SerializeField] protected int _level = 1;
-    [SerializeField] private string _modelPath = "";
-    [SerializeField] private GameObject _model = null;
-    private MeshRenderer[] _childremMeshRenderers;
-    [SerializeField] protected BuildingType _buildingType;
-    public BuildingType BuildingType { get { return _buildingType; } }
-    #endregion
-
-    internal int X { get { return _x; } private set {  } }
-    internal int Z { get { return _z; } private set {  } }
+    internal int X { get { return _x; } private set { } }
+    internal int Z { get { return _z; } private set { } }
 
     // The x and z might cause the bulding to be out of range
     // therefore, the applied x and z will hold the value of
@@ -41,85 +29,36 @@ public class BuildingData : MonoBehaviour
     protected int appliedZ = 0;
 
 
-    protected ListItemData _listData; // Used to return the object to be reorganized. 
-
-    public TextMeshProUGUI xInfo;
-    public TextMeshProUGUI zInfo;
-
     private string _townDataTag = "TownData";
     private TownData _townData;
-    
-    protected TownData _TownData { 
+
+    protected TownData _TownData
+    {
         get
         {
             TownData townData = _townData;
 
-            if(townData == null)
+            if (townData == null)
                 _townData = GameObject.FindGameObjectWithTag(_townDataTag).GetComponent<TownData>();
 
             return townData;
         }
     }
 
-    private List<Action<int, int>> _locationUpdateCallbacksList = new List<Action<int, int>>(); 
-    private List<Action<int>> _levelUpdateCallbacksList = new List<Action<int>>();
+    private List<Action<int, int>> _locationUpdateCallbacksList = new List<Action<int, int>>();
 
-    protected void Awake()
+    internal void RegisterLocationUpdateCallback(Action<int, int> callback)
     {
-        
+        _locationUpdateCallbacksList.Add(callback);
     }
 
-    // Start is called before the first frame update
-    protected void Start()
-    {
-        // Get the town data
-        _townData = GameObject.FindGameObjectWithTag(_townDataTag).GetComponent<TownData>();
-        if(_townData == null)
-        { // Handle error
-            throw new System.Exception("The TownData does not exists in this scene or is inactive!");
-        }
-
-        
-        _listData = ListItemData.lastInteractedItemListData;
-
-
-        // Update the x, y position
-        UpdateLocation(_x, _z); // Ensure that the other callbacks that are listnening for the position are notified of the start position
-
-        retriveData();
-        _SyncPosition();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // Get access to the mouse position
-        if(_placing && _placeableModel)
-        {
-            //print("Positning");
-            //AssignPosition(GroundBlock.X, GroundBlock.Z);
-            //MoveDemo(GroundBlock.X, GroundBlock.Z);
-        }
-    }
-
-    public void MoveDemo(int x, int z)
-    {
-        if (_placing && _placeableModel)
-        {
-            AssignPosition(x, z);
-
-            _CheckCollision(x, z);
-        }
-    }
-
-    // Getter
     public bool PlaceModel(int x, int z)
     {
-        if(_model == null) _model = Resources.Load<GameObject>(_modelPath);
+        if (_model == null) _model = Resources.Load<GameObject>(_modelPath);
 
 
         // Check if there is any collision
-        if(_CheckCollision(x, z))
+        if (_CheckCollision(x, z))
         {
             // Play collision sound
             print("Building can not be placed here");
@@ -136,7 +75,8 @@ public class BuildingData : MonoBehaviour
         _AssignBuildingToGroundBlock(modelData);
 
 
-        _OverrideModelData(modelData.gameObject);
+        // Add later!!
+        //_OverrideModelData(modelData.gameObject);
 
         // Try to add a new demo of the same type as this one
         DemoAdder.LastDemoAdded.AddDelayedDemo(GroundBlock.demo, InteractionsData.addDemoDelayInSeconds);
@@ -149,6 +89,7 @@ public class BuildingData : MonoBehaviour
 
         return true;
     }
+
 
     private void _AssignBuildingToGroundBlock(BuildingData modelData)
     {
@@ -180,12 +121,12 @@ public class BuildingData : MonoBehaviour
         //print($"X: ({startX}, {endX}), Z: ({startZ}, {endZ}), Applied: ({appliedX}, {appliedZ})");
 
         GroundBlock block;
-        for(int row = startX; row <= endX; row++)
+        for (int row = startX; row <= endX; row++)
         {
-            for(int col = startZ; col <= endZ; col++)
+            for (int col = startZ; col <= endZ; col++)
             {
                 block = GroundData.GetGroundBlock(row, col);
-                if(block.IsOccupied())
+                if (block.IsOccupied())
                 {
                     block.IndicateOccupiedGround();
                     collieded = true;
@@ -209,7 +150,6 @@ public class BuildingData : MonoBehaviour
     }
 
 
-    // Setters
     public void AssignPosition(int x, int z)
     {
         UpdateLocation(x, z);
@@ -224,7 +164,7 @@ public class BuildingData : MonoBehaviour
         AssignZ(z);
 
         // Notify the other locations
-        for(int i = 0; i < _locationUpdateCallbacksList.Count; i++)
+        for (int i = 0; i < _locationUpdateCallbacksList.Count; i++)
         {
             _locationUpdateCallbacksList[i](x, z);
         }
@@ -253,14 +193,14 @@ public class BuildingData : MonoBehaviour
         int groundWidth = GroundData.width;
         int groundLength = GroundData.length;
 
-        
+
 
         // Check if the position is out of boundries
-        if(_x < (-groundWidth + (int)(_width / 2f)))
+        if (_x < (-groundWidth + (int)(_width / 2f)))
         {
-            appliedX = -groundWidth + (int)(_width/2f); // Move back to boundries
+            appliedX = -groundWidth + (int)(_width / 2f); // Move back to boundries
         }
-        else if(_x > (groundWidth - (int)(_width / 2f)))
+        else if (_x > (groundWidth - (int)(_width / 2f)))
         {
             appliedX = groundWidth - (int)(_width / 2f); // Move back to boundries
         }
@@ -282,12 +222,6 @@ public class BuildingData : MonoBehaviour
             appliedZ = _z;
         }
 
-        if(xInfo != null & zInfo != null)
-        {
-            xInfo.text = "x: " + appliedX;
-            zInfo.text = "z: " + appliedZ;
-        }
-
 
         // Move the building to the center of the defined position
         transform.position = new Vector3(
@@ -296,51 +230,4 @@ public class BuildingData : MonoBehaviour
             groundZ /* - groundHeight */ + appliedZ
         );
     }
-
-
-    internal void RegisterLocationUpdateCallback(Action<int, int> callback)
-    {
-        _locationUpdateCallbacksList.Add( callback );
-    }
-
-    internal void RegisterLevelUpdateCallback(Action<int> callback)
-    {
-        _levelUpdateCallbacksList.Add(callback);
-    }
-
-    internal bool isDemo()
-    {
-        return _placing && _placeableModel;
-    }
-
-    internal void LevelUp()
-    {
-        _level++;
-        for(int i = 0; i < _levelUpdateCallbacksList.Count;  i++)
-        {
-            _levelUpdateCallbacksList[i](_level);
-        }
-    }
-
-    internal int GetLevel()
-    {
-        return _level;
-    }
-
-
-    /// <summary>
-    /// This method is called when the model is being placed.
-    /// </summary>
-    /// <param name="gameObject">The new model that has been initialized.</param>
-    internal virtual void _OverrideModelData(GameObject gameObject)
-    { // This purpose of this method is to allow the sub-classes to override the model data before it is added.
-
-    }
-
-    // Retrive the project info
-    private void retriveData()
-    {
-        // Retrive and assign the data
-    }
 }
-

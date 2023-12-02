@@ -21,6 +21,7 @@ public class GoldMine : UpgradeableBuildingData
         base.Start();
 
         // TODO: Create a mapper inside the ResourceIndestructible.
+        print("ID: " + ID);
 
         // Get the time passed since last update
         _UpdateResources(_CalculateMinedResources((float)_indestructibleInfo.GetTimeDifferenceInSeconds()));
@@ -39,7 +40,13 @@ public class GoldMine : UpgradeableBuildingData
 
     internal override Indestructible CreateIndestructible(int id)
     {
-        return new ResourceIndestructible(id, _level, _buildingType, appliedX, appliedZ, collectedResources);
+        if (_indestructibleInfo == null)
+        {
+            ID = id;
+            _indestructibleInfo = new ResourceIndestructible(id, _level, _buildingType, appliedX, appliedZ, collectedResources);
+        }
+
+        return _indestructibleInfo;
     }
 
     private IEnumerator _MineGold()

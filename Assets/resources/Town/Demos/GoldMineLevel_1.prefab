@@ -55,7 +55,6 @@ MonoBehaviour:
   _modelPath: GoldMineLevel_1
   _model: {fileID: 867275430359426778, guid: 79f8ebeef6504a54588e4db94bc690fc, type: 3}
   _buildingType: 3
-  _removeAction: {fileID: 0}
   xInfo: {fileID: 0}
   zInfo: {fileID: 0}
   _rotationActions:
@@ -74,6 +73,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GoldMineLevel_1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8400596886681168973, guid: 2b9dca8b183076f45b2e0d4e3cce7aa1,
+        type: 3}
+      propertyPath: m_text
+      value: ??/??
+      objectReference: {fileID: 0}
+    - target: {fileID: 8400596886681168973, guid: 2b9dca8b183076f45b2e0d4e3cce7aa1,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 8889121406635373432, guid: 2b9dca8b183076f45b2e0d4e3cce7aa1,
         type: 3}
