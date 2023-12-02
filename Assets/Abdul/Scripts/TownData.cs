@@ -5,12 +5,18 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class TownData : MonoBehaviour
 {
+    [SerializeField] private Indestructible[] buildings;
+    [SerializeField] private ListItemsManager _listItemsManager;
     private int _width = 25; // The x-axis
     private int _length = 25; // The z-axis
 
     private void Awake()
     {
         //GroundData.awake();
+        for(int i = 0; i < buildings.Length; i++)
+        {
+            _listItemsManager.ReturnBuilding(buildings[i]);
+        }
     }
 
     // Start is called before the first frame update

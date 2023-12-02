@@ -59,7 +59,7 @@ public class ListItemsManager : MonoBehaviour
 
     private ListItemData _CreateStorePlace(Indestructible indestructible)
     {
-        ListItemData storePlace = null;
+        ListItemData storePlace;
         // Get the dictionary which stores the pair of building level and indestructible data that matches this building type
         Dictionary<int, ListItemData> store;
         listItemsData.TryGetValue(indestructible.type, out store);
@@ -69,28 +69,29 @@ public class ListItemsManager : MonoBehaviour
             // Create the building levels info store
             store = new Dictionary<int, ListItemData>();
             listItemsData.Add(indestructible.type, store);
+        }
 
-            // Create the specifc level store place
-            storePlace = new ListItemData();
-            store.Add(indestructible.level, storePlace);
-            
+        store.TryGetValue(indestructible.level, out storePlace);
+
+        if(storePlace == null)
+        {
             // Create itemlist
-            for(int i = 0; i < _listItems.Length; i++)
+            for (int i = 0; i < _listItems.Length; i++)
             {
                 if (_listItems[i].buildingType == indestructible.type)
                 {
-                    //GameObject listItemModel = _listItems[i].listItemModel;
-                    //if(listItemModel == null)
-                    //{
-                    //    listItemModel = Resources.Load<GameObject>(_listItems + _listItems[i].UIItemListPath[indestructible.level - 1]);
-                    //}
-
-                    GameObject listItemModel = Resources.Load<GameObject>(_listItems + _listItems[i].UIItemListPath[indestructible.level - 1]); ;
-
-                    storePlace = Instantiate(listItemModel, transform).GetComponent<ListItemData>();
+                    print(_listItemsPath + _listItems[i].UIItemListPath[indestructible.level - 1]);
+                    GameObject listItemModel = Resources.Load<GameObject>(_listItemsPath + _listItems[i].UIItemListPath[indestructible.level - 1]); ;
+                    // Create the specifc level store place
+                    GameObject model = Instantiate(listItemModel, transform);
+                    storePlace = model.GetComponent<ListItemData>();
                     break;
                 }
             }
+
+            // Add the store place to the dictionary
+            store.Add(indestructible.level, storePlace);
+            print("KEY: " + indestructible.level + ", " + storePlace);
         }
 
         return storePlace;

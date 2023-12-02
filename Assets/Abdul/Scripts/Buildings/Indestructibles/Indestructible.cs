@@ -1,14 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class Indestructible
 {
-    internal int id = -1;
-    internal int level = 1;
-    internal BuildingType type;
-    internal int appliedX = -1;
-    internal int appliedZ = -1;
+    [SerializeField] internal int id = -1;
+    [SerializeField] internal int level = 1;
+    [SerializeField] internal BuildingType type;
+    [SerializeField] internal int appliedX = -1;
+    [SerializeField] internal int appliedZ = -1;
     internal long lastUpdated = -1;
     
     public Indestructible(int id, int level, BuildingType type, int x, int z)

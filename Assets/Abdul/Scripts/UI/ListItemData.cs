@@ -45,7 +45,8 @@ public class ListItemData : MonoBehaviour
     internal void AddListItem(Indestructible item)
     {
         _items.Add(item);
-        Increase();
+        _count = _items.Count;
+        _UpdateCounterUI();
     }
 
     internal void Increase()

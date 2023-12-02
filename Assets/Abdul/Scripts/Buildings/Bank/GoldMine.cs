@@ -20,6 +20,8 @@ public class GoldMine : UpgradeableBuildingData
     {
         base.Start();
 
+        // TODO: Create a mapper inside the ResourceIndestructible.
+
         // Get the time passed since last update
         _UpdateResources(_CalculateMinedResources((float)_indestructibleInfo.GetTimeDifferenceInSeconds()));
 
