@@ -64,7 +64,7 @@ public class IDableBuilding : InteractableBuilding
     protected override void Remove()
     {
         base.Remove();
-        _listData.AddListItem(_indestructibleInfo);
+        ListItemsManager.instance.ReturnBuilding(_indestructibleInfo);
     }
 
     internal override void LevelUp()

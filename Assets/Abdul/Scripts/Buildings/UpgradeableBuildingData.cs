@@ -116,6 +116,9 @@ public class UpgradeableBuildingData : IDableBuilding
                 case BuildingType.MoneyBank:
                     levelsData = GoldStorageLevelsData.GetInstance();
                     break;
+                case BuildingType.Wall:
+                    levelsData = WallLevelsData.GetInstance();
+                    break;
             }
 
         }
@@ -126,6 +129,7 @@ public class UpgradeableBuildingData : IDableBuilding
 
     internal bool IsMaxLevel()
     {
+        if (_data == null) _data = GetLevelsData();
         return _data.IsMaxLevel(_level);
     }
     #endregion

@@ -126,10 +126,10 @@ MonoBehaviour:
       - m_Target: {fileID: 4359711776168697429}
         m_TargetAssemblyTypeName: DemoAdder, Assembly-CSharp
         m_MethodName: AddDemo
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 1818465134005899568}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd969d78f002b34cb5e639b28fd1893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buildingName: WallLevel1
+  _buildingName: ConnectedWallLevel_1
 --- !u!114 &1213093973110099108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -733,7 +733,7 @@ PrefabInstance:
     - target: {fileID: 2542024257919200412, guid: 3bafe5f31662e354dae535d947a8445d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -42.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2542024257919200412, guid: 3bafe5f31662e354dae535d947a8445d,
         type: 3}
@@ -790,8 +790,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bafe5f31662e354dae535d947a8445d, type: 3}
---- !u!4 &3140312803303432198 stripped
-Transform:
+--- !u!224 &3140312803303432198 stripped
+RectTransform:
   m_CorrespondingSourceObject: {fileID: 2542024257919200412, guid: 3bafe5f31662e354dae535d947a8445d,
     type: 3}
   m_PrefabInstance: {fileID: 636050173909273754}

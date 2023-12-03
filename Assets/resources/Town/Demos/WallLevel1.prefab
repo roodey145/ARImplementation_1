@@ -110,18 +110,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97dda54d156acba4e888d457776def41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _placeableModel: 1
-  _placing: 1
+  _level: 1
+  _modelPath: ConnectedWallLevel_1
+  _model: {fileID: 8017089325486231404, guid: 9df5513a9588264428ebd94b8bcb6bb9, type: 3}
+  _indestructible:
+    id: 0
+    level: 0
+    type: 0
+    appliedX: 0
+    appliedZ: 0
   _width: 1
   _length: 1
   _x: 5
   _z: 5
-  _modelPath: WallLevel1
-  _model: {fileID: 284087090720743027, guid: 953acee747b49004cbc04abf516e8221, type: 3}
-  _buildingType: 1
-  _removeAction: {fileID: 0}
-  xInfo: {fileID: 0}
-  zInfo: {fileID: 0}
   _rotationActions:
   - {fileID: -7374733323251553461, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   _rotationAmount: 90

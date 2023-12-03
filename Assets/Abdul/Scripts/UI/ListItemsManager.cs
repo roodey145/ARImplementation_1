@@ -5,10 +5,17 @@ using UnityEngine;
 
 public class ListItemsManager : MonoBehaviour
 {
+    public static ListItemsManager instance;
     [SerializeField] private string _listItemsPath = "UI/ListItems/";
     [SerializeField] private ManagerListItemData[] _listItems;
     private Dictionary<BuildingType, Dictionary<int, ListItemData>> listItemsData = new Dictionary<BuildingType, Dictionary<int, ListItemData>>();
     public bool organizingBase = true;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

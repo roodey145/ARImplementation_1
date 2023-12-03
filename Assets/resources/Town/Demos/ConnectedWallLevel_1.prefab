@@ -497,8 +497,8 @@ GameObject:
   - component: {fileID: 6556354432012466105}
   - component: {fileID: 1294061669855827654}
   - component: {fileID: 4123221207259046838}
-  - component: {fileID: 2380349148378668076}
   - component: {fileID: 8785583712418106840}
+  - component: {fileID: -7546150642851482216}
   m_Layer: 0
   m_Name: ConnectedWallLevel_1
   m_TagString: Untagged
@@ -576,31 +576,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2380349148378668076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8017089325486231404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca16f6e962dbf1b4392edbed6a72ef6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _placeableModel: 1
-  _placing: 1
-  _width: 1
-  _length: 1
-  _x: 0
-  _z: 0
-  _modelPath: ConnectedWallLevel_1
-  _model: {fileID: 8017089325486231404, guid: 9df5513a9588264428ebd94b8bcb6bb9, type: 3}
-  _buildingType: 1
-  _removeAction: {fileID: -6131295136447488360, guid: c348712bda248c246b8c49b3db54643f,
-    type: 3}
-  xInfo: {fileID: 0}
-  zInfo: {fileID: 0}
 --- !u!114 &8785583712418106840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,6 +589,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _children: []
+--- !u!114 &-7546150642851482216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8017089325486231404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ea0e89f14b67894199b96c3305ebef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _level: 1
+  _modelPath: ConnectedWallLevel_1
+  _model: {fileID: 8017089325486231404, guid: 9df5513a9588264428ebd94b8bcb6bb9, type: 3}
+  _indestructible:
+    id: 0
+    level: 0
+    type: 1
+    appliedX: 0
+    appliedZ: 0
+  _width: 1
+  _length: 1
+  _x: 0
+  _z: 0
 --- !u!1 &8627983220508269554
 GameObject:
   m_ObjectHideFlags: 0
