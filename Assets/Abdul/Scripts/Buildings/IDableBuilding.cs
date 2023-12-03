@@ -60,4 +60,17 @@ public class IDableBuilding : InteractableBuilding
     {
         return _indestructibleInfo.GetLastUpdatedTimeInSeconds();
     }
+
+    protected override void Remove()
+    {
+        base.Remove();
+        _listData.AddListItem(_indestructibleInfo);
+    }
+
+    internal override void LevelUp()
+    {
+        base.LevelUp();
+
+        _indestructibleInfo.level = _level;
+    }
 }

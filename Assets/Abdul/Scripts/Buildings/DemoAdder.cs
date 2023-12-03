@@ -41,10 +41,9 @@ public class DemoAdder : MonoBehaviour
         //GroundBlock.demo.GetComponent<BuildingData>().PlaceModel(Random.Range(0, 5), Random.Range(0, 5));
 
         // Assign the indestructible to the demo
-        IDableBuilding idableBuilding = GroundBlock.demo.GetComponent<IDableBuilding>();
-        idableBuilding.AssignIndestructible()
+        DemoData demoData = GroundBlock.demo.GetComponent<DemoData>();
+        demoData.AssignIndestructible(_listData.Decrease());
 
-        _listData.Decrease();
 
         // Register this as the last adder that added a demo
         LastDemoAdded = this;

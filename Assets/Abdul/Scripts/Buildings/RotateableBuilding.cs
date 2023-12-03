@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class RotateableBuilding : BuildingData
+public class RotateableBuilding : DemoData
 {
     [SerializeField] private InputActionReference[] _rotationActions;
     [SerializeField] private int _rotationAmount = 90;
@@ -40,7 +40,7 @@ public class RotateableBuilding : BuildingData
         }
     }
 
-    protected override void _OverrideModelData(GameObject gameObject)
+    internal override void _OverrideModelData(GameObject gameObject)
     {
         base._OverrideModelData(gameObject);
         gameObject.transform.rotation = transform.rotation;

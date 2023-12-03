@@ -6,6 +6,7 @@ public class WallConnector : MonoBehaviour
 {
     [SerializeField] private GameObject[] _children; // The walls in the four directions
     private BuildingData _buildingData;
+    private DemoData _demoData;
     private int _x;
     private int _z;
 
@@ -25,7 +26,13 @@ public class WallConnector : MonoBehaviour
         // Get the building data
         _buildingData = GetComponent<BuildingData>();
 
-        _buildingData.RegisterLocationUpdateCallback(_LocationUpdateCallback);
+        if(_buildingData != null )
+            _buildingData.RegisterLocationUpdateCallback(_LocationUpdateCallback);
+
+        _demoData = GetComponent<DemoData>();
+
+        if(_demoData != null)
+            _demoData.RegisterLocationUpdateCallback(_LocationUpdateCallback);
         //print("Demo: " +  _buildingData.isDemo());
         //_UpdateToSurroundingWalls(connect: true, _buildingData.isDemo());
     }
@@ -38,7 +45,7 @@ public class WallConnector : MonoBehaviour
         // Update the x, y to the new position and then connect the walls
         _x = x;
         _z = z;
-        _UpdateToSurroundingWalls(connect: true, _buildingData.isDemo());
+        _UpdateToSurroundingWalls(connect: true, _demoData != null);
     }
 
     private void _UpdateToSurroundingWalls(bool connect, bool demo)
@@ -210,13 +217,13 @@ public class WallConnector : MonoBehaviour
     private void OnDestroy()
     {
         // Make sure to notify the walls around so they will update and hide the connection to this wall
-        if(_buildingData.isDemo())
+        if(_demoData != null)
         {
             DisconnectDemo();
         }
-        else
+        else if(_buildingData != null) 
         {
-            _UpdateToSurroundingWalls(connect: false, _buildingData.isDemo());
+            _UpdateToSurroundingWalls(connect: false, false);
         }
     }
 }

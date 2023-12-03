@@ -6,7 +6,7 @@ using UnityEngine;
 public class ListItemData : MonoBehaviour
 {
     [SerializeField] private int _count = 1;
-    [SerializeField] private List<Indestructible> _items;
+    [SerializeField] private Queue<Indestructible> _items = new Queue<Indestructible>();
     [SerializeField] internal BuildingType _buildingType;
     [SerializeField] private TextMeshProUGUI _counter;
 
@@ -25,10 +25,8 @@ public class ListItemData : MonoBehaviour
     }
 
 
-    public void Decrease()
+    public Indestructible Decrease()
     {
-        if (_count <= 0) return;
-
         _count--;
         _UpdateCounterUI();
 
@@ -38,13 +36,15 @@ public class ListItemData : MonoBehaviour
 
         if (_count <= 0)
         {
+            // Remove this from the list and from the list items manager
             //gameObject.SetActive(false); // TODO: This should be added later on?
         }
+        return _items.Dequeue();
     }
 
     internal void AddListItem(Indestructible item)
     {
-        _items.Add(item);
+        _items.Enqueue(item);
         _count = _items.Count;
         _UpdateCounterUI();
     }

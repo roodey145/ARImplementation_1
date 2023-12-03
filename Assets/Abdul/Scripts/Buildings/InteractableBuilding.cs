@@ -124,8 +124,7 @@ public class InteractableBuilding : BuildingData
     {
         if(!context.canceled && hovered)
         {
-            if(isDemo()) SelectedDemo();
-            else         Selected();
+            Selected();
         }
     }
 
@@ -134,10 +133,10 @@ public class InteractableBuilding : BuildingData
     /// </summary>
     protected virtual void Selected() { }
 
-    /// <summary>
-    /// If the building is a demo and the player hovered over the building on selected it, this method will be called
-    /// </summary>
-    protected virtual void SelectedDemo() { }
+    ///// <summary>
+    ///// If the building is a demo and the player hovered over the building on selected it, this method will be called
+    ///// </summary>
+    //protected virtual void SelectedDemo() { }
 
     private void _Remove(InputAction.CallbackContext context)
     {
@@ -149,7 +148,7 @@ public class InteractableBuilding : BuildingData
 
     protected virtual void Remove()
     {
-        _listData.Increase();
+        //_listData.Increase();
         _removed = true;
         Destroy(gameObject, 0f);
     }

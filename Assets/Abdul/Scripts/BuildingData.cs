@@ -9,9 +9,9 @@ using UnityEngine.InputSystem;
 public class BuildingData : MonoBehaviour
 {
     #region Adjustable data
-    [Header("Data Container Info")]
-    [SerializeField] protected bool _placeableModel = false;
-    [SerializeField] protected bool _placing = false;
+    //[Header("Data Container Info")]
+    //[SerializeField] protected bool _placeableModel = false;
+    //[SerializeField] protected bool _placing = false;
 
     [Header("Size")]
     [SerializeField] protected int _width = 2; // The x-axis
@@ -94,128 +94,127 @@ public class BuildingData : MonoBehaviour
     void Update()
     {
         // Get access to the mouse position
-        if(_placing && _placeableModel)
-        {
-            //print("Positning");
-            //AssignPosition(GroundBlock.X, GroundBlock.Z);
-            //MoveDemo(GroundBlock.X, GroundBlock.Z);
-        }
+        //if(_placing && _placeableModel)
+        //{
+        //    //print("Positning");
+        //    //AssignPosition(GroundBlock.X, GroundBlock.Z);
+        //    //MoveDemo(GroundBlock.X, GroundBlock.Z);
+        //}
     }
 
-    public void MoveDemo(int x, int z)
-    {
-        if (_placing && _placeableModel)
-        {
-            AssignPosition(x, z);
-
-            _CheckCollision(x, z);
-        }
-    }
+    //public void MoveDemo(int x, int z)
+    //{
+    //    if (_placing && _placeableModel)
+    //    {
+    //        AssignPosition(x, z);
+    //        _CheckCollision(x, z);
+    //    }
+    //}
 
     // Getter
-    public bool PlaceModel(int x, int z)
-    {
-        if(_model == null) _model = Resources.Load<GameObject>(_modelPath);
+    //public bool PlaceModel(int x, int z)
+    //{
+    //    if(_model == null) _model = Resources.Load<GameObject>(_modelPath);
 
 
-        // Check if there is any collision
-        if(_CheckCollision(x, z))
-        {
-            // Play collision sound
-            print("Building can not be placed here");
-            return false;
-        }
+    //    // Check if there is any collision
+    //    if(_CheckCollision(x, z))
+    //    {
+    //        // Play collision sound
+    //        print("Building can not be placed here");
+    //        return false;
+    //    }
 
-        // Create the model, the data will be synced automatically
-        BuildingData modelData = Instantiate(_model).GetComponent<BuildingData>();
+    //    // Create the model, the data will be synced automatically
+    //    BuildingData modelData = Instantiate(_model).GetComponent<BuildingData>();
 
-        modelData.AssignX(x);
-        modelData.AssignZ(z);
+    //    modelData.AssignX(x);
+    //    modelData.AssignZ(z);
 
-        // Assign the model to the ground areas it will occupy
-        _AssignBuildingToGroundBlock(modelData);
-
-
-        _OverrideModelData(modelData.gameObject);
-
-        // Try to add a new demo of the same type as this one
-        DemoAdder.LastDemoAdded.AddDelayedDemo(GroundBlock.demo, InteractionsData.addDemoDelayInSeconds);
+    //    // Assign the model to the ground areas it will occupy
+    //    _AssignBuildingToGroundBlock(modelData);
 
 
-        // Destroy the demo
-        GroundBlock.demo = null;
-        gameObject.SetActive(false);
-        Destroy(gameObject, InteractionsData.addDemoDelayInSeconds + 0.1f);
+    //    _OverrideModelData(modelData.gameObject);
 
-        return true;
-    }
+    //    // Try to add a new demo of the same type as this one
+    //    DemoAdder.LastDemoAdded.AddDelayedDemo(GroundBlock.demo, InteractionsData.addDemoDelayInSeconds);
 
-    private void _AssignBuildingToGroundBlock(BuildingData modelData)
-    {
-        // Assign the model to the ground areas it will occupy
-        int startX = appliedX - (int)(_width / 2f);
-        int endX = appliedX + (int)(_width / 2f);
-        int startZ = appliedZ - (int)(_length / 2f);
-        int endZ = appliedZ + (int)(_length / 2f);
 
-        for (int row = startX; row <= endX; row++)
-        {
-            for (int col = startZ; col <= endZ; col++)
-            {
-                GroundData.GetGroundBlock(row, col).SetBuilding(modelData);
-            }
-        }
-    }
+    //    // Destroy the demo
+    //    GroundBlock.demo = null;
+    //    gameObject.SetActive(false);
+    //    Destroy(gameObject, InteractionsData.addDemoDelayInSeconds + 0.1f);
 
-    private bool _CheckCollision(int x, int z)
-    {
-        bool collieded = false; ;
+    //    return true;
+    //}
 
-        // Get the start and the end positions of the model
-        int startX = appliedX - (int)(_width / 2f);
-        int endX = appliedX + (int)(_width / 2f);
-        int startZ = appliedZ - (int)(_length / 2f);
-        int endZ = appliedZ + (int)(_length / 2f);
+    //private void _AssignBuildingToGroundBlock(BuildingData modelData)
+    //{
+    //    // Assign the model to the ground areas it will occupy
+    //    int startX = appliedX - (int)(_width / 2f);
+    //    int endX = appliedX + (int)(_width / 2f);
+    //    int startZ = appliedZ - (int)(_length / 2f);
+    //    int endZ = appliedZ + (int)(_length / 2f);
 
-        //print($"X: ({startX}, {endX}), Z: ({startZ}, {endZ}), Applied: ({appliedX}, {appliedZ})");
+    //    for (int row = startX; row <= endX; row++)
+    //    {
+    //        for (int col = startZ; col <= endZ; col++)
+    //        {
+    //            GroundData.GetGroundBlock(row, col).SetBuilding(modelData);
+    //        }
+    //    }
+    //}
 
-        GroundBlock block;
-        for(int row = startX; row <= endX; row++)
-        {
-            for(int col = startZ; col <= endZ; col++)
-            {
-                block = GroundData.GetGroundBlock(row, col);
-                if(block.IsOccupied())
-                {
-                    block.IndicateOccupiedGround();
-                    collieded = true;
-                }
-                else
-                {
-                    block.IndicateUnoccupiedGround();
-                }
-            }
-        }
+    //private bool _CheckCollision(int x, int z)
+    //{
+    //    bool collieded = false; ;
 
-        // Check if the ground block(s) are already occupied
-        //block = GroundData.GetGroundBlock(x, z);
-        //if (block.IsOccupied())
-        //{ // Indicate that this block is already occupied
-        //    block.IndicateOccupiedGround();
-        //    collieded = true;
-        //}
+    //    // Get the start and the end positions of the model
+    //    int startX = appliedX - (int)(_width / 2f);
+    //    int endX = appliedX + (int)(_width / 2f);
+    //    int startZ = appliedZ - (int)(_length / 2f);
+    //    int endZ = appliedZ + (int)(_length / 2f);
 
-        return collieded;
-    }
+    //    //print($"X: ({startX}, {endX}), Z: ({startZ}, {endZ}), Applied: ({appliedX}, {appliedZ})");
+
+    //    GroundBlock block;
+    //    for(int row = startX; row <= endX; row++)
+    //    {
+    //        for(int col = startZ; col <= endZ; col++)
+    //        {
+    //            block = GroundData.GetGroundBlock(row, col);
+    //            if(block.IsOccupied())
+    //            {
+    //                block.IndicateOccupiedGround();
+    //                collieded = true;
+    //            }
+    //            else
+    //            {
+    //                block.IndicateUnoccupiedGround();
+    //            }
+    //        }
+    //    }
+
+    //    // Check if the ground block(s) are already occupied
+    //    //block = GroundData.GetGroundBlock(x, z);
+    //    //if (block.IsOccupied())
+    //    //{ // Indicate that this block is already occupied
+    //    //    block.IndicateOccupiedGround();
+    //    //    collieded = true;
+    //    //}
+
+    //    return collieded;
+    //}
 
 
     // Setters
-    public void AssignPosition(int x, int z)
-    {
-        UpdateLocation(x, z);
+    //public void AssignPosition(int x, int z)
+    //{
+    //    UpdateLocation(x, z);
 
-        _SyncPosition();
-    }
+    //    _SyncPosition();
+    //}
 
 
     internal void UpdateLocation(int x, int z)
@@ -300,7 +299,7 @@ public class BuildingData : MonoBehaviour
 
     internal void RegisterLocationUpdateCallback(Action<int, int> callback)
     {
-        _locationUpdateCallbacksList.Add( callback );
+        _locationUpdateCallbacksList.Add(callback);
     }
 
     internal void RegisterLevelUpdateCallback(Action<int> callback)
@@ -308,15 +307,24 @@ public class BuildingData : MonoBehaviour
         _levelUpdateCallbacksList.Add(callback);
     }
 
-    internal bool isDemo()
-    {
-        return _placing && _placeableModel;
-    }
+    //internal bool isDemo()
+    //{
+    //    return _placing && _placeableModel;
+    //}
 
-    internal void LevelUp()
+    internal virtual void LevelUp()
     {
         _level++;
         for(int i = 0; i < _levelUpdateCallbacksList.Count;  i++)
+        {
+            _levelUpdateCallbacksList[i](_level);
+        }
+    }
+
+    internal void AssignLLevel(int level)
+    {
+        _level = level;
+        for (int i = 0; i < _levelUpdateCallbacksList.Count; i++)
         {
             _levelUpdateCallbacksList[i](_level);
         }
@@ -332,10 +340,10 @@ public class BuildingData : MonoBehaviour
     /// This method is called when the model is being placed.
     /// </summary>
     /// <param name="gameObject">The new model that has been initialized.</param>
-    internal virtual void _OverrideModelData(GameObject gameObject)
-    { // This purpose of this method is to allow the sub-classes to override the model data before it is added.
+    //internal virtual void _OverrideModelData(GameObject gameObject)
+    //{ // This purpose of this method is to allow the sub-classes to override the model data before it is added.
 
-    }
+    //}
 
     // Retrive the project info
     private void retriveData()

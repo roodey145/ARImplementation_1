@@ -85,7 +85,7 @@ public class GroundBlock : MonoBehaviour
         // Move the demo
         if(demo != null)
         {
-            demo.GetComponent<BuildingData>().MoveDemo(X, Z);
+            demo.GetComponent<DemoData>().MoveDemo(X, Z);
         }
 
     }
@@ -120,7 +120,7 @@ public class GroundBlock : MonoBehaviour
 
             if (demo != null)
             { // Place the model at the specified area if there is a demo to place
-                demo.GetComponent<BuildingData>().PlaceModel(X, Z);
+                demo.GetComponent<DemoData>().PlaceModel(X, Z);
                 //demo = null;
             }
         }

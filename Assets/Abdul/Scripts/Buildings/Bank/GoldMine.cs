@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -119,5 +120,24 @@ public class GoldMine : UpgradeableBuildingData
         return _GetGoldMineData().capacity;
     }
 
-    
+    internal override void AssignIndestructible(Indestructible indestructible)
+    {
+        try
+        {
+            _indestructibleInfo = (ResourceIndestructible)indestructible;
+        }
+        catch(InvalidCastException e)
+        {
+            //base.AssignIndestructible(indestructible);
+            _indestructibleInfo = new ResourceIndestructible(indestructible);
+        }
+        
+
+        AssignLLevel(_indestructibleInfo.level);
+        // Get the data to the new upgrade
+        _GetUpgradeData();
+        appliedX = _indestructibleInfo.appliedX;
+        appliedZ = _indestructibleInfo.appliedZ;
+        collectedResources = ((ResourceIndestructible)_indestructibleInfo).GetResources();
+    }
 }

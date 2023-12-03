@@ -10,6 +10,7 @@ public class DemoData : MonoBehaviour
     [SerializeField] protected int _level = 1;
     [SerializeField] private string _modelPath = "";
     [SerializeField] private GameObject _model = null;
+    [SerializeField] private Indestructible _indestructible;
 
     [Header("Size")]
     [SerializeField] protected int _width = 2; // The x-axis
@@ -39,7 +40,10 @@ public class DemoData : MonoBehaviour
             TownData townData = _townData;
 
             if (townData == null)
+            {
                 _townData = GameObject.FindGameObjectWithTag(_townDataTag).GetComponent<TownData>();
+                townData = _townData;
+            }
 
             return townData;
         }
@@ -50,6 +54,18 @@ public class DemoData : MonoBehaviour
     internal void RegisterLocationUpdateCallback(Action<int, int> callback)
     {
         _locationUpdateCallbacksList.Add(callback);
+    }
+
+
+    protected void Start()
+    {
+        
+    }
+
+    public void MoveDemo(int x, int z)
+    {
+        AssignPosition(x, z);
+        _CheckCollision(x, z);
     }
 
     public bool PlaceModel(int x, int z)
@@ -66,17 +82,20 @@ public class DemoData : MonoBehaviour
         }
 
         // Create the model, the data will be synced automatically
-        BuildingData modelData = Instantiate(_model).GetComponent<BuildingData>();
+        IDableBuilding modelData = Instantiate(_model).GetComponent<IDableBuilding>();
 
         modelData.AssignX(x);
         modelData.AssignZ(z);
+
+        // Assign the indestructible data to the building
+        modelData.AssignIndestructible(_indestructible);
 
         // Assign the model to the ground areas it will occupy
         _AssignBuildingToGroundBlock(modelData);
 
 
         // Add later!!
-        //_OverrideModelData(modelData.gameObject);
+        _OverrideModelData(modelData.gameObject);
 
         // Try to add a new demo of the same type as this one
         DemoAdder.LastDemoAdded.AddDelayedDemo(GroundBlock.demo, InteractionsData.addDemoDelayInSeconds);
@@ -229,5 +248,20 @@ public class DemoData : MonoBehaviour
             0.1f /*transform.lossyScale.y/2 + _townData.transform.position.y + _townData.transform.lossyScale.y/2*/,
             groundZ /* - groundHeight */ + appliedZ
         );
+    }
+
+
+    internal void AssignIndestructible(Indestructible indestructible)
+    {
+        _indestructible = indestructible;
+    }
+
+    /// <summary>
+    /// This method is called when the model is being placed.
+    /// </summary>
+    /// <param name="gameObject">The new model that has been initialized.</param>
+    internal virtual void _OverrideModelData(GameObject gameObject)
+    { // This purpose of this method is to allow the sub-classes to override the model data before it is added.
+
     }
 }

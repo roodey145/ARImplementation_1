@@ -10,6 +10,11 @@ public class ResourceIndestructible : Indestructible
         this.resources = resources;
     }
 
+    public ResourceIndestructible(Indestructible indestructible) : base(indestructible.id, indestructible.level, indestructible.type, indestructible.appliedX, indestructible.appliedZ)
+    {
+        this.resources = 0;
+    }
+
     internal void UpdateResources(float resources)
     {
         this.resources = resources;
