@@ -3,68 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : Attacker
 {
-    public int health;
-    
-    public int damage;
-    public float attackZone;
-    public float attackSpeed;
-    public float timer;
 
     public AttackHealth attackHealth;
-    public GameObject currentTarget;
+
     // Start is called before the first frame update
-    void Start()
+    protected new void Start()
     {
-        
+        base.Start();
     }
 
     // Update is called once per frame
-    void Update()
+    protected new void Update()
     {
+        base.Update();
 
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-        }
+        // Ensure the attacker does not attack when its health is equal or below zero
+        if (health <= 0) return;
 
         //when we are close enugh we should attack
-        if(GetComponent<EnemyNav>().target != null)
+        if (GetComponent<EnemyNav>().target != null)
         {
             //used to know what object to damages
             currentTarget = GetComponent<EnemyNav>().target.gameObject;
 
 
             float distance = Vector3.Distance(transform.position, GetComponent<EnemyNav>().target.position);
-            if (distance <= attackZone) {
+            if (distance <= range) {
                 print("true");
                 attack(damage);
-                
             }
         }
-        
-
     }
-
-    private void attack(int damages)
-    {
-        timer += Time.deltaTime;
-        if (timer >= attackSpeed)
-        {
-            currentTarget.GetComponent<Defence>().health -= damages;
-            timer = 0;
-        }
-
-        
-    }
-
-    private void takeDamages(int damages)
-    {
-        health -= damages;
-    }
-
-
-
    
 }

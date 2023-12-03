@@ -367,11 +367,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb9baac4f1f04ee4582c86cbeff0e9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canAttack: 0
   health: 10
+  range: 0
   damage: 3
-  attackZone: 3
   attackSpeed: 1
   timer: 0
+  currentTarget: {fileID: 0}
+  targetList: []
+  attackHealth: {fileID: 0}
 --- !u!195 &395290585
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -739,7 +743,7 @@ MonoBehaviour:
   canAttack: 0
   health: 10
   range: 0
-  damages: 0
+  damage: 0
   attackSpeed: 0
   timer: 0
   currentTarget: {fileID: 0}
@@ -803,7 +807,7 @@ MonoBehaviour:
   canAttack: 0
   health: 0
   range: 3
-  damages: 0
+  damage: 0
   attackSpeed: 0
   timer: 0
   currentTarget: {fileID: 0}
@@ -1057,11 +1061,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb9baac4f1f04ee4582c86cbeff0e9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canAttack: 0
   health: 10
+  range: 2
   damage: 1
-  attackZone: 3
   attackSpeed: 1
   timer: 0
+  currentTarget: {fileID: 0}
+  targetList: []
+  attackHealth: {fileID: 0}
 --- !u!1 &903142705
 GameObject:
   m_ObjectHideFlags: 0
@@ -1183,7 +1191,7 @@ MonoBehaviour:
   canAttack: 0
   health: 10
   range: 0
-  damages: 0
+  damage: 0
   attackSpeed: 0
   timer: 0
   currentTarget: {fileID: 0}
@@ -1625,7 +1633,7 @@ MonoBehaviour:
   canAttack: 1
   health: 10
   range: 2
-  damages: 2
+  damage: 1
   attackSpeed: 1
   timer: 0
   currentTarget: {fileID: 0}

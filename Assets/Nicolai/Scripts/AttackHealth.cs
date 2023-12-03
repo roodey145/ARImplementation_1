@@ -30,7 +30,5 @@ public class AttackHealth : MonoBehaviour
 
             timer = 0;
         }
-
-       
     }
 }
