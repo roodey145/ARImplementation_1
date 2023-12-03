@@ -24,6 +24,10 @@ public class GoldMine : UpgradeableBuildingData
         // TODO: Create a mapper inside the ResourceIndestructible.
         print("ID: " + ID);
 
+        // Assign the resources from the indestructible
+        collectedResources = ((ResourceIndestructible)_indestructibleInfo).GetResources();
+
+
         // Get the time passed since last update
         _UpdateResources(_CalculateMinedResources((float)_indestructibleInfo.GetTimeDifferenceInSeconds()));
 
@@ -90,6 +94,8 @@ public class GoldMine : UpgradeableBuildingData
     {
         // The IncreaseDecreaseValue method returns the remining gold if the GoldStorages are filled
         collectedResources = GetBank().IncreaseDecreaseValue(collectedResources); // Reset
+        // Updates the resources and the last updated time
+        ((ResourceIndestructible)_indestructibleInfo).UpdateResources(collectedResources);
         _UpdateUI(); // Update the UI which shows the collected resources amount
     }
 

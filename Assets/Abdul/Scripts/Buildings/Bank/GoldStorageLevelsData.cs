@@ -70,6 +70,5 @@ public class GoldStorageLevelsData : BuildingLevelsData
 
 public class GoldStorageLevelData : BuildingLevelData
 {
-    internal int level;
     internal int capacity;
 }

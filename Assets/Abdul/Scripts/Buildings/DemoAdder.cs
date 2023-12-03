@@ -79,8 +79,8 @@ public class DemoAdder : MonoBehaviour
 
     private void _CopyPositionInfo(GameObject objectToCopy, GameObject demo)
     {
-        BuildingData dataToCopy = objectToCopy.GetComponent<BuildingData>();
-        BuildingData demoData;
+        DemoData dataToCopy = objectToCopy.GetComponent<DemoData>();
+        DemoData demoData;
         demo.TryGetComponent(out demoData);
 
 

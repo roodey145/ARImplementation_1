@@ -5,20 +5,21 @@ using UnityEngine;
 public class WallConnector : MonoBehaviour
 {
     [SerializeField] private GameObject[] _children; // The walls in the four directions
+    private static int _DIRECTIONS_COUNT = 4;
     private BuildingData _buildingData;
     private DemoData _demoData;
     private int _x;
     private int _z;
 
-    private bool[] _connectedDirections = new bool[4];
+    private bool[] _connectedDirections = new bool[_DIRECTIONS_COUNT];
 
     // Start is called before the first frame update
     void Awake()
     {
         // Get the children (Left, Top, Right, Bottom)
         _children = new GameObject[transform.childCount];
-        for(int i = 0; i < _children.Length; i++)
-        {
+        for(int i = 0; i < _DIRECTIONS_COUNT; i++)
+        {   
             _children[i] = transform.GetChild(i).gameObject;
             _children[i].SetActive(false);
         }
@@ -52,7 +53,7 @@ public class WallConnector : MonoBehaviour
     {
         // Get the block at the left direction
         BuildingData buildingData;
-        for(int i = 0; i < _children.Length; i++)
+        for(int i = 0; i < _DIRECTIONS_COUNT; i++)
         {
             buildingData = GetBlockBuildingData((DirectionEnum)i);
             if (buildingData != null)
@@ -187,7 +188,7 @@ public class WallConnector : MonoBehaviour
     {
         // Get the block at the left direction
         BuildingData buildingData;
-        for (int i = 0; i < _children.Length; i++)
+        for (int i = 0; i < _DIRECTIONS_COUNT; i++)
         {
             buildingData = GetBlockBuildingData((DirectionEnum)i);
             // Check if the buildiing is a wall
@@ -200,7 +201,7 @@ public class WallConnector : MonoBehaviour
 
     public void ResetToActualWallConnection()
     {
-        for (int i = 0; i < _children.Length; i++)
+        for (int i = 0; i < _DIRECTIONS_COUNT; i++)
         {
             if (_connectedDirections[i])
             {
