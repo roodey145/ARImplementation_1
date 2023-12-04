@@ -93,8 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7155924048728412207}
   - component: {fileID: 2348045001814459807}
-  - component: {fileID: 5612025951119479863}
-  - component: {fileID: 4568792703325976544}
+  - component: {fileID: 516622716233549110}
   - component: {fileID: 7663354920540369712}
   m_Layer: 2
   m_Name: TownHall_1
@@ -151,7 +150,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 7, y: 6, z: 7}
   m_Center: {x: 0, y: 2.5, z: 0}
---- !u!114 &5612025951119479863
+--- !u!114 &516622716233549110
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,35 +159,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 711020021852124329}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca16f6e962dbf1b4392edbed6a72ef6d, type: 3}
+  m_Script: {fileID: 11500000, guid: 82fac79bbf0360f46adba96722df24de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _placeableModel: 0
-  _placing: 0
   _width: 3
   _length: 4
   _x: 5
   _z: 5
+  _level: 1
   _modelPath: TownHall_1
   _model: {fileID: 7825403222266454323, guid: 41e1230ce0330c946bc182c38eebca93, type: 3}
-  _removeAction: {fileID: -6131295136447488360, guid: c348712bda248c246b8c49b3db54643f,
-    type: 3}
+  _buildingType: 0
   xInfo: {fileID: 0}
   zInfo: {fileID: 0}
---- !u!114 &4568792703325976544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 711020021852124329}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74207bf0bc48fcf45acc7c70b51284bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _clickAction: {fileID: -5982496924579745919, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
+  _selectAction: {fileID: -6131295136447488360, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
+  _removeAction: {fileID: 2464016903823916871, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
   _hoveredColor: {r: 1, g: 0, b: 0, a: 1}
-  _meshRenderers: []
+  _updateRateInSeconds: 1
+  _bank: {fileID: 0}
 --- !u!114 &7663354920540369712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,7 +220,7 @@ MonoBehaviour:
   m_HoverEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4568792703325976544}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ColorChangeHoverInteractor, Assembly-CSharp
         m_MethodName: Hover
         m_Mode: 1
@@ -243,7 +235,7 @@ MonoBehaviour:
   m_HoverExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4568792703325976544}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ColorChangeHoverInteractor, Assembly-CSharp
         m_MethodName: HoverExit
         m_Mode: 1
