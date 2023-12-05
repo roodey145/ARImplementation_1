@@ -23,6 +23,7 @@ public class waveSpawner : MonoBehaviour
     [SerializeField] [NonReorderable] Wavecontent[] waves;
     int currentWave = 0;
     float spawnRange = 10;
+
     //public int enemiesKilled;
     public List<GameObject> currentMonster;
 
@@ -51,13 +52,13 @@ public class waveSpawner : MonoBehaviour
             GameObject newspawn = Instantiate(waves[currentWave].GetEnemySpawnList()[i], FindSpawnLoc(),Quaternion.identity);
             currentMonster.Add(newspawn);
 
-            EnemyController monster = newspawn.Getcomponent<Enemy>();
+            EnemyController monster = newspawn.GetComponent<Enemy>();//Swap enemy with anything I suppose
         }
     }
 
     Vector3 FindSpawnLoc()
     {
-        Transform SpawnPos;
+        Vector3 SpawnPos;
 
         float xLoc = Random.Range(-spawnRange, spawnRange) + transform.position.x;
         float zLoc = Random.Range(-spawnRange, spawnRange) + transform.position.z;
@@ -65,13 +66,13 @@ public class waveSpawner : MonoBehaviour
 
         SpawnPos = new Vector3(xLoc, yloc, zLoc);
 
-        if(Physics.Raycast(SpawnPos, Vector3.down,5))
+        if(Physics.Raycast(SpawnPos, Vector3.down, 5))
         {
             return SpawnPos;
         }
         else
         {
-            FindSpawnLoc();
+            return FindSpawnLoc();
         }
     }
 }
