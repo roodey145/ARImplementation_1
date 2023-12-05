@@ -6,6 +6,7 @@ public enum UpgradeFeature
 {
     Health,
     GoldStorage,
+    Damage,
     Speed,
 }
 
@@ -51,14 +52,14 @@ public class UpgradeFeaturesManager : MonoBehaviour
         upgradeFeaturesDetails = _buildingData.GetUpgradeFeaturesDetails();
 
         //if (upgradeFeaturesDetails == null) return;
-        for (int i = 0; i < _features.Length; i++)
+        for (int featureI = 0; featureI < _features.Length; featureI++)
         {
-            for (int j = 0; j < upgradeFeaturesDetails.featuresDetails.Length; j++)
+            for (int detailI = 0; detailI < upgradeFeaturesDetails.featuresDetails.Length; detailI++)
             {
-                if (_features[i].feature == upgradeFeaturesDetails.featuresDetails[j].feature)
+                if (_features[featureI].feature == upgradeFeaturesDetails.featuresDetails[detailI].feature)
                 {
-                    _features[i].gameObject.SetActive(true);
-                    _features[i].GetComponent<SliderController>().UpdateData(upgradeFeaturesDetails.featuresDetails[i]);
+                    _features[featureI].gameObject.SetActive(true);
+                    _features[featureI].GetComponent<SliderController>().UpdateData(upgradeFeaturesDetails.featuresDetails[detailI]);
                     break;
                 }
             }
