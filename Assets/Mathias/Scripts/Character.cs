@@ -6,15 +6,16 @@ public class Character : MonoBehaviour
 {
     public Stats stats;
 
-    public void TakeDamage(int damage, DamageType damageType)
+    /*public void TakeDamage(int damage, DamageType damageType)
     {
+        
         if (CanTakeDamage(damageType))
         {
-            int actualDamage = Mathf.Max(0, damage - stats.defense);
+            int actualDamage = Mathf.Max(0, damage - stats.armor);
             stats.health -= actualDamage;
             Debug.Log(gameObject.name + " took " + actualDamage + " damage from " + damageType.ToString());
         }
-    }
+    }*/
 
     private bool CanTakeDamage(DamageType damageType)
     {

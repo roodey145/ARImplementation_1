@@ -100,7 +100,7 @@ public class EnemyNav : MonoBehaviour
         radius = Mathf.Max(0, radius);
 
         // Draw a wireframe sphere to represent the radius in the Scene view
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, radius);
     }
 }

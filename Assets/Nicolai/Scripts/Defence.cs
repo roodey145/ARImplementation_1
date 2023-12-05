@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class Defence : Attacker
 {
-
+    public SphereCollider col;
     public string groundTag = "Ground";
     public static NavMeshSurface groundMeshSurface;
 
@@ -17,8 +17,9 @@ public class Defence : Attacker
     protected new void Start()
     {
         base.Start();
+        col.radius = range;
 
-        if(groundMeshSurface  == null)
+        if (groundMeshSurface  == null)
             groundMeshSurface = GameObject.FindGameObjectWithTag(groundTag)?.GetComponent<NavMeshSurface>();
     }
 
@@ -34,7 +35,7 @@ public class Defence : Attacker
         {
             if (currentTarget != null)
             {
-                attack(damage);
+                attack(attackDamage);
             }
 
             if (currentTarget == null)
