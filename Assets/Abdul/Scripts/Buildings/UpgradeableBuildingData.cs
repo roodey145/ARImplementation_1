@@ -77,6 +77,15 @@ public class UpgradeableBuildingData : IDableBuilding
     }
 
     /// <summary>
+    /// Get the features which will be upgraded when upgrading this building.
+    /// </summary>
+    /// <returns>The data of the feature which will be upgraded.</returns>
+    internal UpgradeFeaturesDetails GetUpgradeFeaturesDetails()
+    {
+        return _upgradeData.upgradeFeaturesDetails;
+    }
+
+    /// <summary>
     /// Gets the resource bank, which can be used to withdraw the required amount to upgrade the building ,of the specified resourceType.
     /// </summary>
     /// <returns>The resource bank of the required upgrade resourceType.</returns>

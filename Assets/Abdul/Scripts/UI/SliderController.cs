@@ -6,9 +6,11 @@ using UnityEngine.UI;
 
 public class SliderController : MonoBehaviour
 {
+    [SerializeField] internal UpgradeFeature feature;
     [SerializeField] private Slider _slider;
     [SerializeField] private RectTransform _upgradeFill;
     [SerializeField] private TextMeshProUGUI _text;
+    [SerializeField] private AnimationCurve _sliderProgressCurve;
     public string message = "";
 
     // Start is called before the first frame update
@@ -17,13 +19,15 @@ public class SliderController : MonoBehaviour
         //_upgradeFill = transform.Find(upgradeFillName).GetComponent<RectTransform>();
         //_slider = GetComponentInChildren<Slider>();
 
-        UpdateData(100, 50, 25);
+        //UpdateData(100, 50, 25);
     }
 
-    public void UpdateData(float maxValue, float currentValue, float extraValueAfterUpgrade)
+    public void UpdateData(UpgradeFeatureDetails details)
     {
-        _slider.value = currentValue/maxValue;
-        _upgradeFill.anchorMax = new Vector2((currentValue + extraValueAfterUpgrade)/maxValue, _upgradeFill.anchorMax.y);
-        _text.text = message + ": " + currentValue + " + " + extraValueAfterUpgrade;
+        if (_sliderProgressCurve == null) _sliderProgressCurve = AnimationCurve.Linear(0, 0, 1, 1);
+
+        _slider.value = _sliderProgressCurve.Evaluate( details.currentValue / details.maxValue );
+        _upgradeFill.anchorMax = new Vector2(_sliderProgressCurve.Evaluate( (details.currentValue + details.extraValueAfterUpgrade) / details.maxValue ), _upgradeFill.anchorMax.y);
+        _text.text = message + ": " + details.currentValue + " + " + details.extraValueAfterUpgrade;
     }
 }
