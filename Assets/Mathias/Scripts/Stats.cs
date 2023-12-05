@@ -22,10 +22,15 @@ public enum DamageType
 //Class defining the stats for game characters
 public class Stats : MonoBehaviour
 {
+    [Header("Attacking Settings")]
     public CharacterType characterType;
     public DamageType damageType;
     public int health;
+    public bool canAttack;
     public float range;
-    public int defense;
-    public int attack;
+    public int armor;
+    public int attackDamage;
+    public float attackSpeed;
+    // timer need to be reset
+    public float timer;
 }

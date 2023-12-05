@@ -151,8 +151,8 @@ Transform:
   m_GameObject: {fileID: 59868323}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.25, y: 2.5, z: 0}
-  m_LocalScale: {x: 0.525, y: 4, z: 0.025}
+  m_LocalPosition: {x: -0.099999994, y: 2.5, z: 0}
+  m_LocalScale: {x: 0.20999998, y: 4, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1948959191}
@@ -256,8 +256,8 @@ Transform:
   m_GameObject: {fileID: 179424656}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.24999997, y: 2.5, z: 0.14999999}
-  m_LocalScale: {x: 0.23, y: 4, z: 0.025}
+  m_LocalPosition: {x: 0.099999994, y: 2.5, z: 0.06}
+  m_LocalScale: {x: 0.092000015, y: 4, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1948959191}
@@ -367,15 +367,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb9baac4f1f04ee4582c86cbeff0e9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canAttack: 0
+  characterType: 0
+  damageType: 0
   health: 10
+  canAttack: 0
   range: 0
-  damage: 3
+  armor: 0
+  attackDamage: 0
   attackSpeed: 1
   timer: 0
+  _attackSound: {fileID: 0}
   currentTarget: {fileID: 0}
   targetList: []
-  attackHealth: {fileID: 0}
 --- !u!195 &395290585
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -635,6 +638,7 @@ GameObject:
   - component: {fileID: 491574076}
   - component: {fileID: 491574075}
   - component: {fileID: 491574078}
+  - component: {fileID: 491574079}
   m_Layer: 0
   m_Name: Cube (4)
   m_TagString: Wall
@@ -651,8 +655,8 @@ Transform:
   m_GameObject: {fileID: 491574073}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.068, y: 2.5, z: -0.25}
-  m_LocalScale: {x: 0.39, y: 4, z: 0.025}
+  m_LocalPosition: {x: 0.027200002, y: 2.5, z: -0.099999994}
+  m_LocalScale: {x: 0.15599999, y: 4, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1948959191}
@@ -672,11 +676,11 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.9999988, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &491574076
 MeshRenderer:
@@ -740,15 +744,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 118e4a93b27b93e41a351c8a2b2e94f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canAttack: 0
+  characterType: 0
+  damageType: 0
   health: 10
+  canAttack: 0
   range: 0
-  damage: 0
+  armor: 0
+  attackDamage: 0
   attackSpeed: 0
   timer: 0
+  _attackSound: {fileID: 0}
   currentTarget: {fileID: 0}
   targetList: []
+  col: {fileID: 0}
   groundTag: Ground
+--- !u!54 &491574079
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491574073}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &663765577
 GameObject:
   m_ObjectHideFlags: 0
@@ -804,14 +840,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 118e4a93b27b93e41a351c8a2b2e94f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canAttack: 0
+  characterType: 0
+  damageType: 0
   health: 0
+  canAttack: 0
   range: 3
-  damage: 0
+  armor: 0
+  attackDamage: 0
   attackSpeed: 0
   timer: 0
+  _attackSound: {fileID: 0}
   currentTarget: {fileID: 0}
   targetList: []
+  col: {fileID: 0}
   groundTag: Ground
 --- !u!65 &663765580
 BoxCollider:
@@ -910,10 +951,10 @@ GameObject:
   - component: {fileID: 899482100}
   - component: {fileID: 899482099}
   - component: {fileID: 899482098}
-  - component: {fileID: 899482097}
   - component: {fileID: 899482101}
+  - component: {fileID: 899482105}
   - component: {fileID: 899482102}
-  - component: {fileID: 899482103}
+  - component: {fileID: 899482106}
   m_Layer: 0
   m_Name: Enemy D
   m_TagString: Enemy
@@ -921,29 +962,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!136 &899482097
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 899482096}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &899482098
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1023,7 +1041,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   closestWall: {fileID: 0}
-  radius: 20
+  radius: 20.2
   targetType:
   - attacking
   - passive
@@ -1049,7 +1067,7 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &899482103
+--- !u!114 &899482105
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1061,15 +1079,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb9baac4f1f04ee4582c86cbeff0e9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canAttack: 0
+  characterType: 0
+  damageType: 0
   health: 10
-  range: 2
-  damage: 1
+  canAttack: 0
+  range: 1.72
+  armor: 0
+  attackDamage: 2
   attackSpeed: 1
   timer: 0
+  _attackSound: {fileID: 0}
   currentTarget: {fileID: 0}
   targetList: []
-  attackHealth: {fileID: 0}
+--- !u!135 &899482106
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899482096}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &903142705
 GameObject:
   m_ObjectHideFlags: 0
@@ -1099,8 +1141,8 @@ Transform:
   m_GameObject: {fileID: 903142705}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.102, y: 2.5, z: -0.25}
-  m_LocalScale: {x: 0.39, y: 4, z: 0.025}
+  m_LocalPosition: {x: -0.040799998, y: 2.5, z: -0.099999994}
+  m_LocalScale: {x: 0.15599999, y: 4, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1948959191}
@@ -1188,14 +1230,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 118e4a93b27b93e41a351c8a2b2e94f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canAttack: 0
+  characterType: 0
+  damageType: 0
   health: 10
+  canAttack: 0
   range: 0
-  damage: 0
+  armor: 0
+  attackDamage: 0
   attackSpeed: 0
   timer: 0
+  _attackSound: {fileID: 0}
   currentTarget: {fileID: 0}
   targetList: []
+  col: {fileID: 0}
   groundTag: Ground
 --- !u!1 &1472051601
 GameObject:
@@ -1225,8 +1272,8 @@ Transform:
   m_GameObject: {fileID: 1472051601}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 0.25}
-  m_LocalScale: {x: 0.52500004, y: 4, z: 0.025}
+  m_LocalPosition: {x: 0, y: 2.5, z: 0.099999994}
+  m_LocalScale: {x: 0.21, y: 4, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1948959191}
@@ -1330,8 +1377,8 @@ Transform:
   m_GameObject: {fileID: 1735812149}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.25, y: 2.5, z: -0.087}
-  m_LocalScale: {x: 0.35, y: 4, z: 0.025}
+  m_LocalPosition: {x: 0.099999994, y: 2.5, z: -0.0348}
+  m_LocalScale: {x: 0.14, y: 4, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1948959191}
@@ -1630,14 +1677,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 118e4a93b27b93e41a351c8a2b2e94f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canAttack: 1
+  characterType: 0
+  damageType: 0
   health: 10
-  range: 2
-  damage: 1
+  canAttack: 1
+  range: 4.42
+  armor: 0
+  attackDamage: 0
   attackSpeed: 1
   timer: 0
+  _attackSound: {fileID: 0}
   currentTarget: {fileID: 0}
   targetList: []
+  col: {fileID: 1770688624}
   groundTag: Ground
 --- !u!65 &1931580683
 BoxCollider:
@@ -1854,7 +1906,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 40, y: 1, z: 40}
+  m_LocalScale: {x: 100, y: 1, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1472051602}
@@ -1896,6 +1948,74 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 647205849d4dee241a784462cf71e16c, type: 2}
   m_BuildHeightMesh: 0
+--- !u!1001 &51005344863586564
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1342542585483863325, guid: 2dbd8cbbdd4a93041a102d269e715227,
+        type: 3}
+      propertyPath: m_Name
+      value: Tower (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1342542585484022427, guid: 2dbd8cbbdd4a93041a102d269e715227,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.447075
+      objectReference: {fileID: 0}
+    - target: {fileID: 1342542585484022427, guid: 2dbd8cbbdd4a93041a102d269e715227,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5000019
+      objectReference: {fileID: 0}
+    - target: {fileID: 1342542585484022427, guid: 2dbd8cbbdd4a93041a102d269e715227,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -19.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1342542585484022427, guid: 2dbd8cbbdd4a93041a102d269e715227,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1342542585484022427, guid: 2dbd8cbbdd4a93041a102d269e715227,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1342542585484022427, guid: 2dbd8cbbdd4a93041a102d269e715227,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1342542585484022427, guid: 2dbd8cbbdd4a93041a102d269e715227,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1342542585484022427, guid: 2dbd8cbbdd4a93041a102d269e715227,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1342542585484022427, guid: 2dbd8cbbdd4a93041a102d269e715227,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1342542585484022427, guid: 2dbd8cbbdd4a93041a102d269e715227,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2dbd8cbbdd4a93041a102d269e715227, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1907,3 +2027,4 @@ SceneRoots:
   - {fileID: 1931580686}
   - {fileID: 899482100}
   - {fileID: 395290590}
+  - {fileID: 51005344863586564}
