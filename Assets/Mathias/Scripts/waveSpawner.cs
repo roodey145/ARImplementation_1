@@ -60,7 +60,7 @@ public class waveSpawner : MonoBehaviour
             GameObject newspawn = Instantiate(waves[currentWave].GetEnemySpawnList()[i], FindSpawnLoc(),Quaternion.identity);
             currentMonster.Add(newspawn);
 
-            EnemyController monster = newspawn.GetComponent<Enemy>();//Swap enemy with anything I suppose
+            EnemyController monster = newspawn.GetComponent<EnemyController>();//Swap enemy with anything I suppose
         }
     }
 

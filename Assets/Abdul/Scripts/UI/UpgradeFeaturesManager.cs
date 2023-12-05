@@ -40,6 +40,11 @@ public class UpgradeFeaturesManager : MonoBehaviour
     }
 
 
+    //private IEnumerator trying()
+    //{
+    //    //yield return new WaitUntil()
+    //}
+
     private void OnEnable()
     {
         if (_buildingData == null) return; 

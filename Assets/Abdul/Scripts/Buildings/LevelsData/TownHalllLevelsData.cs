@@ -41,26 +41,65 @@ public class TownHallLevelsData : BuildingLevelsData
                 new TownHallLevelData()
                 {
                     level = 1,
-                    cost = 15,
-                    health = 10,
+                    cost = 500,
+                    health = 1200,
                     upgradeTimeInSeconds = 5,
                     resourcesType = ResourcesType.Gold,
+                    upgradeFeaturesDetails = new UpgradeFeaturesDetails()
+                    {
+                        featuresDetails = new UpgradeFeatureDetails[]
+                        {
+                            new UpgradeFeatureDetails()
+                            {
+                                feature = UpgradeFeature.Health,
+                                maxValue = 25_000,
+                                currentValue = 1200,
+                                extraValueAfterUpgrade = 500,
+                            }
+                        }
+                    }
                 },
                 new TownHallLevelData()
                 {
                     level = 2,
-                    cost = 50,
-                    health = 25,
+                    cost = 2500,
+                    health = 1700,
                     upgradeTimeInSeconds = 10,
                     resourcesType = ResourcesType.Gold,
+                    upgradeFeaturesDetails = new UpgradeFeaturesDetails()
+                    {
+                        featuresDetails = new UpgradeFeatureDetails[]
+                        {
+                            new UpgradeFeatureDetails()
+                            {
+                                feature = UpgradeFeature.Health,
+                                maxValue = 25_000,
+                                currentValue = 1700,
+                                extraValueAfterUpgrade = 1700,
+                            }
+                        }
+                    }
                 },
                 new TownHallLevelData()
                 {
                     level = 3,
-                    cost = 250,
-                    health = 50,
+                    cost = 12_500,
+                    health = 3400,
                     upgradeTimeInSeconds = 15,
                     resourcesType = ResourcesType.Gold,
+                    upgradeFeaturesDetails = new UpgradeFeaturesDetails()
+                    {
+                        featuresDetails = new UpgradeFeatureDetails[]
+                        {
+                            new UpgradeFeatureDetails()
+                            {
+                                feature = UpgradeFeature.Health,
+                                maxValue = 25_000,
+                                currentValue = 3400,
+                                extraValueAfterUpgrade = 1600,
+                            }
+                        }
+                    }
                 }
             };
         _maxLevel = _buildingLevelsData.Length;
