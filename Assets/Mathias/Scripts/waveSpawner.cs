@@ -24,7 +24,6 @@ public class waveSpawner : MonoBehaviour
     int currentWave = 0;
     float spawnRange = 10;
 
-    //public int enemiesKilled;
     public List<GameObject> currentMonster;
 
     // Start is called before the first frame update
@@ -36,7 +35,16 @@ public class waveSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Kill counter for. Tells us when to spawn the next wave
+        // For loop that removes enemies if there are >=0.
+        for (int i = currentMonster.Count - 1; i >= 0; i--)
+        {
+            if (currentMonster[i] == null) 
+            {
+                currentMonster.RemoveAt(i);
+            }
+        }
+
+        //Kill counter for currentMonsters. Tells us when to spawn the next wave
         if(currentMonster.Count == 0)
         {
             currentWave++;
@@ -56,6 +64,7 @@ public class waveSpawner : MonoBehaviour
         }
     }
 
+    //finds a vector3 spawn location. If it can not find a location, it will create an infinite loop of trying to find a location to spawn enemies on
     Vector3 FindSpawnLoc()
     {
         Vector3 SpawnPos;
