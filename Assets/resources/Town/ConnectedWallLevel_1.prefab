@@ -505,7 +505,7 @@ GameObject:
   - component: {fileID: 5832550105244258952}
   m_Layer: 2
   m_Name: ConnectedWallLevel_1
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

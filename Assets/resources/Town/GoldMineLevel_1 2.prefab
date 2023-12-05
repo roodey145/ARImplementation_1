@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 2016121679651324090}
   m_Layer: 0
   m_Name: GoldMineLevel_1 2
-  m_TagString: Untagged
+  m_TagString: passive
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -297,18 +297,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97dda54d156acba4e888d457776def41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _placeableModel: 0
-  _placing: 0
+  _level: 1
+  _modelPath: GoldMineLevel_1
+  _model: {fileID: 6902779020983204988, guid: 7377e3086a9dec640b12708070c66341, type: 3}
+  _indestructible:
+    id: 0
+    level: 0
+    type: 0
+    appliedX: 0
+    appliedZ: 0
   _width: 3
   _length: 3
   _x: 0
   _z: 0
-  _modelPath: GoldMineLevel_1
-  _model: {fileID: 6902779020983204988, guid: 7377e3086a9dec640b12708070c66341, type: 3}
-  _buildingType: 3
-  _removeAction: {fileID: 0}
-  xInfo: {fileID: 0}
-  zInfo: {fileID: 0}
   _rotationActions: []
   _rotationAmount: 90
   _initialRotation: {x: 0, y: 0, z: 0, w: 0}

@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 1639179969294583155}
   - component: {fileID: 8893494720093104325}
   - component: {fileID: 8554664030778766137}
+  - component: {fileID: -8408050937254798603}
   - component: {fileID: 6189142139299293781}
   m_Layer: 2
   m_Name: GoldMineLevel_1
-  m_TagString: Untagged
+  m_TagString: passive
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,6 +93,32 @@ MonoBehaviour:
   collectedResources: 0
   _text: {fileID: 2362231551021760613}
   _goldProgressController: {fileID: 1464245833464485569}
+--- !u!114 &-8408050937254798603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867275430359426778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 118e4a93b27b93e41a351c8a2b2e94f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterType: 0
+  damageType: 0
+  health: 0
+  canAttack: 0
+  range: 0
+  armor: 0
+  attackDamage: 0
+  attackSpeed: 0
+  timer: 0
+  _attackSound: {fileID: 0}
+  currentTarget: {fileID: 0}
+  targetList: []
+  col: {fileID: 0}
+  groundTag: Ground
 --- !u!114 &6189142139299293781
 MonoBehaviour:
   m_ObjectHideFlags: 0
