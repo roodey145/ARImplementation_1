@@ -8,4 +8,5 @@ public enum BuildingType
     Wall,
     MoneyBank,
     GoldMine,
+    ArcherTower,
 }

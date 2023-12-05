@@ -58,6 +58,13 @@ public class Defence : Attacker
     }
 
 
+    public void UpdateStats(int health, int attackDamage)
+    {
+        this.health = health;
+        this.attackDamage = attackDamage;
+    }
+
+
     private void OnDestroy()
     {
         groundMeshSurface.BuildNavMesh();

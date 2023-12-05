@@ -103,7 +103,7 @@ public class WallLevelsData : BuildingLevelsData
                 },
                 new WallLevelData()
                 {
-                    level = 3,
+                    level = 4,
                     cost = 100,
                     health = 250,
                     upgradeTimeInSeconds = 15,
@@ -124,7 +124,7 @@ public class WallLevelsData : BuildingLevelsData
                 },
                 new WallLevelData()
                 {
-                    level = 4,
+                    level = 5,
                     cost = 250,
                     health = 500,
                     upgradeTimeInSeconds = 15,
@@ -145,7 +145,7 @@ public class WallLevelsData : BuildingLevelsData
                 },
                 new WallLevelData()
                 {
-                    level = 5,
+                    level = 6,
                     cost = 500,
                     health = 1000,
                     upgradeTimeInSeconds = 15,

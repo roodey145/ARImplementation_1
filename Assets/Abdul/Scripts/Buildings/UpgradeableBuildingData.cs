@@ -128,6 +128,9 @@ public class UpgradeableBuildingData : IDableBuilding
                 case BuildingType.Wall:
                     levelsData = WallLevelsData.GetInstance();
                     break;
+                case BuildingType.ArcherTower:
+                    levelsData = ArcherTowerLevelsData.GetInstance();
+                    break;
             }
 
         }
