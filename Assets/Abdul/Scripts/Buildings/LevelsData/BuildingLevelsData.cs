@@ -40,4 +40,5 @@ public class BuildingLevelData
     internal int health;
     internal int upgradeTimeInSeconds;
     internal ResourcesType resourcesType;
+    internal UpgradeFeaturesDetails upgradeFeaturesDetails;
 }
