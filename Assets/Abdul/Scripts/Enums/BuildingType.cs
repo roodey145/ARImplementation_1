@@ -10,4 +10,5 @@ public enum BuildingType
     GoldMine,
     ArcherTower,
     Barrack,
+    ArmyCamp,
 }

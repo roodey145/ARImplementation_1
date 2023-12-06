@@ -137,6 +137,9 @@ public class UpgradeableBuildingData : IDableBuilding
                 case BuildingType.Barrack:
                     levelsData = BarrackLevelsData.GetInstance();
                     break;
+                case BuildingType.ArmyCamp:
+                    levelsData = ArmyCampLevelsData.GetInstance();
+                    break;
             }
 
         }

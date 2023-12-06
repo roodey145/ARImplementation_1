@@ -6,6 +6,7 @@ public enum UpgradeFeature
 {
     Health,
     GoldStorage,
+    SoliderCapacity,
     Damage,
     Speed,
 }
