@@ -26,7 +26,7 @@ public class InteractableBuilding : BuildingData
 
     [Header("Hover Setting")]
     [SerializeField] protected Color _hoveredColor = Color.red;
-    internal bool hovered = false;
+    [SerializeField] internal bool hovered = false;
     private MeshRenderer[] _meshRenderers;
     private Dictionary<Material, Color> originalMatsColor = new Dictionary<Material, Color>();
     private XRSimpleInteractable _xrInteractable;
