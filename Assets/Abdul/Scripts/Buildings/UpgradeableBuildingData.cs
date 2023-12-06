@@ -119,6 +119,9 @@ public class UpgradeableBuildingData : IDableBuilding
         {
             switch (_buildingType)
             {
+                case BuildingType.TownHall:
+                    levelsData = TownHallLevelsData.GetInstance();
+                    break;
                 case BuildingType.GoldMine:
                     levelsData = GoldMineLevelsData.GetInstance();
                     break;
@@ -130,6 +133,9 @@ public class UpgradeableBuildingData : IDableBuilding
                     break;
                 case BuildingType.ArcherTower:
                     levelsData = ArcherTowerLevelsData.GetInstance();
+                    break;
+                case BuildingType.Barrack:
+                    levelsData = BarrackLevelsData.GetInstance();
                     break;
             }
 

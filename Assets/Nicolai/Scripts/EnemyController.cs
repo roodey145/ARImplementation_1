@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(Animator))]
 public class EnemyController : Attacker
 {
     NavMeshAgent agent;
     EnemyNav enemyNav;
     SphereCollider rangeColider;
     bool startAttack = false;
+    private Animator _animator;
+
     // Start is called before the first frame update
     protected new void Start()
     {
@@ -16,6 +19,7 @@ public class EnemyController : Attacker
         agent = GetComponent<NavMeshAgent>();
         enemyNav = GetComponent<EnemyNav>();
         rangeColider = GetComponent<SphereCollider>();
+        _animator = GetComponent<Animator>();
         rangeColider.radius = range;
     }
 
@@ -35,12 +39,14 @@ public class EnemyController : Attacker
 
             if (startAttack) {
                 attack(attackDamage);
+                _animator.SetTrigger("AttackTrigger");
             }
         }
         else
         {
             agent.stoppingDistance = 0;
             startAttack = false;
+            _animator.SetTrigger("WalkTrigger");
         }
     }
 

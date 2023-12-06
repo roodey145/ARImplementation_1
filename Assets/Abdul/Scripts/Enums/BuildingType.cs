@@ -9,4 +9,5 @@ public enum BuildingType
     MoneyBank,
     GoldMine,
     ArcherTower,
+    Barrack,
 }
