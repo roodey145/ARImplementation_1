@@ -515,7 +515,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterType: 0
   damageType: 2
-  health: 10
+  health: 20
   canAttack: 1
   range: 9
   armor: 0
@@ -552,7 +552,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!65 &3968070114623392668
 BoxCollider:
