@@ -18,6 +18,11 @@ PrefabInstance:
       propertyPath: attackDamage
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4008287595388514240, guid: a50775b95cd87bb4ca692f124419084a,
+        type: 3}
+      propertyPath: characterType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5318703616429761381, guid: a50775b95cd87bb4ca692f124419084a,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -86,7 +91,7 @@ PrefabInstance:
     - target: {fileID: 6993091739443927741, guid: a50775b95cd87bb4ca692f124419084a,
         type: 3}
       propertyPath: m_Name
-      value: Giant monster Variant
+      value: Giant monster
       objectReference: {fileID: 0}
     - target: {fileID: 6993091739443927741, guid: a50775b95cd87bb4ca692f124419084a,
         type: 3}

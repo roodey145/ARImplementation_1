@@ -91,7 +91,7 @@ PrefabInstance:
     - target: {fileID: 9067130667269675161, guid: cb2551d5c39ec4700b19f3b57c030da4,
         type: 3}
       propertyPath: m_Name
-      value: monster Variant
+      value: monster
       objectReference: {fileID: 0}
     - target: {fileID: 9067130667269675161, guid: cb2551d5c39ec4700b19f3b57c030da4,
         type: 3}
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb9baac4f1f04ee4582c86cbeff0e9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterType: 0
+  characterType: 2
   damageType: 0
   health: 35
   canAttack: 0

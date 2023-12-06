@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb9baac4f1f04ee4582c86cbeff0e9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterType: 0
+  characterType: 2
   damageType: 0
   health: 10
   canAttack: 1
