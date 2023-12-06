@@ -41,9 +41,9 @@ public class BarrackLevelsData : BuildingLevelsData
                 new BarrackLevelData()
                 {
                     level = 1,
-                    cost = 15,
-                    health = 25,
-                    upgradeTimeInSeconds = 10,
+                    cost = 150,
+                    health = 75,
+                    upgradeTimeInSeconds = 60,
                     resourcesType = ResourcesType.Gold,
                     upgradeFeaturesDetails = new UpgradeFeaturesDetails()
                     {
@@ -52,16 +52,16 @@ public class BarrackLevelsData : BuildingLevelsData
                             new UpgradeFeatureDetails()
                             {
                                 feature = UpgradeFeature.Health,
-                                maxValue = 5_000,
-                                currentValue = 25,
-                                extraValueAfterUpgrade = 25,
+                                maxValue = 2_400,
+                                currentValue = 75,
+                                extraValueAfterUpgrade = 125,
                             },
                             new UpgradeFeatureDetails()
                             {
-                                feature = UpgradeFeature.Damage,
-                                maxValue = 500,
-                                currentValue = 2,
-                                extraValueAfterUpgrade = 3,
+                                feature = UpgradeFeature.Speed,
+                                maxValue = 90,
+                                currentValue = 0,
+                                extraValueAfterUpgrade = 5,
                             }
                         }
                     }
@@ -69,8 +69,8 @@ public class BarrackLevelsData : BuildingLevelsData
                 new BarrackLevelData()
                 {
                     level = 2,
-                    cost = 25,
-                    health = 50,
+                    cost = 350,
+                    health = 200,
                     upgradeTimeInSeconds = 30,
                     resourcesType = ResourcesType.Gold,
                     upgradeFeaturesDetails = new UpgradeFeaturesDetails()
@@ -80,16 +80,16 @@ public class BarrackLevelsData : BuildingLevelsData
                             new UpgradeFeatureDetails()
                             {
                                 feature = UpgradeFeature.Health,
-                                maxValue = 5_000,
-                                currentValue = 50,
-                                extraValueAfterUpgrade = 75,
+                                maxValue = 2_400,
+                                currentValue = 200,
+                                extraValueAfterUpgrade = 300,
                             },
                             new UpgradeFeatureDetails()
                             {
-                                feature = UpgradeFeature.Damage,
-                                maxValue = 500,
-                                currentValue = 5,
-                                extraValueAfterUpgrade = 10,
+                                feature = UpgradeFeature.Speed,
+                                maxValue = 90,
+                                currentValue = 0,
+                                extraValueAfterUpgrade = 5,
                             }
                         }
                     }
@@ -108,16 +108,16 @@ public class BarrackLevelsData : BuildingLevelsData
                             new UpgradeFeatureDetails()
                             {
                                 feature = UpgradeFeature.Health,
-                                maxValue = 5_000,
-                                currentValue = 125,
+                                maxValue = 2_400,
+                                currentValue = 75,
                                 extraValueAfterUpgrade = 125,
                             },
                             new UpgradeFeatureDetails()
                             {
-                                feature = UpgradeFeature.Damage,
-                                maxValue = 500,
-                                currentValue = 15,
-                                extraValueAfterUpgrade = 10,
+                                feature = UpgradeFeature.Speed,
+                                maxValue = 90,
+                                currentValue = 0,
+                                extraValueAfterUpgrade = 5,
                             }
                         }
                     }
@@ -129,5 +129,5 @@ public class BarrackLevelsData : BuildingLevelsData
 
 public class BarrackLevelData : BuildingLevelData
 {
-    
+    internal int speedIncrease;
 }
