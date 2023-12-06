@@ -17,7 +17,8 @@ public class Defence : Attacker
     protected new void Start()
     {
         base.Start();
-        col.radius = range;
+        if(col != null)
+            col.radius = range;
 
         if (groundMeshSurface  == null)
             groundMeshSurface = GameObject.FindGameObjectWithTag(groundTag)?.GetComponent<NavMeshSurface>();
@@ -29,7 +30,7 @@ public class Defence : Attacker
         base.Update();
 
         // Ensure the attacker does not attack when its health is equal or below zero
-        if (health <= 0) return;
+        if (health <= 0 || !canAttack) return;
 
         if (canAttack)
         {
