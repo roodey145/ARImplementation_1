@@ -68,7 +68,8 @@ public class Defence : Attacker
 
     private void OnDestroy()
     {
-        groundMeshSurface.BuildNavMesh();
+        if(groundMeshSurface != null)
+            groundMeshSurface.BuildNavMesh();
     }
 
 }
