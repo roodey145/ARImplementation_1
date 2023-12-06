@@ -24,6 +24,10 @@ public class WarriorsProductionListManager : MonoBehaviour
     internal void NotifyWarriorProducorDestoryed(WarriorProductionController producor)
     {
         _warriorsToProduce.Remove(producor);
+
+        // Notify the next producor in line to start producing warriors
+        _OrderNextProducorToStart();
+
     }
 
     internal void AddWarriorToProduce(WarriorData warriorData)
@@ -59,5 +63,18 @@ public class WarriorsProductionListManager : MonoBehaviour
 
             }
         }
+
+        // Start producing if the production did not start yet
+        _OrderNextProducorToStart();
+    }
+
+    private void _OrderNextProducorToStart()
+    {
+        if(_warriorsToProduce.Count > 0)
+        {
+            // Start the to produce warrior if there is any producor that is not done producing yet
+            _warriorsToProduce[0].StartProduction();
+        }
+        
     }
 }

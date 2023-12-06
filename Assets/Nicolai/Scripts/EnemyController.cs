@@ -48,12 +48,16 @@ public class EnemyController : Attacker
     private new void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);
-        print(other.gameObject + ", " + enemyNav.target.gameObject);
-        if(other.gameObject == enemyNav.target.gameObject){
-
-         agent.stoppingDistance = Vector3.Distance(transform.position, enemyNav.target.position);
-         startAttack = true;
+        if(enemyNav.target != null)
+        {
+            print(other.gameObject + ", " + enemyNav.target.gameObject);
+            if (other.gameObject == enemyNav.target.gameObject)
+            {
+                agent.stoppingDistance = Vector3.Distance(transform.position, enemyNav.target.position);
+                startAttack = true;
+            }
         }
+        
 
     }
 

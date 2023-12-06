@@ -9,15 +9,20 @@ public class WarriorUI : MonoBehaviour
     [SerializeField] private Button _buyButton;
     [SerializeField] private WarriorsProductionListManager _warriorProductionManager;
 
+    // In case the unrestrict method is called before the Start method, this will be used
+    // to ensure that the buy button will be enabled either way
+    private bool _buyable = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        _SetupButton();
+        _SetupButton(_buyable);
     }
 
     internal void Unrestrict()
     {
-        _buyButton.enabled = true;
+        _buyable = true;
+        if (_buyButton != null) _buyButton.enabled = true;
     }
 
     internal void AssignProductionManager(WarriorsProductionListManager warriorProductionManager)
@@ -25,7 +30,7 @@ public class WarriorUI : MonoBehaviour
         _warriorProductionManager = warriorProductionManager;
     }
 
-    private void _SetupButton()
+    private void _SetupButton(bool buyable)
     {
         if (_buyButton == null) _buyButton = GetComponentInChildren<Button>();
 
@@ -34,7 +39,7 @@ public class WarriorUI : MonoBehaviour
         // Register a method for when the button is clicked.
         _buyButton.onClick.AddListener(_Buy);
 
-        _buyButton.enabled = false;
+        _buyButton.enabled = buyable;
     }
 
 

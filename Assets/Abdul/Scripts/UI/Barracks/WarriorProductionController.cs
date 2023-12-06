@@ -30,7 +30,7 @@ public class WarriorProductionController : MonoBehaviour
         TextMeshProUGUI[] texts = GetComponentsInChildren<TextMeshProUGUI>();
         for(int i = 0; i < texts.Length; i++)
         {
-            if (texts[i].gameObject != _sliderProgressText)
+            if (texts[i].gameObject != _sliderProgressText.gameObject)
             {
                 _countText = texts[i];
                 break;
@@ -40,13 +40,16 @@ public class WarriorProductionController : MonoBehaviour
         // Ensure that the count text matches the count
         _UpdateTheCountText();
 
-        StartCoroutine(_ProduceWarrior());
+        // Update the progress slider
+        _UpdateProgressSlider();
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    internal void StartProduction()
     {
-        
+        if( !_producing )
+        {
+            StartCoroutine(_ProduceWarrior());
+        }
     }
 
 
@@ -55,6 +58,8 @@ public class WarriorProductionController : MonoBehaviour
         _count++;
         _UpdateTheCountText();
     }
+
+
 
 
     private IEnumerator _ProduceWarrior()
@@ -75,9 +80,10 @@ public class WarriorProductionController : MonoBehaviour
             
 
             // Check if there is more warrior of this type to produce
-            if(_count > 0)
+            if(_count > 1)
             {
                 _count--;
+                _timer = 0; // Reset the timer
                 _UpdateTheCountText();
                 StartCoroutine(_ProduceWarrior());
             }

@@ -26,7 +26,7 @@ public class BarracksWarriorManager : MonoBehaviour
     {
         for(int i = 0; i < _warriors.Length; i++)
         {
-            if (_warriors[i].warriorData.requiredBarracksLevel <= _buildingData.GetLevel())
+            if (_warriors[i].warriorData.requiredBarracksLevel <= /*_buildingData.GetLevel()*/ 1)
             { // The level of the barracks is enough to produce this warrior
                 _warriors[i].Unrestrict();
                 _warriors[i].AssignProductionManager(_warriorProductionManager);
