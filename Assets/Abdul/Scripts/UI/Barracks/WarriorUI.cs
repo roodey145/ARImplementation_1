@@ -22,7 +22,7 @@ public class WarriorUI : MonoBehaviour
     internal void Unrestrict()
     {
         _buyable = true;
-        if (_buyButton != null) _buyButton.enabled = true;
+        if (_buyButton != null) _buyButton.interactable = true;
     }
 
     internal void AssignProductionManager(WarriorsProductionListManager warriorProductionManager)
@@ -39,7 +39,7 @@ public class WarriorUI : MonoBehaviour
         // Register a method for when the button is clicked.
         _buyButton.onClick.AddListener(_Buy);
 
-        _buyButton.enabled = buyable;
+        _buyButton.interactable = buyable;
     }
 
 
