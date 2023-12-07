@@ -96,6 +96,7 @@ MonoBehaviour:
   collectedResources: 0
   _text: {fileID: 2362231551021760613}
   _goldProgressController: {fileID: 1464245833464485569}
+  _defence: {fileID: 0}
 --- !u!114 &6189142139299293781
 MonoBehaviour:
   m_ObjectHideFlags: 0
