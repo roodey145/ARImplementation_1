@@ -26,15 +26,23 @@ public class waveSpawner : MonoBehaviour
 
     public List<GameObject> currentMonster;
 
+    private bool spawningStarted = false;
+
+    private Locateable _locateable;
+
     // Start is called before the first frame update
     void Start()
     {
-        SpawnWave();
+        _locateable = GetComponent<Locateable>();
+        //SpawnWave();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Ensures that the waves only starts when the player click on the Conquer UI Button
+        if (!spawningStarted) return;
+
         // For loop that removes enemies if there are >=0.
         for (int i = currentMonster.Count - 1; i >= 0; i--)
         {
@@ -48,16 +56,30 @@ public class waveSpawner : MonoBehaviour
         if(currentMonster.Count == 0)
         {
             currentWave++;
-            SpawnWave();
+            // Check if this is the last wave
+            if(currentWave >= waves.Length)
+            { // Reset the spawner, so the player can start from the start.
+                spawningStarted = false;
+                currentWave = 0;
+            }
+            else
+            {
+                SpawnWave();
+            }
         }
     }
 
-    void SpawnWave()
+    public void SpawnWave()
     {
+        spawningStarted = true;
         // Checks the currentWave class and get the length of the GetEnemySpawnList
-        for(int i = 0; i < waves[currentWave].GetEnemySpawnList().Length; i++)
+        for (int i = 0; i < waves[currentWave].GetEnemySpawnList().Length; i++)
         {
-            GameObject newspawn = Instantiate(waves[currentWave].GetEnemySpawnList()[i], FindSpawnLoc(),Quaternion.identity);
+            Vector2Int location = FindSpawnLoc(_locateable);
+
+            GameObject newspawn = Instantiate(waves[currentWave].GetEnemySpawnList()[i], _locateable.GetPosition(location.x, location.y), Quaternion.identity);
+            Locateable locateable = newspawn.GetComponent<Locateable>();
+            locateable.AssignPosition(location.x, location.y);
             currentMonster.Add(newspawn);
 
             EnemyController monster = newspawn.GetComponent<EnemyController>();//Swap enemy with anything I suppose
@@ -65,23 +87,24 @@ public class waveSpawner : MonoBehaviour
     }
 
     //finds a vector3 spawn location. If it can not find a location, it will create an infinite loop of trying to find a location to spawn enemies on
-    Vector3 FindSpawnLoc()
+    Vector2Int FindSpawnLoc(Locateable locateable)
     {
-        Vector3 SpawnPos;
+        int x = Random.Range(-GroundData.width, GroundData.width);
+        int z = Random.Range(-GroundData.length, GroundData.length);
 
-        float xLoc = Random.Range(-spawnRange, spawnRange) + transform.position.x;
-        float zLoc = Random.Range(-spawnRange, spawnRange) + transform.position.z;
-        float yloc = transform.position.y;
+        //float xLoc = Random.Range(-spawnRange, spawnRange) + transform.position.x;
+        //float zLoc = Random.Range(-spawnRange, spawnRange) + transform.position.z;
+        //float yloc = transform.position.y;
 
-        SpawnPos = new Vector3(xLoc, yloc, zLoc);
+        //SpawnPos = new Vector3(xLoc, yloc, zLoc);
 
-        if(Physics.Raycast(SpawnPos, Vector3.down, 5))
+        if(!locateable.CheckCollision(x,z))
         {
-            return SpawnPos;
+            return new Vector2Int(x, z);
         }
         else
         {
-            return FindSpawnLoc();
+            return FindSpawnLoc(locateable);
         }
     }
 }

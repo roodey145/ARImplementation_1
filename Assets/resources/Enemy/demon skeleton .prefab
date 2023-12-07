@@ -933,6 +933,7 @@ GameObject:
   - component: {fileID: 1309884818086471376}
   - component: {fileID: 6418474306859326212}
   - component: {fileID: 1174873805891742033}
+  - component: {fileID: -3559512239727777212}
   m_Layer: 0
   m_Name: 'demon skeleton '
   m_TagString: Enemy
@@ -1066,6 +1067,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-3559512239727777212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6545162824351383194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f17164a0369cb047bee0d7544a0da82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _width: 1
+  _length: 1
+  _x: 0
+  _z: 0
 --- !u!1 &6630301227755995423
 GameObject:
   m_ObjectHideFlags: 0
