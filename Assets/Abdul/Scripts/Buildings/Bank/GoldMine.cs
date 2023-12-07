@@ -16,13 +16,20 @@ public class GoldMine : UpgradeableBuildingData
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private ProgressAnimatorController _goldProgressController;
 
+    [Header("Defence")]
+    [SerializeField] private Defence _defence;
+
     // Start is called before the first frame update
     protected new void Start()
     {
         base.Start();
 
         // TODO: Create a mapper inside the ResourceIndestructible.
-        print("ID: " + ID);
+        //print("ID: " + ID);
+
+
+        _defence = GetComponent<Defence>();
+        _defence.UpdateStats(_upgradeData.health, 0);
 
         // Assign the resources from the indestructible
         collectedResources = ((ResourceIndestructible)_indestructibleInfo).GetResources();
@@ -102,6 +109,7 @@ public class GoldMine : UpgradeableBuildingData
     internal override void Upgrade()
     {
         base.Upgrade();
+        _defence.UpdateStats(_upgradeData.health, 0);
         // Make sure to update the visual to match the new level of the GoldMine
         _UpdateUI();
     }

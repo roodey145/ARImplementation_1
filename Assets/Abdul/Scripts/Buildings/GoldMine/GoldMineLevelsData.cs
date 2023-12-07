@@ -38,6 +38,7 @@ public class GoldMineLevelsData : BuildingLevelsData
             new GoldMineLevelData()
             {
                 level = 1,
+                health = 60,
                 capacity = 500,
                 productionSpeed = 2500,
                 cost = 10,
@@ -74,6 +75,7 @@ public class GoldMineLevelsData : BuildingLevelsData
             new GoldMineLevelData()
             {
                 level = 2,
+                health = 120,
                 capacity = 1250,
                 productionSpeed = 3750,
                 cost = 25,
@@ -110,6 +112,7 @@ public class GoldMineLevelsData : BuildingLevelsData
             new GoldMineLevelData()
             {
                 level = 3,
+                health = 250,
                 capacity = 2500,
                 productionSpeed = 5000,
                 cost = 50,
@@ -147,6 +150,7 @@ public class GoldMineLevelsData : BuildingLevelsData
             new GoldMineLevelData()
             {
                 level = 4,
+                health = 400,
                 capacity = 5000,
                 productionSpeed = 6250,
                 cost = 100,
@@ -183,6 +187,7 @@ public class GoldMineLevelsData : BuildingLevelsData
             new GoldMineLevelData()
             {
                 level = 5,
+                health = 600,
                 capacity = 10_000,
                 productionSpeed = 12_500,
                 cost = 250,

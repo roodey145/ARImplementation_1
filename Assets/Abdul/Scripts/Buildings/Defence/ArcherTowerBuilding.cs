@@ -18,6 +18,7 @@ public class ArcherTowerBuilding : UpgradeableBuildingData
     {
         base.Start();
         _defence = GetComponent<Defence>();
+        _defence.UpdateStats(_upgradeData.health, 0);
     }
 
     internal override void Upgrade()

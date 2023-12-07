@@ -7,12 +7,17 @@ public class GoldStorage : UpgradeableBuildingData
     // The capcity should be calculated using pre-determined meausres
     [SerializeField] private int _capacity;
 
+    [Header("Defence")]
+    [SerializeField] private Defence _defence;
 
     // Start is called before the first frame update
     protected new void Start()
     {
         base.Start();
         _UpdateData();
+
+        _defence = GetComponent<Defence>();
+        _defence.UpdateStats(_upgradeData.health, 0);
 
         // Register the storage
         GoldBank.GetInstance().RegisterStorage(this);
@@ -42,5 +47,13 @@ public class GoldStorage : UpgradeableBuildingData
     private void OnDestroy()
     {
         GoldBank.GetInstance().RemoveStorageData(this);
+    }
+
+    internal override void Upgrade()
+    {
+        base.Upgrade();
+
+        // Upgrade the data
+        _defence.UpdateStats(((ArcherTowerLevelData)_upgradeData).health, 0);
     }
 }

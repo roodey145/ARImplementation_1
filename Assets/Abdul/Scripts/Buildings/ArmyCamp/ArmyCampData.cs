@@ -25,6 +25,7 @@ public class ArmyCampData : UpgradeableBuildingData
     {
         base.Start();
         _defence = GetComponent<Defence>();
+        _defence.UpdateStats(_upgradeData.health, 0);
     }
 
     internal override void Upgrade()
@@ -32,6 +33,6 @@ public class ArmyCampData : UpgradeableBuildingData
         base.Upgrade();
 
         // Upgrade the data
-        //_defence.UpdateStats(((ArcherTowerLevelData)_upgradeData).health, _attackDamage);
+        _defence.UpdateStats(((ArmyCampLevelData)_upgradeData).health, 0);
     }
 }
