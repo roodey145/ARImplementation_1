@@ -8,6 +8,6 @@ public class PlaySoundOnStart : MonoBehaviour
 
    void Start()
    {
-    SoundManager.Instance.PlaySound(_clip);
+        //SoundManager.Instance.PlaySound(_clip);
    }
 }

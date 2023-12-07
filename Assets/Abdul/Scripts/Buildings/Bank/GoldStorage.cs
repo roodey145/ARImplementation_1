@@ -54,6 +54,6 @@ public class GoldStorage : UpgradeableBuildingData
         base.Upgrade();
 
         // Upgrade the data
-        _defence.UpdateStats(((ArcherTowerLevelData)_upgradeData).health, 0);
+        _defence.UpdateStats(_upgradeData.health, 0);
     }
 }

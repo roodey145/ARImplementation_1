@@ -12,6 +12,12 @@ public class EnemyController : Attacker
     bool startAttack = false;
     private Animator _animator;
 
+    [Header("Death Animation Data")]
+    public string deathAnimationClipName = "Death";
+    float deathAnimationDuration = 0;
+    float delayBeforeRemovingCorops = 1f;
+
+
     // Start is called before the first frame update
     protected new void Start()
     {
@@ -65,6 +71,27 @@ public class EnemyController : Attacker
         }
         
 
+    }
+
+
+
+    protected override void takeDamages(int damages)
+    {
+        base.takeDamages(damages);
+
+        if(isDead)
+        {
+            _animator.SetBool("Dead", true);
+            AnimationClip[] clips = _animator.runtimeAnimatorController.animationClips;
+            foreach (AnimationClip clip in clips)
+            {
+                if (clip.name.ToLower() == deathAnimationClipName.ToLower())
+                {
+                    deathAnimationDuration = clip.length / _animator.speed;
+                }
+            }
+            Destroy(gameObject, deathAnimationDuration + delayBeforeRemovingCorops);
+        }
     }
 
 }
