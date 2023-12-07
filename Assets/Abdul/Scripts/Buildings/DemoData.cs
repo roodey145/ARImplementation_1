@@ -6,6 +6,10 @@ using UnityEngine.UIElements;
 
 public class DemoData : MonoBehaviour
 {
+    [Header("Sounds Data")]
+    [SerializeField] private string _demoAddedSoundName = "PutDown";
+    [SerializeField] private string _areaOcuppiedSoundName = "denied";
+
     [Header("Model Data")]
     [SerializeField] protected int _level = 1;
     [SerializeField] private string _modelPath = "";
@@ -77,7 +81,7 @@ public class DemoData : MonoBehaviour
         if (_CheckCollision(x, z))
         {
             // Play collision sound
-            print("Building can not be placed here");
+            SoundManager.Instance.PlayActionSound(_areaOcuppiedSoundName);
             return false;
         }
 
@@ -100,6 +104,9 @@ public class DemoData : MonoBehaviour
         // Try to add a new demo of the same type as this one
         DemoAdder.LastDemoAdded.AddDelayedDemo(GroundBlock.demo, InteractionsData.addDemoDelayInSeconds);
 
+
+        // Play the sound of the building being put down // To confirm the action
+        SoundManager.Instance.PlayActionSound(_demoAddedSoundName);
 
         // Destroy the demo
         GroundBlock.demo = null;
