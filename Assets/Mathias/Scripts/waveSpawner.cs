@@ -5,8 +5,12 @@ using UnityEngine.UIElements;
 
 public class waveSpawner : MonoBehaviour
 {
+    [Header("Sounds Settings")]
+    [SerializeField] private string _warriorsAttackingSoundName = "Warrior roar";
+    [SerializeField] private string _portalSound = "portal";
+    [SerializeField] private string _failedToSpawnSound = "denied";
+
     [System.Serializable]
-    
     // Contains a list of the GetEnemyList monsters
     public class Wavecontent
     {
@@ -74,8 +78,14 @@ public class waveSpawner : MonoBehaviour
         // Check if all the buildings have been added
         if(!ListItemsManager.instance.IsAllBuildingsAdded())
         { // Some of the buildings are not added yet
+            // Indicate that something went wrong
+            SoundManager.Instance.PlayActionSound(_failedToSpawnSound);
             return;
         }
+
+        // Play the sound of the warriors
+        SoundManager.Instance.PlayActionSound(_warriorsAttackingSoundName);
+        SoundManager.Instance.PlayActionSound(_portalSound);
 
         spawningStarted = true;
         // Checks the currentWave class and get the length of the GetEnemySpawnList
