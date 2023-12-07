@@ -788,13 +788,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterType: 2
   damageType: 0
-  health: 10
+  health: 30
   canAttack: 1
   range: 1.8
   armor: 0
-  attackDamage: 1
-  attackSpeed: 0.5
+  attackDamage: 10
+  attackSpeed: 1
   timer: 0
+  isDead: 0
+  deathAnimationClipName: Death
   _attackSound: {fileID: 0}
   currentTarget: {fileID: 0}
   targetList: []
@@ -829,7 +831,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 4
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

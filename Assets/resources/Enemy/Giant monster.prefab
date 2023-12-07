@@ -21,12 +21,12 @@ PrefabInstance:
     - target: {fileID: 4008287595388514240, guid: a50775b95cd87bb4ca692f124419084a,
         type: 3}
       propertyPath: health
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4008287595388514240, guid: a50775b95cd87bb4ca692f124419084a,
         type: 3}
       propertyPath: attackDamage
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4008287595388514240, guid: a50775b95cd87bb4ca692f124419084a,
         type: 3}
@@ -116,7 +116,7 @@ PrefabInstance:
     - target: {fileID: 8121418676640047160, guid: a50775b95cd87bb4ca692f124419084a,
         type: 3}
       propertyPath: m_Speed
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -515,13 +515,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterType: 0
   damageType: 2
-  health: 20
+  health: 200
   canAttack: 1
   range: 9
   armor: 0
-  attackDamage: 1
-  attackSpeed: 1
+  attackDamage: 20
+  attackSpeed: 1.5
   timer: 0
+  isDead: 0
+  deathAnimationClipName: Death
   _attackSound: {fileID: 0}
   currentTarget: {fileID: 0}
   targetList: []
@@ -727,6 +729,7 @@ MonoBehaviour:
   _removeAction: {fileID: -6131295136447488360, guid: c348712bda248c246b8c49b3db54643f,
     type: 3}
   _hoveredColor: {r: 1, g: 0, b: 0, a: 1}
+  hovered: 0
   _updateRateInSeconds: 1
   _bank: {fileID: 0}
   _attackDamage: 0
