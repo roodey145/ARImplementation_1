@@ -7,7 +7,7 @@ using UnityEngine;
 public class Attacker : Stats
 {
     [Header("Attacker Sounds Data")]
-    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] protected AudioSource _audioSource;
     [SerializeField] private AudioClip _attackSoundClip;
     [SerializeField] private AudioClip _takeDamageClip;
 

@@ -6,6 +6,9 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Animator))]
 public class EnemyController : Attacker
 {
+    [Header("Enemy Death Sounds data")]
+    [SerializeField] private AudioClip _deathClipSound;
+
     NavMeshAgent agent;
     EnemyNav enemyNav;
     SphereCollider rangeColider;
@@ -81,6 +84,9 @@ public class EnemyController : Attacker
 
         if(isDead)
         {
+            // Play death clip sound
+            _audioSource.PlayOneShot(_deathClipSound);
+
             _animator.SetBool("Dead", true);
             AnimationClip[] clips = _animator.runtimeAnimatorController.animationClips;
             foreach (AnimationClip clip in clips)

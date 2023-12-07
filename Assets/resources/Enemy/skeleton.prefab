@@ -802,6 +802,7 @@ MonoBehaviour:
   isDead: 0
   currentTarget: {fileID: 0}
   targetList: []
+  _deathClipSound: {fileID: 8300000, guid: 98c41e69d884df148b105491284ef35a, type: 3}
   deathAnimationClipName: Death
 --- !u!135 &5781322764529288665
 SphereCollider:

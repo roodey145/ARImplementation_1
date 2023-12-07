@@ -33,6 +33,11 @@ PrefabInstance:
       propertyPath: characterType
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4008287595388514240, guid: a50775b95cd87bb4ca692f124419084a,
+        type: 3}
+      propertyPath: _deathClipSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 98c41e69d884df148b105491284ef35a, type: 3}
     - target: {fileID: 5318703616429761381, guid: a50775b95cd87bb4ca692f124419084a,
         type: 3}
       propertyPath: m_LocalScale.x
