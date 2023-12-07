@@ -68,8 +68,13 @@ public class SoundManager : MonoBehaviour
 
     public void PlayActionSound(string name) 
     {
-        
         _ActionNotificationSound.PlayOneShot(_GetClip(name));
+    }
+
+    public void PlayActionSound(AudioClip clip)
+    {
+
+        _ActionNotificationSound.PlayOneShot(clip);
     }
 }
 
