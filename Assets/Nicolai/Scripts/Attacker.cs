@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Attacker : Stats
 {
+    [Header("Attacker Sounds Data")]
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _attackSoundClip;
+    [SerializeField] private AudioClip _takeDamageClip;
+
+
     private Animator _animator;
     public bool isDead = false;
 
-
-    [Header("Audio Settings")]
-    [SerializeField] private AudioClip _attackSound;
 
     [Header("Targets")]
     public GameObject currentTarget;
@@ -20,7 +24,8 @@ public class Attacker : Stats
     protected void Start()
     {
         _animator = GetComponent<Animator>();
-        
+        _audioSource = GetComponent<AudioSource>();
+        _audioSource.spatialBlend = 1;
     }
 
     // Update is called once per frame
@@ -63,10 +68,9 @@ public class Attacker : Stats
         {
             currentTarget.GetComponent<Attacker>().takeDamages(damages);
             timer = 0;
-            //get the heath from enemy
 
-            // TODO: Play audio
-
+            // Play audio sound
+            _audioSource.PlayOneShot(_attackSoundClip);
         }
     }
 
@@ -75,6 +79,10 @@ public class Attacker : Stats
         if (isDead) return;
       // add defence
         health -= damages;
+
+        // Play the take damage sound;
+        //_audioSource.PlayOneShot(_takeDamageClip);
+
         if (health <= 0)
         {
             isDead = true;

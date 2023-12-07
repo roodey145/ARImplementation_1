@@ -8,6 +8,9 @@ using UnityEngine;
 
 public class Defence : Attacker
 {
+    [Header("Defence Sounds Settings")]
+    [SerializeField] private string _buildingDestroyedSound = "Building demolish";
+
     public SphereCollider col;
     public string groundTag = "Ground";
     public static NavMeshSurface groundMeshSurface;
@@ -70,6 +73,8 @@ public class Defence : Attacker
         base.takeDamages(damages);
         if(isDead)
         {
+            // Play building destroyed sound
+            SoundManager.Instance.PlayActionSound(_buildingDestroyedSound);
             Destroy(gameObject);
         }
     }
