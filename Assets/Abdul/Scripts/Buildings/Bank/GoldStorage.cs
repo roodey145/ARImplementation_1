@@ -2,31 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoldStorage : MonoBehaviour
+public class GoldStorage : UpgradeableBuildingData
 {
     // The capcity should be calculated using pre-determined meausres
     [SerializeField] private int _capacity;
-    private int _level = 1;
 
-    private BuildingData _buildingData;
+
     // Start is called before the first frame update
-    private void Start()
+    protected new void Start()
     {
+        base.Start();
         _UpdateData();
 
         // Register the storage
         GoldBank.GetInstance().RegisterStorage(this);
-
-        // Get access to the buildingData
-        _buildingData = GetComponent<BuildingData>();
-        _buildingData.RegisterLevelUpdateCallback(_LevelUp);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     // Getter
     internal int GetCapacity()
@@ -34,9 +25,9 @@ public class GoldStorage : MonoBehaviour
         return _capacity;
     }
 
-    private void _LevelUp(int level)
+    internal override void LevelUp()
     {
-        _level = level;
+        base.LevelUp();
         _UpdateData();
     }
 

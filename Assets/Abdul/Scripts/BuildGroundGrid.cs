@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -12,6 +13,8 @@ public class BuildGroundGrid : MonoBehaviour
     [SerializeField] private XRInteractionManager _interactionManager;
     [SerializeField] private TeleportationArea _teleportationArea;
     [SerializeField] private TeleportationProvider _teleportationProvider;
+    [SerializeField] private NavMeshSurface _navMeshSurface;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -80,6 +83,9 @@ public class BuildGroundGrid : MonoBehaviour
         //_teleportationArea.teleportationProvider = _teleportationProvider;
         //_teleportationArea.matchDirectionalInput = true;
         //_teleportationArea.interactionLayers = InteractionLayerMask.GetMask("Teleport");
+
+        _navMeshSurface = GetComponent<NavMeshSurface>();
+        _navMeshSurface.BuildNavMesh();
     }
 
     public GameObject[] GetGroundBlockPrefabs()

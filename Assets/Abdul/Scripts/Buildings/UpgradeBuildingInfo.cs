@@ -22,6 +22,8 @@ public class UpgradeBuildingInfo : MonoBehaviour
     [SerializeField] private ResourcesType _resourcesType;
     [SerializeField] private bool _upgrade;
     [SerializeField] private Button _upgradeButton;
+    [SerializeField] private TextMeshProUGUI _titleText;
+    [SerializeField] private string _titleMessage = "Upgrade to level ";
     [SerializeField] private TextMeshProUGUI _priceText;
     [SerializeField] private TextMeshProUGUI _timeText;
     [SerializeField] private Color _textColorIfHasResources = Color.green;
@@ -67,6 +69,7 @@ public class UpgradeBuildingInfo : MonoBehaviour
 
     private void _UpdateUI()
     {
+        _titleText.text = _titleMessage + (_buildingData.GetLevel() + 1);
         UpdatePriceColor();
         UpdateTimeText();
     }

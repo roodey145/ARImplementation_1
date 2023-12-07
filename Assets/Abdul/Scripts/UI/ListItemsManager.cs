@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class ListItemsManager : MonoBehaviour
@@ -31,6 +32,29 @@ public class ListItemsManager : MonoBehaviour
         
     }
 
+
+    internal bool IsAllBuildingsAdded()
+    {
+        bool buildingAdded = true;
+        foreach (Dictionary<int, ListItemData> item in listItemsData.Values)
+        {
+            foreach(ListItemData itemData in item.Values)
+            {
+                if(itemData.IsInStock())
+                {
+                    buildingAdded = false;
+                    break;
+                }
+            }
+
+            if(!buildingAdded)
+            { // It was proved that there are still buildings left to add
+                break;
+            }
+        }
+
+        return buildingAdded;
+    }
 
 
     internal void ReturnBuilding(Indestructible buildingData)

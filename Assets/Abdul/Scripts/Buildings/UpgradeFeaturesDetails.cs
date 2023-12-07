@@ -1,12 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class UpgradeFeaturesDetails
 {
-    public List<UpgradeFeatureDetails[]> featuresDetails = new List<UpgradeFeatureDetails[]>();
+    public UpgradeFeatureDetails[] featuresDetails;
 }
 
+[Serializable]
 public class UpgradeFeatureDetails
 {
     public UpgradeFeature feature;

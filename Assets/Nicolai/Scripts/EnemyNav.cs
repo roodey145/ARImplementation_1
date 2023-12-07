@@ -15,6 +15,13 @@ public class EnemyNav : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        // Make sure to move the agent to the navmesh
+        NavMeshHit hit;
+        if (agent.Raycast(new Vector3(0, 10, 0) + transform.position, out hit))
+        {
+            print("Hitted The Mesh");
+        }
+        print("Hit Position: " + hit.position);
     }
 
     // Update is called once per frame
@@ -100,7 +107,7 @@ public class EnemyNav : MonoBehaviour
         radius = Mathf.Max(0, radius);
 
         // Draw a wireframe sphere to represent the radius in the Scene view
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, radius);
     }
 }

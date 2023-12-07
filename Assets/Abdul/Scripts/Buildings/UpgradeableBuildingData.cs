@@ -77,6 +77,15 @@ public class UpgradeableBuildingData : IDableBuilding
     }
 
     /// <summary>
+    /// Get the features which will be upgraded when upgrading this building.
+    /// </summary>
+    /// <returns>The data of the feature which will be upgraded.</returns>
+    internal UpgradeFeaturesDetails GetUpgradeFeaturesDetails()
+    {
+        return _upgradeData.upgradeFeaturesDetails;
+    }
+
+    /// <summary>
     /// Gets the resource bank, which can be used to withdraw the required amount to upgrade the building ,of the specified resourceType.
     /// </summary>
     /// <returns>The resource bank of the required upgrade resourceType.</returns>
@@ -110,6 +119,9 @@ public class UpgradeableBuildingData : IDableBuilding
         {
             switch (_buildingType)
             {
+                case BuildingType.TownHall:
+                    levelsData = TownHallLevelsData.GetInstance();
+                    break;
                 case BuildingType.GoldMine:
                     levelsData = GoldMineLevelsData.GetInstance();
                     break;
@@ -118,6 +130,15 @@ public class UpgradeableBuildingData : IDableBuilding
                     break;
                 case BuildingType.Wall:
                     levelsData = WallLevelsData.GetInstance();
+                    break;
+                case BuildingType.ArcherTower:
+                    levelsData = ArcherTowerLevelsData.GetInstance();
+                    break;
+                case BuildingType.Barrack:
+                    levelsData = BarrackLevelsData.GetInstance();
+                    break;
+                case BuildingType.ArmyCamp:
+                    levelsData = ArmyCampLevelsData.GetInstance();
                     break;
             }
 

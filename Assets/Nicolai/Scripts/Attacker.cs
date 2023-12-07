@@ -1,17 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class Attacker : MonoBehaviour
+public class Attacker : Stats
 {
-    [Header("Attacking Settings")]
-    public bool canAttack;
 
-    public int health;
-    public float range;
-    public int damage;
-    public float attackSpeed;
-    public float timer;
+    
+
+
+  
+    
+
 
     [Header("Audio Settings")]
     [SerializeField] private AudioClip _attackSound;
@@ -38,13 +38,14 @@ public class Attacker : MonoBehaviour
     #region Trigger enter/exit detecting targets
     protected void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == "Enemy" && other.gameObject.GetComponent<Attacker>().CanTakeDamage(damageType))
         {
+
             targetList.Add(other.gameObject);
         }
 
     }
-
+    
     protected void OnTriggerExit(Collider other)
     {
         // Check if the exiting collider has the tag "Enemy"
@@ -74,8 +75,37 @@ public class Attacker : MonoBehaviour
 
     protected void takeDamages(int damages)
     {
+      // add defence
         health -= damages;
         if (health <= 0) Destroy(gameObject);
+    }
+
+    internal bool CanTakeDamage(DamageType damageType)
+    {
+        // Check if the character can take damage based on its character type and the damage type.
+        switch (characterType)
+        {
+            case CharacterType.GroundAlly:
+                return (damageType == DamageType.GroundAttack || damageType == DamageType.Both);
+            case CharacterType.AerialAlly:
+                return (damageType == DamageType.RangedAttack || damageType == DamageType.Both);
+            case CharacterType.GroundEnemy:
+                return (damageType == DamageType.GroundAttack || damageType == DamageType.Both);
+            case CharacterType.AerialEnemy:
+                return (damageType == DamageType.RangedAttack || damageType == DamageType.Both);
+            default:
+                return true; // Allow all other combinations by default
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        // Ensure the radius is not negative
+        range = Mathf.Max(0, range);
+
+        // Draw a wireframe sphere to represent the radius in the Scene view
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, range);
     }
 
 }

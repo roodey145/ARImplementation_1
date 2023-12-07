@@ -26,7 +26,7 @@ public class InteractableBuilding : BuildingData
 
     [Header("Hover Setting")]
     [SerializeField] protected Color _hoveredColor = Color.red;
-    internal bool hovered = false;
+    [SerializeField] internal bool hovered = false;
     private MeshRenderer[] _meshRenderers;
     private Dictionary<Material, Color> originalMatsColor = new Dictionary<Material, Color>();
     private XRSimpleInteractable _xrInteractable;
@@ -153,8 +153,19 @@ public class InteractableBuilding : BuildingData
         Destroy(gameObject, 0f);
     }
 
+    /// <summary>
+    /// Hover entered the building. Indicates other scripts that the hover entered. 
+    /// The hover event will be ignored if the base is under attack.
+    /// </summary>
     public void HoverEnter()
     {
+        // Check if the base is under attack
+        if (waveSpawner.spawningStarted)
+        {
+            hovered = false;
+            return;
+        }
+
         hovered = true;
         
         // Change the GameObject color to indicate it has been hovered on.
