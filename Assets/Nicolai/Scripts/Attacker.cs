@@ -6,12 +6,13 @@ using UnityEngine;
 public class Attacker : Stats
 {
 
+
+    private Animator _animator;
+    float deathAnimationDuration = 0;
+    public bool isDead = false;
+    public string deathAnimationClipName = "Death";
+
     
-
-
-  
-    
-
 
     [Header("Audio Settings")]
     [SerializeField] private AudioClip _attackSound;
@@ -23,6 +24,7 @@ public class Attacker : Stats
     // Start is called before the first frame update
     protected void Start()
     {
+        _animator = GetComponent<Animator>();
         
     }
 
@@ -75,9 +77,25 @@ public class Attacker : Stats
 
     protected void takeDamages(int damages)
     {
+        if (isDead) return;
       // add defence
         health -= damages;
-        if (health <= 0) Destroy(gameObject);
+        if (health <= 0)
+        {
+            isDead = true;
+            _animator.SetTrigger("DeadTrigger");
+            AnimationClip[] clips = _animator.runtimeAnimatorController.animationClips;
+            foreach (AnimationClip clip in clips)
+            {
+                if (clip.name.ToLower() == deathAnimationClipName.ToLower())
+                {
+                    deathAnimationDuration = clip.length / _animator.speed;
+                }
+            }
+            Destroy(this.gameObject, deathAnimationDuration);
+            
+
+        }
     }
 
     internal bool CanTakeDamage(DamageType damageType)
