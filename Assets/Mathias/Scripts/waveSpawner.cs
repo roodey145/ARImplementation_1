@@ -26,7 +26,7 @@ public class waveSpawner : MonoBehaviour
 
     public List<GameObject> currentMonster;
 
-    private bool spawningStarted = false;
+    public static bool spawningStarted = false;
 
     private Locateable _locateable;
 
