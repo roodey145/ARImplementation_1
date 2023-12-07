@@ -12,6 +12,7 @@ public enum ResourcesType
     Elixir,
 }
 
+[RequireComponent(typeof(AudioSource))]
 public class UpgradeBuildingInfo : MonoBehaviour
 {
     //[SerializeField] private int _cost = 25;
@@ -31,6 +32,13 @@ public class UpgradeBuildingInfo : MonoBehaviour
 
     [SerializeField] private UpgradeableBuildingData _buildingData;
 
+
+    [Header("Sound Settings")]
+    [SerializeField] private string _deniedSoundClipName = "denied";
+    [SerializeField] private string _confimrationSoundClipName = "Confirmation";
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _contructionClip;
+
     private int _constructionTimeProgress = 0;
 
     // Start is called before the first frame update
@@ -41,6 +49,10 @@ public class UpgradeBuildingInfo : MonoBehaviour
         {
             _progressSlider = GetComponentInChildren<SliderBarsController>();
         }
+
+        // Get access to the audio source and make sure it is 3D
+        _audioSource = GetComponentInChildren<AudioSource>();
+        _audioSource.spatialBlend = 1;
 
         // Get access to the building data
         _buildingData = GetComponentInParent<UpgradeableBuildingData>();
@@ -119,7 +131,20 @@ public class UpgradeBuildingInfo : MonoBehaviour
             // Hide the upgrade menu and show the progress bar
             _upgradeMenu.SetActive(false);
             _progressSlider.gameObject.SetActive(true);
+            SoundManager.Instance.PlayActionSound(_confimrationSoundClipName);
+
+            if(_contructionClip != null)
+            {
+                // Start Playing the constructing sound
+                _audioSource.clip = _contructionClip;
+                _audioSource.Play();
+            }
+
             StartCoroutine(_Upgrade());    
+        }
+        else
+        { // Play denied upgrade
+            SoundManager.Instance.PlayActionSound(_deniedSoundClipName);
         }
     }
 
