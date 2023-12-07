@@ -206,9 +206,11 @@ MonoBehaviour:
   attackDamage: 2
   attackSpeed: 2
   timer: 0
-  _attackSound: {fileID: 0}
+  isDead: 0
+  _attackSound: {fileID: 8300000, guid: 22f443ef41dc27e4a8d1373879fe9648, type: 3}
   currentTarget: {fileID: 0}
   targetList: []
+  deathAnimationClipName: Death
 --- !u!135 &5309784549740636198
 SphereCollider:
   m_ObjectHideFlags: 0
