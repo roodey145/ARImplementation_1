@@ -65,6 +65,15 @@ public class Defence : Attacker
         this.attackDamage = attackDamage;
     }
 
+    protected override void takeDamages(int damages)
+    {
+        base.takeDamages(damages);
+        if(isDead)
+        {
+            Destroy(gameObject);
+        }
+    }
+
 
     private void OnDestroy()
     {
