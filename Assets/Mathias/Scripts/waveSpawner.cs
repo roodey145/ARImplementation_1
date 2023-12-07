@@ -71,6 +71,12 @@ public class waveSpawner : MonoBehaviour
 
     public void SpawnWave()
     {
+        // Check if all the buildings have been added
+        if(!ListItemsManager.instance.IsAllBuildingsAdded())
+        { // Some of the buildings are not added yet
+            return;
+        }
+
         spawningStarted = true;
         // Checks the currentWave class and get the length of the GetEnemySpawnList
         for (int i = 0; i < waves[currentWave].GetEnemySpawnList().Length; i++)
