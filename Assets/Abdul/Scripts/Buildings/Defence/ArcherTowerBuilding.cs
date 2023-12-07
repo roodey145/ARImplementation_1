@@ -17,8 +17,10 @@ public class ArcherTowerBuilding : UpgradeableBuildingData
     protected new void Start()
     {
         base.Start();
+        // Upgrade the data
+        _attackDamage = ((ArcherTowerLevelData)_upgradeData).attackDamage;
         _defence = GetComponent<Defence>();
-        _defence.UpdateStats(_upgradeData.health, 0);
+        _defence.UpdateStats(_upgradeData.health, _attackDamage);
     }
 
     internal override void Upgrade()

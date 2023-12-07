@@ -16,12 +16,6 @@ public class EnemyNav : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         // Make sure to move the agent to the navmesh
-        NavMeshHit hit;
-        if (agent.Raycast(new Vector3(0, 10, 0) + transform.position, out hit))
-        {
-            print("Hitted The Mesh");
-        }
-        print("Hit Position: " + hit.position);
     }
 
     // Update is called once per frame
