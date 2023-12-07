@@ -73,4 +73,10 @@ public class IDableBuilding : InteractableBuilding
 
         _indestructibleInfo.level = _level;
     }
+
+    private void OnDestroy()
+    {
+        // Make sure to unregister this building from the buildings battle progress
+        BattaleProgress.UnregisterBuilding(this);
+    }
 }

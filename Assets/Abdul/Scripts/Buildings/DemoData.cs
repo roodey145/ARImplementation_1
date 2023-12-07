@@ -105,6 +105,10 @@ public class DemoData : MonoBehaviour
         DemoAdder.LastDemoAdded.AddDelayedDemo(GroundBlock.demo, InteractionsData.addDemoDelayInSeconds);
 
 
+        // Add the building to the battle progress to be able to detect when the building is destroyed
+        BattaleProgress.RegisterBuilding(modelData);
+
+
         // Play the sound of the building being put down // To confirm the action
         SoundManager.Instance.PlayActionSound(_demoAddedSoundName);
 
