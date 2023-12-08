@@ -39,17 +39,7 @@ public class UpgradeFeaturesManager : MonoBehaviour
     private void _UpdateData(int level)
     {
         // ....
-    }
-
-
-    //private IEnumerator trying()
-    //{
-    //    //yield return new WaitUntil()
-    //}
-
-    private void OnEnable()
-    {
-        if (_buildingData == null) return; 
+        if (_buildingData == null) return;
         upgradeFeaturesDetails = _buildingData.GetUpgradeFeaturesDetails();
 
         //if (upgradeFeaturesDetails == null) return;
@@ -65,5 +55,17 @@ public class UpgradeFeaturesManager : MonoBehaviour
                 }
             }
         }
+    }
+
+
+    //private IEnumerator trying()
+    //{
+    //    //yield return new WaitUntil()
+    //}
+
+    private void OnEnable()
+    {
+        if (_buildingData == null) return;
+        _UpdateData(_buildingData.GetLevel());
     }
 }

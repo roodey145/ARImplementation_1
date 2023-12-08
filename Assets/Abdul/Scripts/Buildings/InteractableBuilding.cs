@@ -17,12 +17,16 @@ enum ProcessMethod
 public class InteractableBuilding : BuildingData
 {
     #region Fields
+    [Header("Actions Sounds")]
+    [SerializeField] private string _clickSound = "Click";
+    [SerializeField] private string _selectSound = "removeActionSound";
+    [SerializeField] private string _removedSound = "removeActionSound";
+
     [Header("Actions Setting")]
     [SerializeField] private InputActionReference _clickAction;
     [SerializeField] private InputActionReference _selectAction;
     [SerializeField] private InputActionReference _removeAction;
     private bool _removed = false;
-
 
     [Header("Hover Setting")]
     [SerializeField] protected Color _hoveredColor = Color.red;
@@ -112,6 +116,7 @@ public class InteractableBuilding : BuildingData
         if(!context.canceled && hovered)
         {
             Clicked();
+            SoundManager.Instance.PlayActionSound(_clickSound);
         }
     }
 
@@ -125,6 +130,7 @@ public class InteractableBuilding : BuildingData
         if(!context.canceled && hovered)
         {
             Selected();
+            SoundManager.Instance.PlayActionSound(_selectSound);
         }
     }
 
@@ -137,12 +143,12 @@ public class InteractableBuilding : BuildingData
     ///// If the building is a demo and the player hovered over the building on selected it, this method will be called
     ///// </summary>
     //protected virtual void SelectedDemo() { }
-
     private void _Remove(InputAction.CallbackContext context)
     {
         if(!context.canceled && hovered)
         {
             Remove();
+            SoundManager.Instance.PlayActionSound(_removedSound);
         }
     }
 
