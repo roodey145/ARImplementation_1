@@ -45,6 +45,7 @@ public class BattaleProgress : MonoBehaviour
         if (!_hasLost && _buildings.Count <= 0 && waveSpawner.spawningStarted)
         { // The player lost
             _hasLost = true;
+            waveSpawner.ResetState();
             StartCoroutine(_Lose());
         }
         else

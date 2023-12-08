@@ -71,6 +71,10 @@ public class ListItemData : MonoBehaviour
         {
             lastInteractedItemListData.Increase();
         }
+        else
+        {
+            ListItemsManager.instance.ReturnBuilding(GroundBlock.demo.GetComponent<DemoData>().Indestructible);
+        }
     }
 
     #region UI

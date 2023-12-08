@@ -120,6 +120,9 @@ public class ListItemsManager : MonoBehaviour
                 }
             }
 
+            // Make sure to destory the UI if there is a building with the same level but is null.
+            store.Remove(indestructible.level);
+
             // Add the store place to the dictionary
             store.Add(indestructible.level, storePlace);
             print("KEY: " + indestructible.level + ", " + storePlace);

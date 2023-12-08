@@ -123,4 +123,9 @@ public class waveSpawner : MonoBehaviour
             return FindSpawnLoc(locateable);
         }
     }
+
+    public static void ResetState()
+    {
+        spawningStarted = false;
+    }
 }

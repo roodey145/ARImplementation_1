@@ -15,6 +15,7 @@ public class DemoData : MonoBehaviour
     [SerializeField] private string _modelPath = "";
     [SerializeField] private GameObject _model = null;
     [SerializeField] private Indestructible _indestructible;
+    internal Indestructible Indestructible { get { return _indestructible; } }
 
     [Header("Size")]
     [SerializeField] protected int _width = 2; // The x-axis
@@ -102,7 +103,10 @@ public class DemoData : MonoBehaviour
         _OverrideModelData(modelData.gameObject);
 
         // Try to add a new demo of the same type as this one
-        DemoAdder.LastDemoAdded.AddDelayedDemo(GroundBlock.demo, InteractionsData.addDemoDelayInSeconds);
+        if(DemoAdder.LastDemoAdded != null)
+        {
+            DemoAdder.LastDemoAdded.AddDelayedDemo(GroundBlock.demo, InteractionsData.addDemoDelayInSeconds);
+        }
 
 
         // Add the building to the battle progress to be able to detect when the building is destroyed

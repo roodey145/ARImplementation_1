@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class DemoAdder : MonoBehaviour
 {
+    [Header("Sounds Settings")]
+    [SerializeField] private string _demoAddedSound = "Confirmation";
+    [SerializeField] private string _buildingOutOfStockSound = "denied";
+
+
     private static string _demosPath = "Town/Demos/";
     [SerializeField] private string _buildingName;
     private ListItemData _listData;
@@ -20,8 +25,8 @@ public class DemoAdder : MonoBehaviour
         if(!_listData.IsInStock())
         { // There is no more buildings of this type to place
 
-            // TODO: Play a notifying sound to indicate that there is no more buildings of this type to locate
-            print($"No More Buildings of type ({_listData.GetBuildingType()})");
+            // Play a notifying sound to indicate that there is no more buildings of this type to locate
+            SoundManager.Instance.PlayActionSound(_buildingOutOfStockSound);
             return;
         }
 
@@ -48,7 +53,16 @@ public class DemoAdder : MonoBehaviour
         // Register this as the last adder that added a demo
         LastDemoAdded = this;
 
-        //Destroy(gameObject, 0f); // TODO: Maybe this should be re-added later on?
+        // Play a sound that indicates that the demo has been added
+        SoundManager.Instance.PlayActionSound(_demoAddedSound);
+
+
+        // Check if this is the last demo of this type
+        if(!_listData.IsInStock())
+        {
+            Destroy(gameObject, 0f); // TODO: Maybe this should be re-added later on?
+        }
+
     }
 
 
