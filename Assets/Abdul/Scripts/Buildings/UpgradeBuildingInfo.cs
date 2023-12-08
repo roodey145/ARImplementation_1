@@ -60,6 +60,9 @@ public class UpgradeBuildingInfo : MonoBehaviour
         // Set up the progress bar
         _SetUpProgressBar();
 
+        // Register a GoldResources update callback
+        GoldBank.GetInstance().RegisterGoldUpdatedCallback(UpdatePriceColor);
+
         // Change the color of the text depeing on whether there is enough money or not
         _UpdateUI();
 
@@ -82,11 +85,11 @@ public class UpgradeBuildingInfo : MonoBehaviour
     private void _UpdateUI()
     {
         _titleText.text = _titleMessage + (_buildingData.GetLevel() + 1);
-        UpdatePriceColor();
+        UpdatePriceColor(0);
         UpdateTimeText();
     }
 
-    internal void UpdatePriceColor()
+    internal void UpdatePriceColor(int currentValuta)
     {
         if (_buildingData.GetBank().HasResources(_buildingData.GetCost()))
         {
@@ -204,5 +207,13 @@ public class UpgradeBuildingInfo : MonoBehaviour
     {
         _progressSlider.SetValue(0);
         _progressSlider.gameObject.SetActive(false);
+    }
+
+
+    private void OnDestroy()
+    {
+        // Make sure to unregister from the gold bank update
+        if (GoldBank.GetInstance() != null)
+            GoldBank.GetInstance().UnregisterGoldUpdatedCallback(UpdatePriceColor);
     }
 }

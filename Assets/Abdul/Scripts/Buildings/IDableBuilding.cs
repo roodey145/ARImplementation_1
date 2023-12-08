@@ -12,11 +12,11 @@ public class IDableBuilding : InteractableBuilding
     {
         base.Awake();
 
-        print("Awake ID: " + ID);
+        //print("Awake ID: " + ID);
         // Get the ID from the building info container
         if (ID < 1)
         {
-            print("Called In Awake");
+            //print("Called In Awake");
             IndestructiblesManager.AddNewBuilding(this); // Indestructible added to the manager and to this building
         }
         else
@@ -25,7 +25,7 @@ public class IDableBuilding : InteractableBuilding
 
     internal virtual Indestructible CreateIndestructible(int  id)
     {
-        print("Indestructible: " + _indestructibleInfo);
+        //print("Indestructible: " + _indestructibleInfo);
         if (_indestructibleInfo == null)
         {
             ID = id;

@@ -2,11 +2,51 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class GoldBank : SliderBarsController
 {
     private static List<GoldStorage> _storages = new List<GoldStorage>();
     private static GoldBank _instance;
+
+    private List<Action<int>> _goldUpdatedCallbacks = new List<Action<int>>();
+
+    internal void RegisterGoldUpdatedCallback(Action<int> callback)
+    {
+        // Add the callback so it can be notified when the gold amount changes
+        _goldUpdatedCallbacks.Add(callback);
+    }
+
+    internal void UnregisterGoldUpdatedCallback(Action<int> callback)
+    {
+        // Remove the callback so it does not cause any errors
+        _goldUpdatedCallbacks.Remove(callback);
+    }
+
+
+    internal override void SetValue(float value)
+    {
+        base.SetValue(value);
+        _NotifyResourcesUpdatedCallBacks();
+    }
+
+    internal override float IncreaseDecreaseValue(float value)
+    {
+        value = base.IncreaseDecreaseValue(value);
+
+        _NotifyResourcesUpdatedCallBacks();
+
+        return value;
+    }
+
+    private void _NotifyResourcesUpdatedCallBacks()
+    {
+        for (int i = 0; i < _goldUpdatedCallbacks.Count; i++)
+        {
+            if (_goldUpdatedCallbacks[i] != null)
+                _goldUpdatedCallbacks[i]((int)_value);
+        }
+    }
 
     protected new void Awake()
     {

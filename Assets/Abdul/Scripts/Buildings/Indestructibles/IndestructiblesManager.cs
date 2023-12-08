@@ -8,14 +8,14 @@ internal class IndestructiblesManager
 
     internal static void AddNewBuilding(IDableBuilding building)
     {
-        MonoBehaviour.print(building);
+        //MonoBehaviour.print(building);
         _indestructibles.Add(building.CreateIndestructible(GetNewID()));
     }
 
     internal static int GetNewID()
     {// This should get the data from the server...
         int id = _indestructibles.Count + 1;
-        MonoBehaviour.print("Current ID: " + id);
+        //MonoBehaviour.print("Current ID: " + id);
         return id;
     }
 

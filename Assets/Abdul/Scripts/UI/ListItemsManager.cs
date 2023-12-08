@@ -111,7 +111,7 @@ public class ListItemsManager : MonoBehaviour
             {
                 if (_listItems[i].buildingType == indestructible.type)
                 {
-                    print(_listItemsPath + _listItems[i].UIItemListPath[indestructible.level - 1]);
+                    //print(_listItemsPath + _listItems[i].UIItemListPath[indestructible.level - 1]);
                     GameObject listItemModel = Resources.Load<GameObject>(_listItemsPath + _listItems[i].UIItemListPath[indestructible.level - 1]); ;
                     // Create the specifc level store place
                     GameObject model = Instantiate(listItemModel, transform);
@@ -125,7 +125,7 @@ public class ListItemsManager : MonoBehaviour
 
             // Add the store place to the dictionary
             store.Add(indestructible.level, storePlace);
-            print("KEY: " + indestructible.level + ", " + storePlace);
+            //print("KEY: " + indestructible.level + ", " + storePlace);
         }
 
         return storePlace;

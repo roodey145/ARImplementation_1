@@ -69,7 +69,7 @@ public class ListItemData : MonoBehaviour
     {
         if( lastInteractedItemListData != null )
         {
-            lastInteractedItemListData.Increase();
+            lastInteractedItemListData.AddListItem(GroundBlock.demo.GetComponent<DemoData>().Indestructible);
         }
         else
         {

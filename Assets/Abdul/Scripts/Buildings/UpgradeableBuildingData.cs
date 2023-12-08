@@ -16,7 +16,7 @@ public class UpgradeableBuildingData : IDableBuilding
         base.Awake();
         // Get the required data to upgrade this building
         _GetUpgradeData();
-        print(_upgradeData.resourcesType);
+        //print(_upgradeData.resourcesType);
     }
 
     // Start is called before the first frame update

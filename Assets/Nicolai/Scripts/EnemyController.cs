@@ -13,7 +13,6 @@ public class EnemyController : Attacker
     EnemyNav enemyNav;
     SphereCollider rangeColider;
     bool startAttack = false;
-    private Animator _animator;
 
     [Header("Death Animation Data")]
     public string deathAnimationClipName = "Death";
@@ -65,7 +64,6 @@ public class EnemyController : Attacker
         base.OnTriggerEnter(other);
         if(enemyNav.target != null)
         {
-            print(other.gameObject + ", " + enemyNav.target.gameObject);
             if (other.gameObject == enemyNav.target.gameObject)
             {
                 agent.stoppingDistance = Vector3.Distance(transform.position, enemyNav.target.position);
@@ -85,6 +83,7 @@ public class EnemyController : Attacker
         if(isDead)
         {
             // Play death clip sound
+            _audioSource.spatialBlend = 0.9f; // To make sure that the sound is loud enough
             _audioSource.PlayOneShot(_deathClipSound);
 
             _animator.SetBool("Dead", true);

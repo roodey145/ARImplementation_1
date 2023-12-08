@@ -12,7 +12,7 @@ public class Attacker : Stats
     [SerializeField] private AudioClip _takeDamageClip;
 
 
-    private Animator _animator;
+    protected Animator _animator;
     public bool isDead = false;
 
 

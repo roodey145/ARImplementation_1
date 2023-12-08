@@ -34,7 +34,7 @@ public class EnemyNav : MonoBehaviour
             if (pathExists && path.status == NavMeshPathStatus.PathComplete || target.gameObject.CompareTag("Wall"))
             {
                 // Path is connected
-                Debug.Log("Path found");
+                //Debug.Log("Path found");
                 agent.SetDestination(target.position);
             }
             else
@@ -42,7 +42,7 @@ public class EnemyNav : MonoBehaviour
                 // attack wall
                 FindClosestWall();
                 // Path is not connected
-                Debug.Log("Path not found");
+                //Debug.Log("Path not found");
                 // You might want to reset the target here or handle this case accordingly
             }
         }

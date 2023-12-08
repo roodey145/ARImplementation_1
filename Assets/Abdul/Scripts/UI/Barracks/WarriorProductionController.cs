@@ -6,6 +6,12 @@ using UnityEngine.UI;
 
 public class WarriorProductionController : MonoBehaviour
 {
+    [Header("Sounds Settings")]
+    [SerializeField] private string _productionCanceledSound = "Confirmation";
+    [SerializeField] private string _warriorFailedToCancelSound = "denied";
+    [SerializeField] private string _warriorProducedSound = "Warrior roar";
+
+
     [SerializeField] private WarriorsProductionListManager _warriorsListManager;
     [SerializeField] internal WarriorData warriorData;
     [SerializeField] private Slider _progressSlider;
@@ -59,7 +65,33 @@ public class WarriorProductionController : MonoBehaviour
         _UpdateTheCountText();
     }
 
+    public void CancelOneWarriorProduction()
+    {
+        // Make sure that there is warrior in production
+        if (_count <= 0)
+        {
+            SoundManager.Instance.PlayActionSound(_warriorFailedToCancelSound);
+            return;
+        }
 
+
+        // Play the sound of confirmation
+        SoundManager.Instance.PlayActionSound(_productionCanceledSound);
+
+        _count--;
+        // Return the money to the gold bank
+        GoldBank.GetInstance().IncreaseDecreaseValue(warriorData.price);
+        if (_count <= 0)
+        {
+            // To indicate that this list has finished producing
+            _warriorsListManager.NotifyWarriorProducorDestoryed(this);
+            Destroy(gameObject); // Remove this 
+        }
+        else
+        {
+            _UpdateTheCountText();
+        }
+    }
 
 
     private IEnumerator _ProduceWarrior()
@@ -77,10 +109,10 @@ public class WarriorProductionController : MonoBehaviour
             // Generate the warrior
 
             // Play the sound of a warrior of this type being produced
-            
+            SoundManager.Instance.PlayActionSound(_warriorProducedSound);
 
             // Check if there is more warrior of this type to produce
-            if(_count > 1)
+            if (_count > 1)
             {
                 _count--;
                 _timer = 0; // Reset the timer

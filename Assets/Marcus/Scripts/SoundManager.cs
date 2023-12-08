@@ -20,7 +20,15 @@ public class SoundManager : MonoBehaviour
         "Coins",
         "Coins 2",
         "Level up",
-        "Mining"
+        "Mining",
+        "denied",
+        "Confirmation",
+        "PutDown",
+        "Warrior roar",
+        "portal",
+        "Building demolish",
+        "removeActionSound",
+        "Click",
     };
 
     private List<AudioClip> _sounds = new List<AudioClip>();
